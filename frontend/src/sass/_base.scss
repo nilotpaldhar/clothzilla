@@ -1,0 +1,13 @@
+html,
+body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+}
+
+::selection {
+    background: $primary;
+    color: $white;
+}

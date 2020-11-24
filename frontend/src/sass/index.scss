@@ -1,0 +1,10 @@
+// Importing custom variables to override bootstrap variables
+@import './variables';
+
+// Importing bootswatch theme and core bootstrap
+@import './vendor/bootswatch.variables';
+@import '~bootstrap/scss/bootstrap';
+@import './vendor/bootswatch.theme';
+
+// Importing custom styles
+@import './base';
