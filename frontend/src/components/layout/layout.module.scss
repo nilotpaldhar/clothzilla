@@ -1,0 +1,24 @@
+@import '../../sass/mixins';
+
+.layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .content {
+        flex: 1;
+        padding: 4rem 0;
+
+        @include respond(lg) {
+            padding: 6rem 0;
+        }
+    }
+
+    .xtraPadding {
+        padding-top: 10.25rem !important;
+
+        @include respond(lg) {
+            padding-top: 12.25rem !important;
+        }
+    }
+}
