@@ -1,0 +1,38 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.formContainer {
+    width: 100%;
+    margin: 4rem 0;
+    border-radius: 2px;
+    box-shadow: 0px 0px 15px rgba($black, 0.12);
+
+    .header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 0;
+        border-bottom: 1px solid $off-white-1;
+
+        span {
+            display: block;
+            text-transform: capitalize;
+            font-size: 0.9rem;
+            font-weight: 300;
+            margin-top: 0.625rem;
+
+            @include respond(lg) {
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    .body {
+        padding: 3.125rem 1.25rem 100px 1.25rem;
+
+        @include respond(lg) {
+            padding: 3.125rem 2.125rem 6.25rem 2.125rem;
+        }
+    }
+}

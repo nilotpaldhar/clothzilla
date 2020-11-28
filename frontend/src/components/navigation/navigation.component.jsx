@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -40,18 +41,17 @@ const Navigation = ({ sticky }) => {
 				<Navbar.Toggle aria-controls='navbar-nav' />
 				<Navbar.Collapse id='navbar-nav'>
 					<Nav className='ml-auto'>
-						<Nav.Link href='#register' className={styles.navLink}>
-							<FontAwesomeIcon icon={faUserPlus} />
-							<span className='ml-1'>Register</span>
-						</Nav.Link>
-						<Nav.Link href='#login' className={styles.navLink}>
-							<FontAwesomeIcon icon={faSignInAlt} />
-							<span className='ml-1'>Login</span>
-						</Nav.Link>
 						<Nav.Link href='#cart' className={styles.navLink}>
 							<FontAwesomeIcon icon={faShoppingCart} />
-							<span className='ml-1'>Cart(4)</span>
+							<span className='ml-2'>Cart(4)</span>
 						</Nav.Link>
+
+						<LinkContainer to='/login'>
+							<Nav.Link className={styles.navLink}>
+								<FontAwesomeIcon icon={faSignInAlt} />
+								<span className='ml-2'>Login</span>
+							</Nav.Link>
+						</LinkContainer>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
