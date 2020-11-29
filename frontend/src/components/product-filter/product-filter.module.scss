@@ -1,0 +1,32 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.filterContainer {
+    margin-bottom: 2.5rem;
+
+    @include respond(lg) {
+        margin-bottom: 4rem;
+    }
+
+    h2 {
+        font-weight: 500;
+        font-size: 1.8rem;
+        line-height: 1;
+        text-transform: uppercase;
+        color: $dark;
+        margin: 0 0 1.5rem 0;
+
+        @include respond(lg) {
+            margin: 0;
+        }
+    }
+
+    ul {
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+    }
+}

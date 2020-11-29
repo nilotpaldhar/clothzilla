@@ -1,0 +1,26 @@
+@import '../../sass/variables';
+
+.item {
+    &:not(:last-child) {
+        margin-right: 1rem;
+    }
+
+    .btn {
+        border: none;
+        background: none;
+        text-transform: capitalize;
+        font-weight: 500;
+        color: $dark;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .active {
+        color: $primary;
+    }
+}

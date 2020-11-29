@@ -1,0 +1,126 @@
+@import '../../sass/variables';
+
+.productConatiner {
+    width: 100%;
+    margin-bottom: 3.5rem;
+    box-shadow: 3px 3px 20px rgba($black, 0.05);
+    border-radius: 2px;
+    background: $white;
+    overflow-x: hidden;
+
+    &:hover {
+        img {
+            filter: brightness(0.5);
+            transform: scale(1.1);
+        }
+
+        .btn {
+            opacity: 1;
+            pointer-events: initial;
+        }
+    }
+
+    .btn {
+        display: block;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: $white;
+        border: none;
+        border-radius: 3rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: $dark;
+        padding: 0.8rem 1.5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        pointer-events: none;
+        cursor: pointer;
+        transition: all 0.6s ease-in;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        span {
+            display: inline-block;
+            margin-left: 6px;
+        }
+
+        svg {
+            font-size: 1rem;
+        }
+    }
+
+    .header {
+        position: relative;
+        overflow: hidden;
+
+        img {
+            width: 100%;
+            display: block;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            transition: all 0.8s ease-in-out;
+        }
+    }
+
+    .body {
+        padding: 1rem;
+        color: $secondary;
+        font-size: 1rem;
+
+        .name {
+            display: block;
+            color: inherit;
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            text-transform: capitalize;
+            transition: color 0.2s ease-in;
+
+            &:hover {
+                color: $primary;
+                text-decoration: none;
+            }
+        }
+
+        .pricing {
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 6px 0;
+
+            span {
+                &:not(:last-child) {
+                    margin-right: 1rem;
+                }
+            }
+        }
+
+        .rating {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+
+            label {
+                margin-bottom: 0;
+            }
+
+            i {
+                font-size: 1.2rem;
+                line-height: 0;
+            }
+
+            span {
+                font-size: 0.8rem;
+                display: inline-block;
+                margin-left: 5px;
+            }
+        }
+    }
+}

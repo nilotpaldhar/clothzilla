@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	faUserPlus,
-	faSignInAlt,
-	faShoppingCart,
-} from '@fortawesome/free-solid-svg-icons';
+import { faSignInAlt, faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import cx from 'classnames';
 
 import { ReactComponent as Logo } from '../../assets/logo/logo.svg';
@@ -21,7 +17,8 @@ const Navigation = ({ sticky }) => {
 
 	useEffect(() => {
 		window.addEventListener('scroll', handleScroll);
-	});
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, [scrolled]);
 
 	return (
 		<Navbar
