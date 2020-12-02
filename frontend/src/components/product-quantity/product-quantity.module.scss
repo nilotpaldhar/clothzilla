@@ -1,0 +1,61 @@
+@import '../../sass/variables';
+
+.container {
+    height: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .btn {
+        border: none;
+        background-color: $off-white-1;
+        color: $dark;
+        padding: 0;
+        height: 100%;
+        width: 2rem;
+        font-size: 0.6rem;
+        border: 1px dotted transparent;
+        border-radius: 50%;
+        transition: all 0.2s ease-in;
+
+        &:focus,
+        &:active {
+            outline: none;
+            border: 1px dotted $dark;
+        }
+
+
+        &:hover {
+            background-color: darken($off-white-1, 5);
+        }
+
+        &:disabled {
+            cursor: not-allowed;
+
+            &:hover {
+                background-color: $off-white-1;
+            }
+        }
+    }
+
+    .input {
+        display: inline-block;
+        height: 100%;
+        width: 3rem;
+        margin: 0 0.8rem;
+        border: 1px solid $light;
+        border-radius: 2px;
+        text-align: center;
+    }
+
+    // Hide input arrows
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+}

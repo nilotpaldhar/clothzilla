@@ -84,9 +84,19 @@
 }
 
 .actions {
-    button {
-        padding: 1rem 2.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .btn {
+        padding: 1rem 1.8rem;
         font-size: 1rem;
+        margin-left: 1.2rem;
+
+        @include respond(md) {
+            padding: 1rem 2.5rem;
+        }
     }
 }
 

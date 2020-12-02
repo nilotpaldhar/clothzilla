@@ -8,6 +8,7 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../../components/layout/layout.component';
 import Product from '../../components/product/product.component';
+import ProductQuantity from '../../components/product-quantity/product-quantity.component';
 import ReviewCollection from '../../components/review-collection/review-collection.component';
 import ReviewForm from '../../components/review-form/review-form.component';
 
@@ -64,7 +65,8 @@ const ProductDetails = ({ match }) => {
 						{product.description}
 					</ShowMoreText>
 					<div className={styles.actions}>
-						<Button variant='primary'>
+						<ProductQuantity />
+						<Button variant='primary' className={styles.btn}>
 							<FontAwesomeIcon icon={faShoppingCart} />
 							<span className='ml-2'>Go to Cart</span>
 						</Button>
