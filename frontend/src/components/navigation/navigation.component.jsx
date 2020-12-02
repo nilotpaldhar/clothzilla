@@ -32,9 +32,11 @@ const Navigation = ({ sticky }) => {
 			fixed='top'
 			expand='lg'>
 			<Container>
-				<Navbar.Brand href='#home'>
-					<Logo />
-				</Navbar.Brand>
+				<LinkContainer to='/'>
+					<Navbar.Brand>
+						<Logo />
+					</Navbar.Brand>
+				</LinkContainer>
 				<Navbar.Toggle aria-controls='navbar-nav' />
 				<Navbar.Collapse id='navbar-nav'>
 					<Nav className='ml-auto'>

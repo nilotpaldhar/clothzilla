@@ -1,0 +1,42 @@
+@import '../../sass/variables';
+
+.collection {
+    margin-top: 3.5rem;
+    padding: 0 1rem;
+
+    h2 {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: $dark;
+        margin-bottom: 1.5rem;
+    }
+
+    button {
+        color: $primary;
+        background: none;
+        border: none;
+        font-size: 1rem;
+        border: 1px dotted transparent;
+        border-radius: 2px;
+
+        span {
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+
+        svg {
+            font-size: 0.8rem;
+        }
+
+        &:active,
+        &:focus {
+            outline: none;
+            border: 1px dotted lighten($primary, 25);
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}

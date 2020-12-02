@@ -1,0 +1,41 @@
+@import '../../sass/variables';
+
+.container {
+    color: $dark;
+
+    &:not(:last-child) {
+        border-bottom: 1px dotted $grey-2;
+        margin-bottom: 2.5rem;
+        padding-bottom: 1.2rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 5px 0;
+    }
+
+    .text {
+        font-size: 0.9rem;
+        color: lighten($dark, 20);
+        margin-top: 1rem;
+        margin-bottom: 0;
+        line-height: 1.6;
+        width: 100%;
+    }
+
+    .details {
+        font-size: 0.8rem;
+        font-weight: 300;
+        color: $secondary;
+    }
+
+    .rating {
+        line-height: 1;
+
+        label {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+    }
+}

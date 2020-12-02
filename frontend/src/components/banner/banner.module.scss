@@ -2,7 +2,7 @@
 @import '../../sass/mixins';
 
 .banner {
-    height: 100vh;
+    min-height: 100vh;
     color: $white;
     background-attachment: fixed;
     background-size: cover;

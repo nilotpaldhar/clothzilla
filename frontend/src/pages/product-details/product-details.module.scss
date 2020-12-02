@@ -1,0 +1,106 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.name {
+    font-size: 2rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    color: $dark;
+    margin-bottom: 1.5rem;
+}
+
+.desc {
+    font-size: 1rem;
+    font-weight: 300;
+    color: $dark;
+    line-height: 1.8;
+    border-bottom: 1px dotted $grey-2;
+    margin: 1.5rem 0 1.8rem 0;
+    padding-bottom: 1.8rem;
+}
+
+.details {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .stock {
+        display: inline-block;
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $success;
+        text-transform: capitalize;
+        padding-right: 1rem;
+
+        @include respond(sm) {
+            border-right: 2px solid $grey-2;
+        }
+    }
+
+    .noStock {
+        color: $danger;
+    }
+
+    .pricing {
+        font-size: 1.125rem;
+        font-weight: 500;
+        color: $secondary;
+        margin-right: auto;
+        padding-right: 1rem;
+
+        span {
+            &:first-child {
+                font-size: 1.8rem;
+
+                @include respond(sm) {
+                    margin-left: 1rem;
+                }
+
+            }
+
+            &:not(:last-child) {
+                margin-right: 1.2rem;
+            }
+        }
+
+
+    }
+
+    .rating {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        label {
+            margin-bottom: 0;
+            font-size: 1.3rem;
+        }
+
+        span {
+            font-size: 0.9rem;
+            color: $secondary;
+        }
+    }
+}
+
+.actions {
+    button {
+        padding: 1rem 2.5rem;
+        font-size: 1rem;
+    }
+}
+
+.related,
+.reviewContainer {
+    margin-top: 6.25rem;
+}
+
+
+.related {
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 2rem;
+    }
+}

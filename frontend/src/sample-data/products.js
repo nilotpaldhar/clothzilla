@@ -1,9 +1,9 @@
 const products = [
 	{
 		id: 1,
-		name: 'nulla suscipit ligula',
+		name: 'White Top For Women',
 		description:
-			'Duis mattis egestas metus. Aenean fermentum. Donec ut mauris eget massa tempor convallis. Nulla neque libero, convallis eget, eleifend luctus, ultricies eu, nibh. Quisque id justo sit amet sapien dignissim vestibulum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla dapibus dolor vel est. Donec odio justo, sollicitudin ut, suscipit a, feugiat et, eros. Vestibulum ac est lacinia nisi venenatis tristique. Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo. Etiam pretium iaculis justo. In hac habitasse platea dictumst. Etiam faucibus cursus urna. Ut tellus. Nulla ut erat id mauris vulputate elementum. Nullam varius. Nulla facilisi. Cras non velit nec nisi vulputate nonummy. Maecenas tincidunt lacus at velit. Vivamus vel nulla eget eros elementum pellentesque. Quisque porta volutpat erat. Quisque erat eros, viverra eget, congue eget, semper rutrum, nulla. Nunc purus. Phasellus in felis. Donec semper sapien a libero.',
+			'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio.',
 		listPrice: '823.46',
 		discount: 37,
 		salePrice: '518.78',
@@ -20,7 +20,7 @@ const products = [
 		listPrice: '426.62',
 		discount: 50,
 		salePrice: '213.31',
-		stock: 69,
+		stock: 0,
 		reviewCount: 21,
 		rating: 3.6,
 		image: '/images/product-2.jpg',
@@ -111,7 +111,7 @@ const products = [
 		listPrice: '168.60',
 		discount: 46,
 		salePrice: '91.04',
-		stock: 8,
+		stock: 0,
 		reviewCount: 4,
 		rating: 3.6,
 		image: '/images/product-9.jpg',
