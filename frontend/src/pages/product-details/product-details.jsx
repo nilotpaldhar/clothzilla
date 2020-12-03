@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col, Image, Button, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col, Image, Tabs, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import ShowMoreText from 'react-show-more-text';
