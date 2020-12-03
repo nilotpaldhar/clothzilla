@@ -8,7 +8,7 @@ import styles from './homepage.module.scss';
 import categories from '../../sample-data/categories';
 import products from '../../sample-data/products';
 
-const homepage = () => {
+const Homepage = () => {
 	return (
 		<Layout withBanner stickyNav>
 			<ProductFilter initialTitle='Latest Products' categories={categories} />
@@ -17,4 +17,4 @@ const homepage = () => {
 	);
 };
 
-export default homepage;
+export default Homepage;

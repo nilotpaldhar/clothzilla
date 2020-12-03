@@ -1,0 +1,59 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.container {
+    width: 100%;
+    border: 1px solid $light;
+    border-radius: 2px;
+    font-size: 1rem;
+    color: $dark;
+
+
+    .header {
+        display: none;
+        border-bottom: 1px solid $light;
+        font-weight: 600;
+        text-transform: uppercase;
+        padding: 1rem 2rem;
+
+        @include respond(md) {
+            display: block;
+        }
+    }
+
+    .body {
+        // padding: 5rem 0;
+    }
+
+    .footer {
+        border-top: 1px solid $light;
+        padding: 1.6rem 1rem;
+
+        @include respond(md) {
+            padding: 1.6rem 2rem;
+        }
+
+        a {
+            padding: 0.8rem 1.5rem;
+
+            @include respond(md) {
+                padding: 1rem 2.5rem;
+            }
+
+        }
+
+
+        span {
+            display: block;
+            font-size: 1.4rem;
+            margin-top: 1rem;
+            padding: 0 0.5rem;
+
+            @include respond(md) {
+                font-size: 1.8rem;
+                margin-top: 0;
+                padding: 0;
+            }
+        }
+    }
+}

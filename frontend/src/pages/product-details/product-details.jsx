@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Row, Col, Image, Button, Tabs, Tab } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import ShowMoreText from 'react-show-more-text';
 import cx from 'classnames';
@@ -66,10 +67,10 @@ const ProductDetails = ({ match }) => {
 					</ShowMoreText>
 					<div className={styles.actions}>
 						<ProductQuantity />
-						<Button variant='primary' className={styles.btn}>
+						<Link to='/cart' className='btn btn-primary'>
 							<FontAwesomeIcon icon={faShoppingCart} />
 							<span className='ml-2'>Go to Cart</span>
-						</Button>
+						</Link>
 					</div>
 				</Col>
 			</Row>

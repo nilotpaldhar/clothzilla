@@ -5,7 +5,6 @@ import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 import styles from './product-quantity.module.scss';
 
 const ProductQuantity = () => {
-	console.log(styles);
 	return (
 		<div className={styles.container}>
 			<button type='buuton' className={styles.btn}>

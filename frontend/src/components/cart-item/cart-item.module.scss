@@ -1,0 +1,54 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.item {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 3rem 1rem;
+
+    @include respond(md) {
+        padding: 3rem 2rem;
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $light;
+    }
+
+    a {
+        color: inherit;
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 400;
+        text-transform: capitalize;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        transition: all 0.2s ease-in;
+
+        &:hover {
+            color: $primary;
+            text-decoration: none;
+        }
+    }
+
+    button {
+        border: none;
+        background: none;
+        font-size: 1.2rem;
+        color: $dark;
+        border: 1px dotted transparent;
+        border-radius: 2px;
+        transition: all 0.2s ease-in;
+
+        &:active,
+        &:focus {
+            outline: none;
+            border: 1px dotted $grey-1;
+        }
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
