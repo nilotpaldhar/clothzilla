@@ -21,9 +21,6 @@
         }
     }
 
-    .body {
-        // padding: 5rem 0;
-    }
 
     .footer {
         border-top: 1px solid $light;
@@ -33,14 +30,7 @@
             padding: 1.6rem 2rem;
         }
 
-        a {
-            padding: 0.8rem 1.5rem;
 
-            @include respond(md) {
-                padding: 1rem 2.5rem;
-            }
-
-        }
 
 
         span {
