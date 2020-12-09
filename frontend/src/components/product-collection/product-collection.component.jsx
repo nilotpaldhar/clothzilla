@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Button } from 'react-bootstrap';
 
 import Product from '../product/product.component';
-import styles from './product-collection.module.scss';
 
 const ProductCollection = ({ products }) => {
 	return (

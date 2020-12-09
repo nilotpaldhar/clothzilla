@@ -4,7 +4,6 @@ import Layout from '../../components/layout/layout.component';
 import ProductFilter from '../../components/product-filter/product-filter.component';
 import ProductCollection from '../../components/product-collection/product-collection.component';
 
-import styles from './homepage.module.scss';
 import categories from '../../sample-data/categories';
 import products from '../../sample-data/products';
 

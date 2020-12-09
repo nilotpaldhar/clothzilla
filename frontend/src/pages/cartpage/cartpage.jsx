@@ -32,7 +32,7 @@ const Cartpage = () => {
 				<div className={styles.footer}>
 					<Row className='align-items-center'>
 						<Col sm={7} md={8} lg={9}>
-							<Link to='/billing' className='btn btn-primary'>
+							<Link to='/shipping' className='btn btn-primary'>
 								Go to Checkout
 							</Link>
 						</Col>
