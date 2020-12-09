@@ -1,0 +1,22 @@
+@import '../../sass/variables';
+
+.list {
+    color: $dark;
+
+    h2 {
+        font-size: 1.4rem;
+        font-weight: 500;
+        margin: 0;
+        padding: 0.8rem 0;
+    }
+
+    span {
+        font-size: 1rem;
+        text-transform: capitalize;
+    }
+
+    :global(.list-group-item) {
+        display: flex;
+        justify-content: space-between;
+    }
+}

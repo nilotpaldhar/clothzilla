@@ -33,7 +33,6 @@ const Payment = () => {
 									id='paypal'
 									name='paymentMethod'
 									value='PayPal'
-									checked
 								/>
 							</Col>
 							<Col>
