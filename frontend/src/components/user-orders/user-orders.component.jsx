@@ -9,15 +9,15 @@ import Chip from '../chip/chip.component';
 const UserOrders = () => {
 	return (
 		<Card>
-			<Card.Header as='h1'>Orders Details</Card.Header>
+			<Card.Header as='h1'>Your Orders</Card.Header>
 			<Card.Body>
 				<Table responsive hover>
 					<thead>
 						<tr>
 							<th>ORDER DATE</th>
 							<th>TOTAL</th>
-							<th className='text-center'>PAID</th>
-							<th className='text-center'>DELIVERED</th>
+							<th className='text-center'>PAYMENT</th>
+							<th className='text-center'>STATUS</th>
 							<th className='text-center'>DETAILS</th>
 							<th className='text-center'>CANCEL</th>
 						</tr>
@@ -87,14 +87,16 @@ const UserOrders = () => {
 							<td className='text-center'>
 								<Chip variant='danger'>Not Paid</Chip>
 							</td>
-							<td className='text-center'>---</td>
+							<td className='text-center'>
+								<Chip variant='danger'>Cancelled</Chip>
+							</td>
 							<td className='text-center'>
 								<Link to='/order/1' className='btn btn-light btn-sm'>
 									<FontAwesomeIcon icon={faInfo} />
 								</Link>
 							</td>
 							<td className='text-center'>
-								<button type='button' className='close-btn'>
+								<button type='button' className='close-btn' disabled>
 									<FontAwesomeIcon icon={faTimes} />
 								</button>
 							</td>

@@ -72,6 +72,22 @@ const Navigation = ({ sticky }) => {
 										<NavDropdown.Item>Logout</NavDropdown.Item>
 									</LinkContainer>
 								</NavDropdown>
+								<NavDropdown
+									title='Admin'
+									id='admin-dashboard'
+									className={styles.navLink}>
+									<LinkContainer to='/admin/products'>
+										<NavDropdown.Item>Products</NavDropdown.Item>
+									</LinkContainer>
+									<NavDropdown.Divider />
+									<LinkContainer to='/admin/orders'>
+										<NavDropdown.Item>Orders</NavDropdown.Item>
+									</LinkContainer>
+									<NavDropdown.Divider />
+									<LinkContainer to='/admin/users'>
+										<NavDropdown.Item>Users</NavDropdown.Item>
+									</LinkContainer>
+								</NavDropdown>
 							</Nav>
 						</Navbar.Collapse>
 					</>
