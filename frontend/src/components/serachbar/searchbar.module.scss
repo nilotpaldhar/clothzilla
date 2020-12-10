@@ -1,0 +1,48 @@
+@import '../../sass/variables';
+
+.search {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    padding: 2px 0;
+
+
+    input {
+        flex: 1;
+        display: block;
+        background: none;
+        border: none;
+        color: $white;
+        font-family: inherit;
+        font-weight: 300;
+
+
+        &::-webkit-input-placeholder {
+            color: rgba($white, 0.5);
+        }
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+    }
+
+    button {
+        border: none;
+        background: none;
+        color: $white;
+        font-size: 1.4rem;
+        transition: all 0.3s ease-in;
+
+        &:active,
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+}

@@ -25,9 +25,16 @@
 }
 
 .navLink {
+    font-size: 0.9rem;
+    color: $light !important;
     text-transform: uppercase;
+    transition: color 0.3s ease-in;
 
     &:not(:last-child) {
-        margin-right: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    &:hover {
+        color: $grey-1 !important;
     }
 }
