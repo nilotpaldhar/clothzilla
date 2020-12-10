@@ -8,22 +8,21 @@
     color: $dark;
     border: none;
     border-radius: 2px;
-    box-shadow: 0px 0px 15px rgba($black, 0.12);
+    box-shadow: 0px 0px 15px 0px rgba($black, 0.12);
 
     &-header {
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: 500;
         background-color: #FAF9F9;
         border-bottom: 1px solid #E2E3EA;
 
         @include respond(md) {
+            font-size: 2rem;
             padding: 1.25rem 3rem;
         }
     }
 
     &-body {
-        // padding: 3rem;
-
         @include respond(md) {
             padding: 3rem;
         }
@@ -34,5 +33,25 @@
     &:focus {
         box-shadow: none;
         border-color: lighten($primary, 25);
+    }
+}
+
+.close-btn {
+    border: none;
+    background: none;
+    font-size: 1rem;
+    color: $dark;
+    border: 1px dotted transparent;
+    border-radius: 2px;
+    transition: all 0.2s ease-in;
+
+    &:active,
+    &:focus {
+        outline: none;
+        border: 1px dotted $grey-1;
+    }
+
+    &:hover {
+        opacity: 0.8;
     }
 }
