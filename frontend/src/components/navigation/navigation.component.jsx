@@ -76,7 +76,7 @@ const Navigation = ({ sticky }) => {
 									title='Admin'
 									id='admin-dashboard'
 									className={styles.navLink}>
-									<LinkContainer to='/admin/products'>
+									<LinkContainer exact to='/admin/products'>
 										<NavDropdown.Item>Products</NavDropdown.Item>
 									</LinkContainer>
 									<NavDropdown.Divider />

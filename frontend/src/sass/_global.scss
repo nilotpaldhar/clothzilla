@@ -27,6 +27,15 @@
             padding: 3rem;
         }
     }
+
+    &-footer {
+        background-color: #FAF9F9;
+        border-top: 1px solid #E2E3EA;
+
+        @include respond(md) {
+            padding: 1.25rem 3rem;
+        }
+    }
 }
 
 .form-control {

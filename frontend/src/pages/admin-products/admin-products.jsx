@@ -62,7 +62,9 @@ const AdminProducts = () => {
 											)}
 										</td>
 										<td className='text-center'>
-											<Link to='#' className='btn btn-light btn-sm'>
+											<Link
+												to={`/admin/products/${product.id}/edit`}
+												className='btn btn-light btn-sm'>
 												<FontAwesomeIcon icon={faPen} />
 											</Link>
 										</td>

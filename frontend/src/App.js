@@ -13,6 +13,7 @@ import Dashboard from './pages/dashboard/dashboard';
 import OrderDetails from './pages/order-details/order-details.component';
 
 import AdminProducts from './pages/admin-products/admin-products';
+import AdminProductsEdit from './pages/admin-products-edit/admin-products-edit.component';
 import AdminOrders from './pages/admin-orders/admin-orders';
 import AdminUsers from './pages/admin-users/admin-users';
 
@@ -35,9 +36,10 @@ function App() {
 			<Route path='/order/:id' component={OrderDetails} />
 
 			{/* ADMIN PAGES */}
-			<Route path='/admin/products' component={AdminProducts} />
+			<Route path='/admin/products' component={AdminProducts} exact />
 			<Route path='/admin/orders' component={AdminOrders} />
 			<Route path='/admin/users' component={AdminUsers} />
+			<Route path='/admin/products/:id/edit' component={AdminProductsEdit} />
 
 			{/* ROOT */}
 			<Route path='/' component={Homepage} exact />
