@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import StarRatingComponent from 'react-star-rating-component';
@@ -17,13 +18,9 @@ const Product = ({ product }) => {
 			</div>
 
 			<div className={styles.body}>
-				<a
-					href={`/product/${product.id}`}
-					target='_blank'
-					rel='noopener noreferrer'
-					className={styles.name}>
+				<Link to={`/product/${product.id}`} className={styles.name}>
 					{product.name}
-				</a>
+				</Link>
 				<div className={styles.pricing}>
 					<span className='text-primary'>${product.salePrice}</span>
 					<span>

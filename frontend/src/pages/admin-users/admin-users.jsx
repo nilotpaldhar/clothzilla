@@ -20,7 +20,6 @@ const AdminUsers = () => {
 								<th>NAME</th>
 								<th>EMAIL</th>
 								<th className='text-center'>ROLE</th>
-								<th className='text-center'>EDIT</th>
 								<th className='text-center'>DELETE</th>
 							</tr>
 						</thead>
@@ -31,11 +30,6 @@ const AdminUsers = () => {
 								<td>bob@example.com</td>
 								<td className='text-center'>
 									<Chip variant='success'>Subscriber</Chip>
-								</td>
-								<td className='text-center'>
-									<Link to='#' className='btn btn-light btn-sm'>
-										<FontAwesomeIcon icon={faPen} />
-									</Link>
 								</td>
 								<td className='text-center'>
 									<button type='button' className='btn btn-danger btn-sm'>
@@ -51,11 +45,6 @@ const AdminUsers = () => {
 									<Chip variant='success'>Subscriber</Chip>
 								</td>
 								<td className='text-center'>
-									<Link to='#' className='btn btn-light btn-sm'>
-										<FontAwesomeIcon icon={faPen} />
-									</Link>
-								</td>
-								<td className='text-center'>
 									<button type='button' className='btn btn-danger btn-sm'>
 										<FontAwesomeIcon icon={faTrash} />
 									</button>
@@ -67,11 +56,6 @@ const AdminUsers = () => {
 								<td>john@example.com</td>
 								<td className='text-center'>
 									<Chip variant='info'>Admin</Chip>
-								</td>
-								<td className='text-center'>
-									<Link to='#' className='btn btn-light btn-sm'>
-										<FontAwesomeIcon icon={faPen} />
-									</Link>
 								</td>
 								<td className='text-center'>
 									<button type='button' className='btn btn-danger btn-sm'>
