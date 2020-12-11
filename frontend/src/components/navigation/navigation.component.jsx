@@ -40,26 +40,35 @@ const Navigation = ({ sticky }) => {
 					<Searchbar handleClose={() => setSearch(false)} />
 				) : (
 					<>
+						<Navbar.Toggle aria-controls='navbar-nav' />
 						<LinkContainer to='/'>
 							<Navbar.Brand>
 								<Logo />
 							</Navbar.Brand>
 						</LinkContainer>
-						<Navbar.Toggle aria-controls='navbar-nav' />
+						<Nav className='d-lg-none'>
+							<Nav.Link
+								href='#'
+								className={styles.navLink}
+								onClick={() => setSearch(true)}>
+								<FontAwesomeIcon icon={faSearch} />
+							</Nav.Link>
+						</Nav>
+
 						<Navbar.Collapse id='navbar-nav'>
-							<Nav className='ml-auto'>
+							<Nav className='ml-auto py-3 py-lg-0'>
 								<Nav.Link
 									href='#'
-									className={styles.navLink}
+									className={`d-none d-lg-block ${styles.navLink}`}
 									onClick={() => setSearch(true)}>
 									<FontAwesomeIcon icon={faSearch} />
 								</Nav.Link>
 								<LinkContainer to='/login'>
 									<Nav.Link className={styles.navLink}>Login</Nav.Link>
 								</LinkContainer>
-								<Nav.Link href='#cart' className={styles.navLink}>
-									Cart(4)
-								</Nav.Link>
+								<LinkContainer to='/cart'>
+									<Nav.Link className={styles.navLink}>Cart(4)</Nav.Link>
+								</LinkContainer>
 								<NavDropdown
 									title='John Doe'
 									id='user-dashboard'

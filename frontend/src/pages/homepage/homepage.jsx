@@ -10,8 +10,10 @@ import products from '../../sample-data/products';
 const Homepage = () => {
 	return (
 		<Layout withBanner stickyNav>
-			<ProductFilter initialTitle='Latest Products' categories={categories} />
-			<ProductCollection products={products} />
+			<div id='shop' className='py-5'>
+				<ProductFilter initialTitle='Latest Products' categories={categories} />
+				<ProductCollection products={products} />
+			</div>
 		</Layout>
 	);
 };

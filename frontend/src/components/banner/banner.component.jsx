@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Row, Col, Button } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 
 import bgImg from '../../assets/images/banner.jpg';
 import styles from './banner.module.scss';
@@ -18,7 +18,9 @@ const Banner = () => {
 								euismod maecenas nisl vitae neque volutpat adipiscing faucibus
 								at sociis mauris viverra elementum rutrum.
 							</p>
-							<Button variant='primary'>Shop Now</Button>
+							<a href='#shop' className='btn btn-primary'>
+								Shop Now
+							</a>
 						</Col>
 					</Row>
 				</Container>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
@@ -6,10 +6,6 @@ import CheckoutSteps from '../../components/checkout-steps/checkout-steps.compon
 import ShippingForm from '../../components/shipping-form/shipping-form.component';
 
 const Shipping = () => {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
 	return (
 		<Layout>
 			<Card>

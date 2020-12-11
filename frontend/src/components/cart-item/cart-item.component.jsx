@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Row, Col, Image } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -17,7 +16,12 @@ const CartItem = ({ item }) => {
 							<Image src={item.image} alt={item.name} fluid />
 						</Col>
 						<Col xs={12} md={8}>
-							<Link to={`/product/${item.id}`}>{item.name}</Link>
+							<a
+								href={`/product/${item.id}`}
+								target='_blank'
+								rel='noopener noreferrer'>
+								{item.name}
+							</a>
 						</Col>
 					</Row>
 				</Col>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Row, Col, Image, Tabs, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
@@ -19,10 +19,6 @@ import reviews from '../../sample-data/reviews';
 import styles from './product-details.module.scss';
 
 const ProductDetails = ({ match }) => {
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, []);
-
 	const product = products.find((item) => item.id === Number(match.params.id));
 	const relatedProducts = products.filter((item, idx) => idx < 3);
 
