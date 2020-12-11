@@ -3,13 +3,25 @@ import { Card, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Reoverlay } from 'reoverlay';
 
 import Layout from '../../components/layout/layout.component';
 import Chip from '../../components/chip/chip.component';
+import ConfirmModal from '../../components/confirm-modal/confirm-modal.component';
 
 import products from '../../sample-data/products';
 
 const AdminProducts = () => {
+	const handleDelete = (id) => {
+		Reoverlay.showModal(ConfirmModal, {
+			text: 'Are you sure you want to delete this product?',
+			onConfirm: () => {
+				console.log(`Deleted ${id} `);
+				Reoverlay.hideModal();
+			},
+		});
+	};
+
 	return (
 		<Layout>
 			<Card>
@@ -69,7 +81,10 @@ const AdminProducts = () => {
 											</Link>
 										</td>
 										<td className='text-center'>
-											<button type='button' className='btn btn-danger btn-sm'>
+											<button
+												type='button'
+												className='btn btn-danger btn-sm'
+												onClick={() => handleDelete(product.id)}>
 												<FontAwesomeIcon icon={faTrash} />
 											</button>
 										</td>

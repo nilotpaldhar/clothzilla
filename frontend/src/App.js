@@ -1,5 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { ModalContainer } from 'reoverlay';
 
 import ScrollToTop from './components/scroll-to-top/scroll-to-top.component';
 
@@ -47,6 +48,7 @@ function App() {
 				{/* ROOT */}
 				<Route path='/' component={Homepage} exact />
 			</Switch>
+			<ModalContainer />
 		</ScrollToTop>
 	);
 }
