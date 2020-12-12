@@ -1,8 +1,7 @@
 import React from 'react';
 import { Card, Table } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../../components/layout/layout.component';
 import Chip from '../../components/chip/chip.component';
