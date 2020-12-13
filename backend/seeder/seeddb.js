@@ -28,7 +28,7 @@ const importData = async () => {
 		await Product.deleteMany();
 
 		// Insert users
-		const createdUser = await User.create(users);
+		const createdUser = await User.insertMany(users);
 		const masterUser = createdUser[0]._id;
 
 		// Insert categories
