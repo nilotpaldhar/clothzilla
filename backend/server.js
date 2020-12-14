@@ -7,6 +7,7 @@ import connectDB from './config/db.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 import authRoutes from './routes/authRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.use(express.json());
 
 // User authentication routes
 app.use('/api/auth', authRoutes);
+// Product category routes
+app.use('/api/product/categories', categoryRoutes);
 
 app.get('/', (req, res) => {
 	res.send('API is running...');

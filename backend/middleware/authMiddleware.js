@@ -37,4 +37,15 @@ const auth = asyncHandler(async (req, res, next) => {
 	}
 });
 
-export { auth };
+// Middleware for admin users
+const admin = (req, res, next) => {
+	if (req.user && req.user.isAdmin) {
+		next();
+		return;
+	}
+
+	res.status(401);
+	throw new Error('You are not authorized as an admin');
+};
+
+export { auth, admin };
