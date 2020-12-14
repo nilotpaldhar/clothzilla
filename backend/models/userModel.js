@@ -1,7 +1,9 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import tokenGenerator from '../utils/tokenGenerator.js';
+
+import Product from './productModel.js';
+import Review from './reviewModel.js';
 
 const userSchema = mongoose.Schema(
 	{

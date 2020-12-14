@@ -15,6 +15,7 @@ import categoryUserRoutes from './routes/user/categoryRoutes.js';
 
 // Importing routes related to admin
 import categoryAdminRoutes from './routes/admin/categoryRoutes.js';
+import userAdminRoutes from './routes/admin/userRoutes.js';
 
 dotenv.config();
 
@@ -38,6 +39,7 @@ app.use('/api/product/categories', categoryUserRoutes);
 
 // Routes related to admin
 app.use('/api/admin/product/categories', categoryAdminRoutes);
+app.use('/api/admin/users', userAdminRoutes);
 
 app.get('/', (req, res) => {
 	res.send('API is running...');
