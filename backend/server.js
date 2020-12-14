@@ -10,6 +10,7 @@ import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import authRoutes from './routes/authRoutes.js';
 // Importing routes related to user
 import productUserRoutes from './routes/user/productRoutes.js';
+import reviewUserRoutes from './routes/user/reviewRoutes.js';
 import categoryUserRoutes from './routes/user/categoryRoutes.js';
 
 // Importing routes related to admin
@@ -31,6 +32,7 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 
 // Routes related to user
+app.use('/api/products', reviewUserRoutes);
 app.use('/api/products', productUserRoutes);
 app.use('/api/product/categories', categoryUserRoutes);
 

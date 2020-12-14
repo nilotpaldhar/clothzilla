@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
+import slugGenerator from '../utils/slugGenerator.js';
+
 import {
 	calculateDisountedPrice,
 	calculateTaxPrice,
 	calculateSalesPrice,
 } from '../utils/calculatePrice.js';
-import slugGenerator from '../utils/slugGenerator.js';
 
 const productSchema = mongoose.Schema(
 	{
@@ -18,6 +19,12 @@ const productSchema = mongoose.Schema(
 			required: true,
 			ref: 'Category',
 		},
+		buyerList: [
+			{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'User',
+			},
+		],
 		name: {
 			type: String,
 			required: true,
@@ -91,6 +98,33 @@ const productSchema = mongoose.Schema(
 		timestamps: true,
 	}
 );
+
+// Checking whether a user is a authorized buyer or not
+productSchema.methods.isAuthorizeBuyer = function (userId) {
+	const product = this;
+	return product.buyerList.includes(userId.toString());
+};
+
+// Checking whether a user is already reviewed a product or not
+productSchema.methods.isReviewed = function (userId) {
+	const product = this;
+	const alreadyReviewed = product.reviews.find((review) => {
+		if (review.user) {
+			return review.user.toString() === userId.toString();
+		} else {
+			return false;
+		}
+	});
+	return alreadyReviewed ? true : false;
+};
+
+// Hide buyerList from client
+productSchema.methods.toJSON = function () {
+	const product = this;
+	const productObject = product.toObject();
+	delete productObject.buyerList;
+	return productObject;
+};
 
 // Generate slug
 productSchema.pre('save', async function (next) {

@@ -41,6 +41,7 @@ const importData = async () => {
 				...product,
 				user: masterUser,
 				category: createdCategories[rand],
+				buyerList: [...createdUser],
 			};
 		});
 		await Product.create(sampleProducts);

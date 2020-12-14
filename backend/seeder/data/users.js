@@ -29,6 +29,11 @@ const users = [
 		password,
 		isActive: false,
 	},
+	{
+		name: 'Jeff',
+		email: 'jeff@example.com',
+		password,
+	},
 ];
 
 export default users;
