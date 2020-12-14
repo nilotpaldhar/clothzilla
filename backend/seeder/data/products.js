@@ -27,6 +27,7 @@ const products = [
 		tax: 8,
 		stock: 152,
 		image: '/images/product-3.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Long coat for women',
@@ -47,6 +48,7 @@ const products = [
 		tax: 8,
 		stock: 12,
 		image: '/images/product-5.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Black analog watch',
@@ -67,6 +69,7 @@ const products = [
 		discount: 10,
 		stock: 29,
 		image: '/images/product-7.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'White t-shirt for women',
@@ -77,6 +80,7 @@ const products = [
 		tax: 8,
 		stock: 180,
 		image: '/images/product-8.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Black sports shoe',
@@ -97,6 +101,7 @@ const products = [
 		tax: 8,
 		stock: 109,
 		image: '/images/product-10.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Short shirt for men',

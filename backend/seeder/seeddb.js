@@ -33,14 +33,16 @@ const importData = async () => {
 
 		// Insert categories
 		const createdCategories = await Category.create(categories);
-		const rand = Math.floor(Math.random() * createdCategories.length);
 
 		// Insert products
-		const sampleProducts = products.map((product) => ({
-			...product,
-			user: masterUser,
-			category: createdCategories[rand],
-		}));
+		const sampleProducts = products.map((product) => {
+			const rand = Math.floor(Math.random() * createdCategories.length);
+			return {
+				...product,
+				user: masterUser,
+				category: createdCategories[rand],
+			};
+		});
 		await Product.create(sampleProducts);
 
 		console.log('Data Imported!'.green.inverse);
