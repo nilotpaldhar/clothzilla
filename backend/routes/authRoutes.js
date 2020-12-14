@@ -11,7 +11,7 @@ import {
 	updateUserShippingDetails,
 	closeUserProfile,
 	deleteUserProfile,
-} from '../controllers/userController.js';
+} from '../controllers/authController.js';
 import { auth } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
