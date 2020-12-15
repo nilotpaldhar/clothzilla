@@ -5,11 +5,24 @@ import Product from '../../models/productModel.js';
 // @route GET /api/products
 // @access PUBLIC
 const getAllActiveProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({ isPublished: true }).select(
-		'-description -reviews -user'
-	);
+	const pageSize = 20;
+	const count = await Product.countDocuments({
+		isPublished: true,
+	});
 
-	res.json(products);
+	const totalPages = Math.ceil(count / pageSize);
+	const currentPage = Number(req.query.page) || 1;
+
+	const products = await Product.find({ isPublished: true })
+		.select('-description -reviews -user')
+		.limit(pageSize)
+		.skip(pageSize * (currentPage - 1));
+
+	res.json({
+		numProducts: count,
+		products,
+		meta: { currentPage, totalPages },
+	});
 });
 
 // @desc Get a single product by ID
@@ -52,4 +65,39 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 	res.json(relatedProducts);
 });
 
-export { getAllActiveProducts, getActiveProductById, getRelatedProducts };
+// @desc Get products by search query
+// @route GET /api/products/search?query:searchQuery
+// @access PUBLIC
+const searchProducts = asyncHandler(async (req, res) => {
+	const limit = Number(req.query.limit) || 20;
+	const keywords = req.query.query
+		? {
+				name: {
+					$regex: req.query.query,
+					$options: 'i',
+				},
+				isPublished: true,
+		  }
+		: {};
+
+	if (!req.query.query) {
+		res.json({ searchResults: 0, products: [] });
+		return;
+	}
+
+	const searchCount = await Product.countDocuments({ ...keywords }).limit(
+		limit
+	);
+	const products = await Product.find({ ...keywords })
+		.select('-description -reviews -user')
+		.limit(limit);
+
+	res.json({ meta: { searchResults: searchCount }, products });
+});
+
+export {
+	getAllActiveProducts,
+	searchProducts,
+	getActiveProductById,
+	getRelatedProducts,
+};
