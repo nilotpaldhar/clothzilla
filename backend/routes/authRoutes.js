@@ -9,6 +9,8 @@ import {
 	updateUserProfile,
 	getUserShippingDetails,
 	updateUserShippingDetails,
+	getProfileAvatar,
+	uploadProfileAvatar,
 	closeUserProfile,
 	deleteUserProfile,
 } from '../controllers/authController.js';
@@ -23,6 +25,10 @@ router.post('/logoutall', auth, logoutUserAll);
 
 router.route('/profile').get(auth, getUserProfile).put(auth, updateUserProfile);
 router.put('/profile/security', auth, updateUserPassword);
+router
+	.route('/profile/avatar')
+	.get(auth, getProfileAvatar)
+	.post(auth, uploadProfileAvatar);
 
 router
 	.route('/profile/shipping')

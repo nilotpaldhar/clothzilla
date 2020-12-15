@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import imageUploader from '../utils/imageUploader.js';
+import avatarGenerator from '../utils/avatarGenerator.js';
 
 // @desc Authenticate user and get token
 // @route POST /api/auth/login
@@ -160,6 +162,35 @@ const updateUserShippingDetails = asyncHandler(async (req, res) => {
 	res.json(updatedUser.shippingAddress);
 });
 
+// @desc Get authenticated user avatar
+// @route GET /api/auth/profile/avatar
+// @access PRIVATE
+const getProfileAvatar = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.user._id).select('name avatar');
+	const avatarUrl = user.avatar ? user.avatar : avatarGenerator(user.name);
+	res.json({ avatar_url: avatarUrl });
+});
+
+// @desc Upload avatar of authenticated user
+// @route POST /api/auth/profile/avatar
+// @access PRIVATE
+const uploadProfileAvatar = asyncHandler(async (req, res) => {
+	const file = req.body.avatar;
+
+	if (!file) {
+		res.status(400);
+		throw new Error('Unable to upload! No file found for upload');
+	}
+
+	// Uploading file to cloudnary
+	const uploadedAvatarUrl = await imageUploader(file, 'avatars', 128);
+
+	// Saving uploaded image URL as avatar
+	req.user.avatar = uploadedAvatarUrl;
+	const user = await req.user.save();
+	res.json(user);
+});
+
 // @desc Deactivate user account
 // @route PUT /api/auth/profile/close
 // @access PRIVATE
@@ -192,6 +223,8 @@ export {
 	updateUserPassword,
 	getUserShippingDetails,
 	updateUserShippingDetails,
+	getProfileAvatar,
+	uploadProfileAvatar,
 	closeUserProfile,
 	deleteUserProfile,
 };

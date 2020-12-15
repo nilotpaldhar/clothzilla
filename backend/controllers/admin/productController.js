@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../../models/productModel.js';
 import Category from '../../models/categoryModel.js';
+import imageUploader from '../../utils/imageUploader.js';
 
 // @desc Get all products (Both published and unpublished)
 // @route GET /api/admin/products
@@ -32,7 +33,7 @@ const createProduct = asyncHandler(async (req, res) => {
 		discount: 0,
 		stock: 0,
 		tax: 0,
-		image: '/images/placeholder.jpg',
+		image: process.env.PRODUCT_IMAGE_PLACEHOLDER,
 	});
 
 	const createdProduct = await product.save();
@@ -96,6 +97,36 @@ const updateProduct = asyncHandler(async (req, res) => {
 	res.json(updatedProduct);
 });
 
+// @desc Upload a product image
+// @route PUT /api/admin/products/:id/image
+// @access PRIVATE/ADMIN
+const uploadProductImage = asyncHandler(async (req, res) => {
+	const file = req.body.image;
+	const product = await Product.findById(req.params.id).populate(
+		'category',
+		'name'
+	);
+
+	if (!product) {
+		res.status(404);
+		throw new Error('Product not found');
+	}
+
+	if (!file) {
+		res.status(400);
+		throw new Error('Unable to upload! No file found for upload');
+	}
+
+	// Uploading file to cloudnary
+	const uploadedImageUrl = await imageUploader(file, 'products', 600);
+
+	// Saving uploaded image URL in product
+	product.image = uploadedImageUrl;
+	const updatedProduct = await product.save();
+
+	res.json(updatedProduct);
+});
+
 // @desc Delete a product
 // @route DELETE /api/admin/products/:id
 // @access PRIVATE/ADMIN
@@ -114,5 +145,6 @@ export {
 	createProduct,
 	getProductById,
 	updateProduct,
+	uploadProductImage,
 	deleteProduct,
 };
