@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import slugGenerator from '../utils/slugGenerator.js';
+import Review from './reviewModel.js';
 
 import {
 	calculateDisountedPrice,
@@ -148,6 +149,13 @@ productSchema.pre('save', async function (next) {
 
 	this.salePrice = calculateSalesPrice(discountedPrice, taxPrice);
 	this.taxPrice = taxPrice;
+});
+
+// Delete product reviews when product is removed
+productSchema.pre('remove', async function (next) {
+	const product = this;
+	await Review.deleteMany({ product: product._id });
+	next();
 });
 
 const Product = mongoose.model('Product', productSchema);

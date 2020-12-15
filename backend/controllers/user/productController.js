@@ -15,7 +15,7 @@ const getAllActiveProducts = asyncHandler(async (req, res) => {
 // @desc Get a single product by ID
 // @route GET /api/products/:slug/:id
 // @access PUBLIC
-const getActiveProductsById = asyncHandler(async (req, res) => {
+const getActiveProductById = asyncHandler(async (req, res) => {
 	const { id, slug } = req.params;
 	const product = await Product.findOne({
 		_id: id,
@@ -52,4 +52,4 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 	res.json(relatedProducts);
 });
 
-export { getAllActiveProducts, getActiveProductsById, getRelatedProducts };
+export { getAllActiveProducts, getActiveProductById, getRelatedProducts };
