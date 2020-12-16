@@ -65,13 +65,14 @@ userSchema.methods.generateAuthToken = async function () {
 	return token;
 };
 
-// Hide password, token and shippingAddress from client
+// Hide password, token,avatar and shippingAddress from client
 userSchema.methods.toJSON = function () {
 	const user = this;
 	const userObject = user.toObject();
 
 	delete userObject.password;
 	delete userObject.tokens;
+	delete userObject.avatar;
 	delete userObject.shippingAddress;
 
 	return userObject;
@@ -88,7 +89,7 @@ userSchema.methods.isUserActive = function () {
 	return user.isActive;
 };
 
-// Encrypt password
+// Encrypt password before saving
 userSchema.pre('save', async function (next) {
 	// Checking if password field is modified
 	if (!this.isModified('password')) {

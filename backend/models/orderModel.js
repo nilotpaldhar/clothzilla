@@ -39,17 +39,14 @@ const orderSchema = mongoose.Schema(
 		taxPrice: {
 			type: String,
 			required: true,
-			default: 0.0,
 		},
 		shippingPrice: {
 			type: String,
 			required: true,
-			default: 0.0,
 		},
 		totalPrice: {
 			type: String,
 			required: true,
-			default: 0.0,
 		},
 		isPaid: {
 			type: Boolean,
@@ -70,6 +67,10 @@ const orderSchema = mongoose.Schema(
 		status: {
 			type: String,
 			default: null,
+		},
+		isCanceled: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	{

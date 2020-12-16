@@ -12,11 +12,13 @@ import authRoutes from './routes/authRoutes.js';
 import productUserRoutes from './routes/user/productRoutes.js';
 import reviewUserRoutes from './routes/user/reviewRoutes.js';
 import categoryUserRoutes from './routes/user/categoryRoutes.js';
+import orderUserRoutes from './routes/user/orderRoutes.js';
 
 // Importing routes related to admin
 import categoryAdminRoutes from './routes/admin/categoryRoutes.js';
 import productAdminRoutes from './routes/admin/productRoutes.js';
 import userAdminRoutes from './routes/admin/userRoutes.js';
+import orderAdminRoutes from './routes/admin/orderRoutes.js';
 
 dotenv.config();
 
@@ -38,11 +40,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/products', reviewUserRoutes);
 app.use('/api/products', productUserRoutes);
 app.use('/api/product/categories', categoryUserRoutes);
+app.use('/api/myorders', orderUserRoutes);
 
 // Routes related to admin
 app.use('/api/admin/products', productAdminRoutes);
 app.use('/api/admin/product/categories', categoryAdminRoutes);
 app.use('/api/admin/users', userAdminRoutes);
+app.use('/api/admin/orders', orderAdminRoutes);
 
 app.get('/', (req, res) => {
 	res.send('API is running...');
