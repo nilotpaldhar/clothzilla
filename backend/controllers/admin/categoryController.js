@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Category from '../../models/categoryModel.js';
 
 // @desc Create a new category
-// @route POST /api/product/categories
+// @route POST /api/admin/categories
 // @access PRIVATE/ADMIN
 const createCategory = asyncHandler(async (req, res) => {
 	const { name } = req.body;
@@ -12,7 +12,7 @@ const createCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc Update a category
-// @route PUT /api/product/categories/:id
+// @route PUT /api/admin/categories/:id
 // @access PRIVATE/ADMIN
 const updateCategory = asyncHandler(async (req, res) => {
 	const { name } = req.body;
@@ -29,7 +29,7 @@ const updateCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete a category
-// @route DELETE /api/product/categories/:id
+// @route DELETE /api/admin/categories/:id
 // @access PRIVATE/ADMIN
 const deleteCategory = asyncHandler(async (req, res) => {
 	const category = await Category.findById(req.params.id);

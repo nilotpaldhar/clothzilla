@@ -37,14 +37,14 @@ app.use(express.urlencoded({ limit: '10mb', extended: true }));
 app.use('/api/auth', authRoutes);
 
 // Routes related to user
-app.use('/api/products', reviewUserRoutes);
 app.use('/api/products', productUserRoutes);
-app.use('/api/product/categories', categoryUserRoutes);
+app.use('/api/products', reviewUserRoutes);
+app.use('/api/categories', categoryUserRoutes);
 app.use('/api/myorders', orderUserRoutes);
 
 // Routes related to admin
 app.use('/api/admin/products', productAdminRoutes);
-app.use('/api/admin/product/categories', categoryAdminRoutes);
+app.use('/api/admin/categories', categoryAdminRoutes);
 app.use('/api/admin/users', userAdminRoutes);
 app.use('/api/admin/orders', orderAdminRoutes);
 
