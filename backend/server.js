@@ -6,8 +6,10 @@ import connectDB from './config/db.js';
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
-// Importing routes related to authentication
+// Importing routes related to authentication and user profile
 import authRoutes from './routes/authRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
+
 // Importing routes related to user
 import productUserRoutes from './routes/user/productRoutes.js';
 import reviewUserRoutes from './routes/user/reviewRoutes.js';
@@ -33,8 +35,9 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
-// Authentication routes
+// Authentication & profile routes
 app.use('/api/auth', authRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Routes related to user
 app.use('/api/products', productUserRoutes);
