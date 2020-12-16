@@ -20,38 +20,41 @@ dotenv.config();
 // Connect database
 connectDB();
 
-const importData = async () => {
-	try {
-		// Clear existing data
-		await User.deleteMany();
-		await Category.deleteMany();
-		await Product.deleteMany();
+const importUserData = async (sampleUsers) => {
+	// Clear existing records
+	await User.deleteMany();
+	// Inserting records
+	const createdUser = await User.insertMany(sampleUsers);
+	return createdUser;
+};
 
-		// Insert users
-		const createdUser = await User.insertMany(users);
-		const masterUser = createdUser[0]._id;
+const importCategoryData = async (sampleCategories) => {
+	// Clear existing records
+	await Category.deleteMany();
+	// Inserting records
+	const createdCategories = await Category.create(sampleCategories);
+	return createdCategories;
+};
 
-		// Insert categories
-		const createdCategories = await Category.create(categories);
-
-		// Insert products
-		const sampleProducts = products.map((product) => {
-			const rand = Math.floor(Math.random() * createdCategories.length);
-			return {
-				...product,
-				user: masterUser,
-				category: createdCategories[rand],
-				buyerList: [...createdUser],
-			};
-		});
-		await Product.create(sampleProducts);
-
-		console.log('Data Imported!'.green.inverse);
-		process.exit();
-	} catch (error) {
-		console.log(`${error}`.red.inverse);
-		process.exit(1);
-	}
+const importProductData = async (
+	sampleProducts,
+	createdUser,
+	createdCategories
+) => {
+	// Clear existing records
+	await Product.deleteMany();
+	// Inserting records
+	const modifiedProducts = sampleProducts.map((product) => {
+		const rand = Math.floor(Math.random() * createdCategories.length);
+		return {
+			...product,
+			user: createdUser[0],
+			category: createdCategories[rand],
+			buyerList: [...createdUser],
+		};
+	});
+	const createdProducts = await Product.create(modifiedProducts);
+	return createdProducts;
 };
 
 // Remove all data from DB
@@ -64,6 +67,30 @@ const destroyData = async () => {
 		await Order.deleteMany();
 
 		console.log('Data Destroyed!'.green.inverse);
+		process.exit();
+	} catch (error) {
+		console.log(`${error}`.red.inverse);
+		process.exit(1);
+	}
+};
+
+// Insert data into DB
+const importData = async () => {
+	try {
+		// Insert users
+		const createdUsers = await importUserData(users);
+
+		// Insert categories
+		const createdCategories = await importCategoryData(categories);
+
+		// Insert products
+		const createdProducts = await importProductData(
+			products,
+			createdUsers,
+			createdCategories
+		);
+
+		console.log('Data Imported!'.green.inverse);
 		process.exit();
 	} catch (error) {
 		console.log(`${error}`.red.inverse);
