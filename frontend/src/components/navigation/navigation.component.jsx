@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,11 +8,17 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import cx from 'classnames';
 
 import Searchbar from '../searchbar/searchbar.component';
+import {
+	selectIsAuthenticated,
+	selectIsAdmin,
+	selectUserDetails,
+} from '../../redux/user/user.selectors';
+import LogoutButton from '../logout-button/logout-button.component';
 
 import { ReactComponent as Logo } from '../../assets/logo/logo.svg';
 import styles from './navigation.module.scss';
 
-const Navigation = ({ sticky }) => {
+const Navigation = ({ sticky, isAuthenticated, isAdmin, user }) => {
 	const [scrolled, setScrolled] = useState(false);
 	const [showSeach, setSearch] = useState(false);
 
@@ -63,40 +71,47 @@ const Navigation = ({ sticky }) => {
 									onClick={() => setSearch(true)}>
 									<FontAwesomeIcon icon={faSearch} />
 								</Nav.Link>
-								<LinkContainer to='/login'>
-									<Nav.Link className={styles.navLink}>Login</Nav.Link>
-								</LinkContainer>
 								<LinkContainer to='/cart'>
 									<Nav.Link className={styles.navLink}>Cart(4)</Nav.Link>
 								</LinkContainer>
-								<NavDropdown
-									title='John Doe'
-									id='user-dashboard'
-									className={styles.navLink}>
-									<LinkContainer to='/dashboard'>
-										<NavDropdown.Item>Dashboard</NavDropdown.Item>
-									</LinkContainer>
-									<NavDropdown.Divider />
+
+								{isAuthenticated ? (
+									<NavDropdown
+										title={user.name}
+										id='user-dashboard'
+										className={styles.navLink}>
+										<LinkContainer to='/dashboard'>
+											<NavDropdown.Item>Dashboard</NavDropdown.Item>
+										</LinkContainer>
+										<NavDropdown.Divider />
+										<LogoutButton className='dropdown-item'>
+											Logout
+										</LogoutButton>
+									</NavDropdown>
+								) : (
 									<LinkContainer to='/login'>
-										<NavDropdown.Item>Logout</NavDropdown.Item>
+										<Nav.Link className={styles.navLink}>Login</Nav.Link>
 									</LinkContainer>
-								</NavDropdown>
-								<NavDropdown
-									title='Admin'
-									id='admin-dashboard'
-									className={styles.navLink}>
-									<LinkContainer exact to='/admin/products'>
-										<NavDropdown.Item>Products</NavDropdown.Item>
-									</LinkContainer>
-									<NavDropdown.Divider />
-									<LinkContainer to='/admin/orders'>
-										<NavDropdown.Item>Orders</NavDropdown.Item>
-									</LinkContainer>
-									<NavDropdown.Divider />
-									<LinkContainer to='/admin/users'>
-										<NavDropdown.Item>Users</NavDropdown.Item>
-									</LinkContainer>
-								</NavDropdown>
+								)}
+
+								{isAdmin && (
+									<NavDropdown
+										title='Admin'
+										id='admin-dashboard'
+										className={styles.navLink}>
+										<LinkContainer exact to='/admin/products'>
+											<NavDropdown.Item>Products</NavDropdown.Item>
+										</LinkContainer>
+										<NavDropdown.Divider />
+										<LinkContainer to='/admin/orders'>
+											<NavDropdown.Item>Orders</NavDropdown.Item>
+										</LinkContainer>
+										<NavDropdown.Divider />
+										<LinkContainer to='/admin/users'>
+											<NavDropdown.Item>Users</NavDropdown.Item>
+										</LinkContainer>
+									</NavDropdown>
+								)}
 							</Nav>
 						</Navbar.Collapse>
 					</>
@@ -106,4 +121,10 @@ const Navigation = ({ sticky }) => {
 	);
 };
 
-export default Navigation;
+const mapStateToProps = createStructuredSelector({
+	isAuthenticated: selectIsAuthenticated,
+	isAdmin: selectIsAdmin,
+	user: selectUserDetails,
+});
+
+export default connect(mapStateToProps)(Navigation);

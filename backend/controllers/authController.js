@@ -78,6 +78,13 @@ const logoutUserAll = asyncHandler(async (req, res) => {
 	res.json({ message: 'Succesfully logout from all devices' });
 });
 
+// @desc Get cuurently logged in user
+// @route GET /api/auth/me
+// @access PRIVATE
+const getCurrentUser = asyncHandler(async (req, res) => {
+	res.json(req.user);
+});
+
 // @desc Update authenticated user password
 // @route PUT /api/auth/security
 // @access PRIVATE
@@ -120,6 +127,7 @@ const closeUserAccount = asyncHandler(async (req, res) => {
 export {
 	loginUser,
 	registerUser,
+	getCurrentUser,
 	logoutUser,
 	logoutUserAll,
 	updateUserPassword,

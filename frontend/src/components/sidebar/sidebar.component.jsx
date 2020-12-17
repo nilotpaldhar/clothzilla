@@ -11,6 +11,8 @@ import {
 	faSignOutAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
+import LogoutButton from '../logout-button/logout-button.component';
+
 import styles from './sidebar.module.scss';
 import imgSrc from '../../assets/images/user.jpg';
 
@@ -61,10 +63,10 @@ const Sidebar = ({ isAdmin, isUser }) => {
 						</NavLink>
 					</>
 				)}
-				<NavLink to='/login'>
+				<LogoutButton>
 					<FontAwesomeIcon icon={faSignOutAlt} />
 					<span className='ml-3'>Logout</span>
-				</NavLink>
+				</LogoutButton>
 			</nav>
 		</aside>
 	);

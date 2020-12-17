@@ -1,6 +1,6 @@
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
-export default yup.object({
-	email: yup.string().email().required('Please enter your valid email address'),
-	password: yup.string().required('Please enter your password'),
+export default Yup.object({
+	email: Yup.string().email().required('Please enter your valid email address'),
+	password: Yup.string().required('Please enter your password'),
 });

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
 import { Button } from 'react-bootstrap';
@@ -6,19 +8,22 @@ import Spinner from 'react-spinkit';
 
 import FormContainer from '../../components/form-container/form-container.component';
 import FormikInput from '../../components/formik-input/formik-input.component';
-import schema from './login-validation-schema';
+import Message from '../../components/message/message.component';
 
-const Login = () => {
-	const handleSubmit = (values, { setSubmitting, resetForm }) => {
-		console.log(values);
-		setTimeout(() => {
-			setSubmitting(false);
-			resetForm();
-		}, 3000);
+import schema from './login-validation-schema';
+import { loginAsync } from '../../redux/auth/auth.actions';
+import { selectLoginError } from '../../redux/auth/auth.selectors';
+
+const Login = ({ history, login, error }) => {
+	const handleSubmit = (values, { setSubmitting }) => {
+		login(values)
+			.then(() => history.push('/'))
+			.catch(() => setSubmitting(false));
 	};
 
 	return (
 		<FormContainer title='Sign In with your email and password'>
+			{error && <Message variant='danger'>{error}</Message>}
 			<Formik
 				initialValues={{
 					email: '',
@@ -56,4 +61,12 @@ const Login = () => {
 	);
 };
 
-export default Login;
+const mapStateToProps = createStructuredSelector({
+	error: selectLoginError,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	login: (credentials) => dispatch(loginAsync(credentials)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
