@@ -1,32 +1,50 @@
 import React from 'react';
+import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import Spinner from 'react-spinkit';
 
 import FormContainer from '../../components/form-container/form-container.component';
+import FormikInput from '../../components/formik-input/formik-input.component';
+import schema from './login-validation-schema';
 
 const Login = () => {
-	const handleSubmit = (_evt) => {
-		_evt.preventDefault();
+	const handleSubmit = (values, { setSubmitting, resetForm }) => {
+		console.log(values);
+		setTimeout(() => {
+			setSubmitting(false);
+			resetForm();
+		}, 3000);
 	};
 
 	return (
 		<FormContainer title='Sign In with your email and password'>
-			<Form onSubmit={handleSubmit}>
-				<Form.Group controlId='email'>
-					<Form.Label>Email:</Form.Label>
-					<Form.Control type='email' />
-				</Form.Group>
-				<Form.Group controlId='password'>
-					<Form.Label>Password:</Form.Label>
-					<Form.Control type='password' />
-				</Form.Group>
-				<Button
-					type='submit'
-					variant='primary'
-					className='btn-block mt-4 text-uppercase'>
-					Login
-				</Button>
-			</Form>
+			<Formik
+				initialValues={{
+					email: '',
+					password: '',
+				}}
+				validationSchema={schema}
+				onSubmit={handleSubmit}>
+				{(props) => (
+					<Form>
+						<FormikInput id='email' label='Email' type='email' name='email' />
+						<FormikInput
+							id='password'
+							label='Password'
+							type='password'
+							name='password'
+						/>
+						<Button
+							type='submit'
+							variant='primary'
+							className='btn-block mt-4 text-uppercase'
+							disabled={props.isSubmitting}>
+							{props.isSubmitting ? <Spinner color='white' /> : 'Login'}
+						</Button>
+					</Form>
+				)}
+			</Formik>
 
 			<div className='mt-5 text-center text-secondary'>
 				Don't have an account?
