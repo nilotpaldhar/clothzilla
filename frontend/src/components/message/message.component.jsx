@@ -1,10 +1,12 @@
 import React from 'react';
 import { Alert } from 'react-bootstrap';
 
-const Message = ({ heading, variant = 'info', children }) => {
+const Message = ({ heading, variant = 'info', inline, children }) => {
 	return (
-		<Alert variant={variant}>
-			{heading && <Alert.Heading>{heading}</Alert.Heading>}{' '}
+		<Alert
+			variant={variant}
+			style={{ display: `${inline ? 'inline-block' : 'block'}` }}>
+			{heading && <Alert.Heading>{heading}</Alert.Heading>}
 			{<p className='mb-0'>{children}</p>}
 		</Alert>
 	);

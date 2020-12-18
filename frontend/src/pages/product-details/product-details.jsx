@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Row, Col, Image, Tabs, Tab } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
@@ -12,75 +14,99 @@ import Product from '../../components/product/product.component';
 import ProductQuantity from '../../components/product-quantity/product-quantity.component';
 import ReviewCollection from '../../components/review-collection/review-collection.component';
 import ReviewForm from '../../components/review-form/review-form.component';
+import Message from '../../components/message/message.component';
+import Spinner from '../../components/spinner/spinner.component';
 
-import products from '../../sample-data/products';
-import reviews from '../../sample-data/reviews';
+import { fetchProductDetails } from '../../redux/product-details/product-details.actions';
+import {
+	selectLoading,
+	selectError,
+	selectProduct,
+} from '../../redux/product-details/product-details.selectors';
 
 import styles from './product-details.module.scss';
 
-const ProductDetails = ({ match }) => {
-	const product = products[0];
-	const relatedProducts = products.filter((item, idx) => idx < 3);
+const ProductDetails = ({
+	match,
+	fetchProductDetails,
+	loading,
+	error,
+	product,
+}) => {
+	const { slug, id } = match.params;
+
+	useEffect(() => {
+		fetchProductDetails(slug, id);
+	}, [fetchProductDetails, id, slug]);
 
 	return (
 		<Layout>
-			<Row>
-				<Col xs={12} lg={4} className='mb-5 mb-lg-0'>
-					<Image src={product.image} alt={product.name} fluid />
-				</Col>
-				<Col xs={12} lg={8}>
-					<h1 className={styles.name}>{product.name}</h1>
-					<div className={styles.details}>
-						<div
-							className={cx(styles.stock, {
-								[styles.noStock]: product.stock === 0,
-							})}>
-							{product.stock === 0 ? 'out of stock' : 'in stock'}
-						</div>
-						<div className={styles.pricing}>
-							<span className='text-primary'>${product.salePrice}</span>
-							<span>
-								<del>${product.listPrice}</del>
-							</span>
-							<span className='text-success'>{product.discount}% off</span>
-						</div>
-						<div className={styles.rating}>
-							<StarRatingComponent
-								name='product-details-star-rating'
-								editing={false}
-								starCount={5}
-								value={product.rating}
-							/>
-							<span>({product.reviewCount})</span>
-						</div>
+			{loading ? (
+				<Spinner />
+			) : error ? (
+				<Message variant='danger'>{error}</Message>
+			) : (
+				<>
+					<Row>
+						<Col xs={12} lg={4} className='mb-5 mb-lg-0'>
+							<Image src={product.image} alt={product.name} fluid />
+						</Col>
+						<Col xs={12} lg={8}>
+							<h1 className={styles.name}>{product.name}</h1>
+							<div className={styles.details}>
+								<div
+									className={cx(styles.stock, {
+										[styles.noStock]: product.stock === 0,
+									})}>
+									{product.stock === 0 ? 'out of stock' : 'in stock'}
+								</div>
+								<div className={styles.pricing}>
+									<span className='text-primary'>${product.salePrice}</span>
+									<span>
+										<del>${product.listPrice}</del>
+									</span>
+									<span className='text-success'>{product.discount}% off</span>
+								</div>
+								<div className={styles.rating}>
+									<StarRatingComponent
+										name='product-details-star-rating'
+										editing={false}
+										starCount={5}
+										value={product.rating}
+									/>
+									<span>({product.reviewCount})</span>
+								</div>
+							</div>
+							<ShowMoreText
+								lines={5}
+								className={styles.desc}
+								more='Read more'
+								less='Read less'>
+								{product.description}
+							</ShowMoreText>
+							<div className={styles.actions}>
+								<ProductQuantity />
+								<Link to='/cart' className='btn btn-primary'>
+									<FontAwesomeIcon icon={faShoppingCart} />
+									<span className='ml-2'>Go to Cart</span>
+								</Link>
+							</div>
+						</Col>
+					</Row>
+					<div className={styles.reviewContainer}>
+						<Tabs defaultActiveKey='reviews' id='uncontrolled-tab-example'>
+							<Tab eventKey='reviews' title='Reviews & Ratings'>
+								<ReviewCollection reviews={product.reviews} />
+							</Tab>
+							<Tab eventKey='addReview' title='Rate Product'>
+								<ReviewForm />
+							</Tab>
+						</Tabs>
 					</div>
-					<ShowMoreText
-						lines={5}
-						className={styles.desc}
-						more='Read more'
-						less='Read less'>
-						{product.description}
-					</ShowMoreText>
-					<div className={styles.actions}>
-						<ProductQuantity />
-						<Link to='/cart' className='btn btn-primary'>
-							<FontAwesomeIcon icon={faShoppingCart} />
-							<span className='ml-2'>Go to Cart</span>
-						</Link>
-					</div>
-				</Col>
-			</Row>
-			<div className={styles.reviewContainer}>
-				<Tabs defaultActiveKey='reviews' id='uncontrolled-tab-example'>
-					<Tab eventKey='reviews' title='Reviews & Ratings'>
-						<ReviewCollection reviews={reviews} />
-					</Tab>
-					<Tab eventKey='addReview' title='Rate Product'>
-						<ReviewForm />
-					</Tab>
-				</Tabs>
-			</div>
-			<div className={styles.related}>
+				</>
+			)}
+
+			{/* <div className={styles.related}>
 				<h2>Related Products</h2>
 				<Row>
 					{relatedProducts.map((product) => (
@@ -89,9 +115,19 @@ const ProductDetails = ({ match }) => {
 						</Col>
 					))}
 				</Row>
-			</div>
+			</div> */}
 		</Layout>
 	);
 };
 
-export default ProductDetails;
+const mapStateToProps = createStructuredSelector({
+	loading: selectLoading,
+	error: selectError,
+	product: selectProduct,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	fetchProductDetails: (slug, id) => dispatch(fetchProductDetails(slug, id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

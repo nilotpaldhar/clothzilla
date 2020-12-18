@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 
 import ReviewItem from '../review-item/review-item.component';
+
 import styles from './review-collection.module.scss';
 
 const ReviewCollection = ({ name, reviews, limit }) => {
@@ -13,17 +14,23 @@ const ReviewCollection = ({ name, reviews, limit }) => {
 		<div className={styles.collection}>
 			<Row>
 				<Col xs={12}>
-					<h2>{name}</h2>
-					{reviews
-						.filter((review, idx) => idx < reviewLimit)
-						.map((review) => (
-							<ReviewItem key={review.id} review={review} />
-						))}
-					{reviews.length > reviewLimit && (
-						<button onClick={() => setReviewLimit(reviewLimit + limit)}>
-							<span>See More</span>
-							<FontAwesomeIcon icon={faArrowRight} />
-						</button>
+					{reviews && reviews.length > 0 ? (
+						<>
+							<h2>{name}</h2>
+							{reviews
+								.filter((review, idx) => idx < reviewLimit)
+								.map((review) => (
+									<ReviewItem key={review.id} review={review} />
+								))}
+							{reviews.length > reviewLimit && (
+								<button onClick={() => setReviewLimit(reviewLimit + limit)}>
+									<span>See More</span>
+									<FontAwesomeIcon icon={faArrowRight} />
+								</button>
+							)}
+						</>
+					) : (
+						<h2>No reviews yet</h2>
 					)}
 				</Col>
 			</Row>

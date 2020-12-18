@@ -1,12 +1,17 @@
 import React from 'react';
-import ReactSpinner from 'react-spinkit';
 
 import styles from './spinner.module.scss';
 
-const Spinner = ({ color = '#333333' }) => {
+const Spinner = () => {
 	return (
 		<div className={styles.container}>
-			<ReactSpinner name='line-scale-pulse-out' color={color} />
+			<div className={styles.spinner}>
+				<div className={styles.rect1}></div>
+				<div className={styles.rect2}></div>
+				<div className={styles.rect3}></div>
+				<div className={styles.rect4}></div>
+				<div className={styles.rect5}></div>
+			</div>
 		</div>
 	);
 };

@@ -6,12 +6,14 @@ import userReducer from './user/user.reducer';
 
 // Reducers related to product
 import productListReducer from './product-list/product-list.reducer';
+import productDetailsReducer from './product-details/product-details.reducer';
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	user: userReducer,
 
 	productList: productListReducer,
+	productDetails: productDetailsReducer,
 });
 
 export default rootReducer;
