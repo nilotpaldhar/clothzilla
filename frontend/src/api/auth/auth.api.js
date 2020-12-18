@@ -1,10 +1,5 @@
 import { get, post } from '../config.api';
-
-const configHeader = (token) => ({
-	headers: {
-		Authorization: `Bearer ${token}`,
-	},
-});
+import configHeader from '../utils/configHeader';
 
 const authApi = {
 	login: (credentials = {}) => post('/auth/login', credentials),

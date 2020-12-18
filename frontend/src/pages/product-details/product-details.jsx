@@ -19,7 +19,7 @@ import reviews from '../../sample-data/reviews';
 import styles from './product-details.module.scss';
 
 const ProductDetails = ({ match }) => {
-	const product = products.find((item) => item.id === Number(match.params.id));
+	const product = products[0];
 	const relatedProducts = products.filter((item, idx) => idx < 3);
 
 	return (

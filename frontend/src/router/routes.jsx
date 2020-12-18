@@ -30,7 +30,7 @@ const Routes = () => {
 			<GuestRoute path='/login' component={Login} />
 			<GuestRoute path='/register' component={Register} />
 			<Route path='/cart' component={Cartpage} />
-			<Route path='/product/:id' component={ProductDetails} />
+			<Route path='/product/:slug/:id' component={ProductDetails} />
 
 			{/* PRIVATE PAGES */}
 			<PrivateRoute path='/shipping' component={Shipping} />

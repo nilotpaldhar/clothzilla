@@ -5,6 +5,7 @@ import {
 	LOAD_USER_RESET,
 } from './user.types';
 import authApi from '../../api/auth/auth.api';
+import parseErrorMsg from '../../utils/parseErrorMsg';
 
 // Load currently logged in user actions
 export const loadUserRequest = () => ({ type: LOAD_USER_REQUEST });
@@ -26,10 +27,7 @@ export const loadUserAsync = () => (dispatch, getState) => {
 			dispatch(loadUserSuccess(data));
 			resolve(data);
 		} catch (error) {
-			const errorMsg =
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.response;
+			const errorMsg = parseErrorMsg(error);
 			dispatch(loadUserFail(errorMsg));
 			reject(error);
 		}

@@ -10,6 +10,7 @@ import {
 	LOGOUT_FAIL,
 } from './auth.types';
 import authApi from '../../api/auth/auth.api';
+import parseErrorMsg from '../../utils/parseErrorMsg';
 import { loadUserSuccess, loadUserReset } from '../user/user.actions';
 
 // User login actions
@@ -27,10 +28,7 @@ export const loginAsync = (credentials) => (dispatch) => {
 			dispatch(loadUserSuccess(data.user));
 			resolve(data);
 		} catch (error) {
-			const errorMsg =
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.response;
+			const errorMsg = parseErrorMsg(error);
 			dispatch(loginFail(errorMsg));
 			reject(errorMsg);
 		}
@@ -58,10 +56,7 @@ export const registerAsync = (userData) => (dispatch) => {
 			dispatch(loadUserSuccess(data.user));
 			resolve(data);
 		} catch (error) {
-			const errorMsg =
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.response;
+			const errorMsg = parseErrorMsg(error);
 			dispatch(registerFail(errorMsg));
 			reject(errorMsg);
 		}
@@ -84,10 +79,7 @@ export const logoutAsync = () => (dispatch, getState) => {
 			dispatch(loadUserReset());
 			resolve();
 		} catch (error) {
-			const errorMsg =
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.response;
+			const errorMsg = parseErrorMsg(error);
 			dispatch(logoutFail());
 			reject(errorMsg);
 		}
