@@ -73,3 +73,15 @@
 .sk-three-bounce {
     height: 20px;
 }
+
+.Toastify__toast--success {
+    background: $success;
+}
+
+.Toastify__toast--warning {
+    background: $warning;
+}
+
+.Toastify__toast--error {
+    background: $danger;
+}

@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../../components/layout/layout.component';
-import Product from '../../components/product/product.component';
+import RelatedProducts from '../../components/related-products/related-products.component';
 import ProductQuantity from '../../components/product-quantity/product-quantity.component';
 import ReviewCollection from '../../components/review-collection/review-collection.component';
 import ReviewForm from '../../components/review-form/review-form.component';
@@ -96,26 +96,16 @@ const ProductDetails = ({
 					<div className={styles.reviewContainer}>
 						<Tabs defaultActiveKey='reviews' id='uncontrolled-tab-example'>
 							<Tab eventKey='reviews' title='Reviews & Ratings'>
-								<ReviewCollection reviews={product.reviews} />
+								<ReviewCollection productId={product._id} />
 							</Tab>
 							<Tab eventKey='addReview' title='Rate Product'>
 								<ReviewForm />
 							</Tab>
 						</Tabs>
 					</div>
+					<RelatedProducts productId={product._id} productSlug={product.slug} />
 				</>
 			)}
-
-			{/* <div className={styles.related}>
-				<h2>Related Products</h2>
-				<Row>
-					{relatedProducts.map((product) => (
-						<Col key={product.id} xs={12} sm={6} lg={4}>
-							<Product product={product} />
-						</Col>
-					))}
-				</Row>
-			</div> */}
 		</Layout>
 	);
 };

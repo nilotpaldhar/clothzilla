@@ -40,8 +40,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/profile', profileRoutes);
 
 // Routes related to user
-app.use('/api/products', productUserRoutes);
 app.use('/api/products', reviewUserRoutes);
+app.use('/api/products', productUserRoutes);
 app.use('/api/categories', categoryUserRoutes);
 app.use('/api/myorders', orderUserRoutes);
 

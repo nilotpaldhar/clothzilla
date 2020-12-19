@@ -5,6 +5,7 @@ import { ModalContainer } from 'reoverlay';
 import ScrollToTop from './components/scroll-to-top/scroll-to-top.component';
 import Routes from './router/routes';
 import Loader from './components/loader/loader.component';
+import Notification from './components/notification/notification.component';
 
 import { loadUserAsync } from './redux/user/user.actions';
 
@@ -32,6 +33,7 @@ function App({ loadUser }) {
 		<ScrollToTop>
 			<Routes />
 			<ModalContainer />
+			<Notification />
 		</ScrollToTop>
 	);
 }

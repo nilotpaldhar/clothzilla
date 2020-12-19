@@ -7,15 +7,22 @@ import Review from '../../models/reviewModel.js';
 // @access PUBLIC
 const getAllReviews = asyncHandler(async (req, res) => {
 	const { productId } = req.params;
-	const product = await Product.findById(productId)
-		.select('reviews')
-		.populate('reviews', 'rating title comment user product');
+	const product = await Product.findById(productId).populate({
+		path: 'reviews',
+		populate: {
+			path: 'user',
+			select: 'name',
+		},
+	});
 
 	if (!product) {
 		res.status(404);
 		throw new Error('Product not found');
 	}
 
+	// const reviews = await Review.find({ product: product._id })
+	// 	.populate('user', 'name')
+	// 	.sort({ createdAt: -1 });
 	res.json(product.reviews);
 });
 
@@ -80,8 +87,9 @@ const createReview = asyncHandler(async (req, res) => {
 	});
 
 	await review.save();
+
 	// Inserting newly created review to the related product
-	product.reviews.push(review);
+	product.reviews.unshift(review);
 	// Increasing review count
 	product.reviewCount = product.reviews.length;
 	// Caculating product rating
@@ -90,7 +98,13 @@ const createReview = asyncHandler(async (req, res) => {
 		product.reviews.length;
 
 	await product.save();
-	res.status(201).json(review);
+
+	const createdReview = await Review.populate(review, {
+		path: 'user',
+		select: 'name',
+	});
+
+	res.status(201).json({ product, review: createdReview });
 });
 
 export { getAllReviews, getReviewById, createReview };

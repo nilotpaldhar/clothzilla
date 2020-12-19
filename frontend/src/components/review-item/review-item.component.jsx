@@ -1,6 +1,7 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import ShowMoreText from 'react-show-more-text';
+import TimeAgo from 'timeago-react';
 
 import styles from './review-item.module.scss';
 
@@ -17,15 +18,17 @@ const ReviewItem = ({ review }) => {
 			</div>
 			<h3>{review.title}</h3>
 			<div className={styles.details}>
-				{review.name} on {review.reviewedAt}
+				<strong>{review.user.name} </strong>
+				{review.createdAt && (
+					<TimeAgo datetime={review.createdAt} live={false} />
+				)}
 			</div>
-			{/* <p>{review.text}</p> */}
 			<ShowMoreText
 				lines={2}
 				className={styles.text}
 				more='Read more'
 				less='Read less'>
-				{review.text}
+				{review.comment}
 			</ShowMoreText>
 		</div>
 	);

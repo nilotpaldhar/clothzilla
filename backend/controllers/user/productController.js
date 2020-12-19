@@ -58,6 +58,7 @@ const getActiveProductById = asyncHandler(async (req, res) => {
 // @access PUBLIC
 const getRelatedProducts = asyncHandler(async (req, res) => {
 	const { id, slug } = req.params;
+	const limit = Number(req.query.limit) || 4;
 	const product = await Product.findOne({ _id: id, slug, isPublished: true });
 
 	if (!product) {
@@ -67,10 +68,13 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 
 	const category = product.category;
 	const relatedProducts = await Product.find({
+		_id: { $ne: product._id },
 		category,
 		isPublished: true,
-	}).select('-description -reviews -user');
-
+	})
+		.select('-description -reviews -user')
+		.limit(limit);
+	console.log(limit);
 	res.json(relatedProducts);
 });
 

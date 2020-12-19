@@ -1,0 +1,12 @@
+@import '../../sass/variables';
+
+.related {
+    margin-top: 6.25rem;
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: $dark;
+        margin-bottom: 2rem;
+    }
+}
