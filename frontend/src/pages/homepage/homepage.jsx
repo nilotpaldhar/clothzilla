@@ -14,18 +14,23 @@ import {
 	selectError,
 	selectProducts,
 } from '../../redux/product-list/product-list.selectors';
+import { selectActiveCategory } from '../../redux/category-list/category-list.selectors';
 
-import categories from '../../sample-data/categories';
-
-const Homepage = ({ fetchProducts, loading, error, products }) => {
+const Homepage = ({
+	fetchProducts,
+	loading,
+	error,
+	products,
+	activeCategory,
+}) => {
 	useEffect(() => {
-		fetchProducts(1);
-	}, [fetchProducts]);
+		fetchProducts(activeCategory);
+	}, [fetchProducts, activeCategory]);
 
 	return (
 		<Layout withBanner stickyNav>
 			<div id='shop' className='py-5'>
-				<ProductFilter initialTitle='Latest Products' categories={categories} />
+				<ProductFilter initialTitle='Latest Products' />
 				{loading ? (
 					<Spinner />
 				) : error ? (
@@ -41,11 +46,12 @@ const Homepage = ({ fetchProducts, loading, error, products }) => {
 const mapStateToProps = createStructuredSelector({
 	loading: selectLoading,
 	products: selectProducts,
+	activeCategory: selectActiveCategory,
 	error: selectError,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchProducts: (page) => dispatch(fetchProductList(page)),
+	fetchProducts: (category) => dispatch(fetchProductList(category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

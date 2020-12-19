@@ -8,7 +8,7 @@ const Footer = () => {
 	return (
 		<footer className={styles.footer}>
 			<div>
-				Copyright &copy; {year} All rights reserved | This website is made by
+				Copyright &copy; {year} All rights reserved | This website is created by
 				<a
 					target='_blank'
 					rel='noopener noreferrer'

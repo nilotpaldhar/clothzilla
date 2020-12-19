@@ -11,6 +11,7 @@ import {
 	selectTotalPage,
 	selectCurrentPage,
 } from '../../redux/product-list/product-list.selectors';
+import { selectActiveCategory } from '../../redux/category-list/category-list.selectors';
 
 const ProductCollection = ({
 	products,
@@ -18,6 +19,7 @@ const ProductCollection = ({
 	loading,
 	totalPages,
 	currentPage,
+	activeCategory,
 }) => {
 	return (
 		<Row>
@@ -32,7 +34,7 @@ const ProductCollection = ({
 					<Button
 						variant='dark'
 						className='px-4 px-lg-5 py-2 py-lg-3 text-capitalize'
-						onClick={() => loadMoreProducts(currentPage + 1)}
+						onClick={() => loadMoreProducts(currentPage + 1, activeCategory)}
 						disabled={loading}>
 						{loading ? 'Loading...' : 'Load More'}
 					</Button>
@@ -46,10 +48,12 @@ const mapStateToProps = createStructuredSelector({
 	loading: selectLoadMore,
 	totalPages: selectTotalPage,
 	currentPage: selectCurrentPage,
+	activeCategory: selectActiveCategory,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	loadMoreProducts: (page) => dispatch(loadMoreProducts(page)),
+	loadMoreProducts: (page, category) =>
+		dispatch(loadMoreProducts(page, category)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCollection);

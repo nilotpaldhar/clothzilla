@@ -30,7 +30,7 @@ const ReviewCollection = ({ name, reviews, limit }) => {
 							)}
 						</>
 					) : (
-						<h2>No reviews yet</h2>
+						<h2 className='text-capitalize'>No reviews yet</h2>
 					)}
 				</Col>
 			</Row>

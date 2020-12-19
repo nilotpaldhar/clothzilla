@@ -10,7 +10,9 @@ import parseErrorMsg from '../../utils/parseErrorMsg';
 import productApi from '../../api/product/product.api';
 
 // Fetch products from the backend
-export const productListRequest = () => ({ type: PRODUCT_LIST_REQUEST });
+export const productListRequest = () => ({
+	type: PRODUCT_LIST_REQUEST,
+});
 export const productListSuccess = (data) => ({
 	type: PRODUCT_LIST_SUCCESS,
 	payload: data,
@@ -19,10 +21,10 @@ export const productListFail = (error) => ({
 	type: PRODUCT_LIST_FAIL,
 	payload: error,
 });
-export const fetchProductList = () => async (dispatch) => {
+export const fetchProductList = (category) => async (dispatch) => {
 	try {
 		dispatch(productListRequest());
-		const { data } = await productApi.getProducts();
+		const { data } = await productApi.getProducts(null, category);
 		dispatch(productListSuccess(data));
 	} catch (error) {
 		dispatch(productListFail(parseErrorMsg(error)));
@@ -41,10 +43,10 @@ export const productLoadMoreFail = (error) => ({
 	type: PRODUCT_LOAD_MORE_FAIL,
 	payload: error,
 });
-export const loadMoreProducts = (page) => async (dispatch) => {
+export const loadMoreProducts = (page, category) => async (dispatch) => {
 	try {
 		dispatch(productLoadMoreRequest());
-		const { data } = await productApi.getProducts(page);
+		const { data } = await productApi.getProducts(page, category);
 		dispatch(productLoadMoreSuccess(data));
 	} catch (error) {
 		dispatch(productLoadMoreFail(parseErrorMsg(error)));

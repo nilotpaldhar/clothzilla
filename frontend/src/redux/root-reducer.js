@@ -8,12 +8,17 @@ import userReducer from './user/user.reducer';
 import productListReducer from './product-list/product-list.reducer';
 import productDetailsReducer from './product-details/product-details.reducer';
 
+// Reducers related to category
+import categoryListReducer from './category-list/category-list.reducer';
+
 const rootReducer = combineReducers({
 	auth: authReducer,
 	user: userReducer,
 
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
+
+	categoryList: categoryListReducer,
 });
 
 export default rootReducer;

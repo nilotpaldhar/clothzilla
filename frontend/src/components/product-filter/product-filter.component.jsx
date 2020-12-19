@@ -1,20 +1,44 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Row, Col } from 'react-bootstrap';
 
 import ProductFilterItem from '../product-filter-item/product-filter-item.component';
 import styles from './product-filter.module.scss';
 
-const ProductFilter = ({ initialTitle, categories }) => {
-	const [activeCategory, setActiveCategory] = useState('*');
-	const [title, setTitle] = useState(initialTitle);
+import {
+	fetchCategories,
+	setActiveCategory,
+} from '../../redux/category-list/category-list.actions';
+import {
+	selectCategories,
+	selectActiveCategory,
+	selectActiveCategoryTitle,
+} from '../../redux/category-list/category-list.selectors';
+
+const ProductFilter = ({
+	initialTitle = 'product collection',
+	fetchCategories,
+	categories,
+	activeCategory,
+	title,
+	setActiveCategory,
+}) => {
+	useEffect(() => {
+		fetchCategories();
+	}, [fetchCategories]);
 
 	const toggleCategory = (_evt) => {
-		setActiveCategory(_evt.target.value);
 		if (_evt.target.value !== '*') {
-			setTitle(`${_evt.target.innerText} collection`);
+			setActiveCategory({
+				id: _evt.target.value,
+				title: `${_evt.target.innerText} collection`,
+			});
 		} else {
-			setTitle(initialTitle);
+			setActiveCategory({
+				id: _evt.target.value,
+				title: initialTitle,
+			});
 		}
 	};
 
@@ -37,10 +61,10 @@ const ProductFilter = ({ initialTitle, categories }) => {
 						/>
 						{categories.map((category) => (
 							<ProductFilterItem
-								key={category.id}
-								id={category.id}
+								key={category._id}
+								id={category._id}
 								name={category.name}
-								isActive={parseInt(activeCategory) === category.id}
+								isActive={activeCategory === category._id}
 								handleClick={toggleCategory}
 							/>
 						))}
@@ -51,13 +75,15 @@ const ProductFilter = ({ initialTitle, categories }) => {
 	);
 };
 
-ProductFilter.defaultProps = {
-	initialTitle: 'product collection',
-};
+const mapStateToProps = createStructuredSelector({
+	categories: selectCategories,
+	activeCategory: selectActiveCategory,
+	title: selectActiveCategoryTitle,
+});
 
-ProductFilter.prototype = {
-	initialTitle: PropTypes.string,
-	categories: PropTypes.array,
-};
+const mapDispatchToProps = (dispatch) => ({
+	fetchCategories: () => dispatch(fetchCategories()),
+	setActiveCategory: (categoryId) => dispatch(setActiveCategory(categoryId)),
+});
 
-export default ProductFilter;
+export default connect(mapStateToProps, mapDispatchToProps)(ProductFilter);

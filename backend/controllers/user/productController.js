@@ -1,20 +1,29 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../../models/productModel.js';
+import Category from '../../models/categoryModel.js';
+import mongoose from 'mongoose';
 
 // @desc Get all published products
 // @route GET /api/products
 // @access PUBLIC
 const getAllActiveProducts = asyncHandler(async (req, res) => {
+	const category = req.query.category || '';
 	const pageSize = 20;
-	const count = await Product.countDocuments({
-		isPublished: true,
-	});
+	let filterProduct = { isPublished: true };
 
+	// Cheking whether category id is valid or not
+	if (mongoose.Types.ObjectId.isValid(category) && category !== '') {
+		filterProduct.category = category;
+	}
+	// Counting number documents
+	const count = await Product.countDocuments(filterProduct);
+	// Creating pagination
 	const totalPages = Math.ceil(count / pageSize);
 	const currentPage = Number(req.query.page) || 1;
 
-	const products = await Product.find({ isPublished: true })
+	const products = await Product.find(filterProduct)
 		.select('-description -reviews -user')
+		.populate('category', 'name')
 		.limit(pageSize)
 		.skip(pageSize * (currentPage - 1));
 
