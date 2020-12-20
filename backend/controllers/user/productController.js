@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 // @access PUBLIC
 const getAllActiveProducts = asyncHandler(async (req, res) => {
 	const category = req.query.category || '';
-	const pageSize = 20;
+	const pageSize = 18;
 	let filterProduct = { isPublished: true };
 
 	// Cheking whether category id is valid or not

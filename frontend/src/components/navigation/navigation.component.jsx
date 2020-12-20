@@ -8,17 +8,25 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import cx from 'classnames';
 
 import Searchbar from '../searchbar/searchbar.component';
-import {
-	selectIsAuthenticated,
-	selectIsAdmin,
-	selectUserDetails,
-} from '../../redux/user/user.selectors';
 import LogoutButton from '../logout-button/logout-button.component';
 
 import { ReactComponent as Logo } from '../../assets/logo/logo.svg';
 import styles from './navigation.module.scss';
 
-const Navigation = ({ sticky, isAuthenticated, isAdmin, user }) => {
+import {
+	selectIsAuthenticated,
+	selectIsAdmin,
+	selectUserDetails,
+} from '../../redux/user/user.selectors';
+import { seletctCartItemsCount } from '../../redux/cart/cart.selectors';
+
+const Navigation = ({
+	sticky,
+	isAuthenticated,
+	isAdmin,
+	user,
+	cartItemsCount,
+}) => {
 	const [scrolled, setScrolled] = useState(false);
 	const [showSeach, setSearch] = useState(false);
 
@@ -72,7 +80,9 @@ const Navigation = ({ sticky, isAuthenticated, isAdmin, user }) => {
 									<FontAwesomeIcon icon={faSearch} />
 								</Nav.Link>
 								<LinkContainer to='/cart'>
-									<Nav.Link className={styles.navLink}>Cart(4)</Nav.Link>
+									<Nav.Link className={styles.navLink}>
+										Cart({cartItemsCount})
+									</Nav.Link>
 								</LinkContainer>
 
 								{isAuthenticated ? (
@@ -125,6 +135,7 @@ const mapStateToProps = createStructuredSelector({
 	isAuthenticated: selectIsAuthenticated,
 	isAdmin: selectIsAdmin,
 	user: selectUserDetails,
+	cartItemsCount: seletctCartItemsCount,
 });
 
 export default connect(mapStateToProps)(Navigation);

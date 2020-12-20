@@ -22,16 +22,17 @@
 
     .btn {
         display: block;
+        text-decoration: none;
         position: absolute;
         top: 70%;
         left: 50%;
         transform: translate(-50%, -50%);
+        color: $dark;
         background-color: $white;
         border: none;
         border-radius: 3rem;
         font-size: 0.85rem;
         font-weight: 600;
-        color: $dark;
         padding: 0.8rem 1.5rem;
         display: flex;
         justify-content: center;

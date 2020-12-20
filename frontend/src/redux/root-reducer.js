@@ -15,17 +15,27 @@ import reviewListReducer from './review-list/review-list.reducer';
 // Reducers related to category
 import categoryListReducer from './category-list/category-list.reducer';
 
+// Reducer related to cart
+import cartReducer from './cart/cart.reducer';
+
+// Reducer related to notification
+import notificationReducer from './notification/notification.reducer';
+
 const rootReducer = combineReducers({
 	auth: authReducer,
-	user: userReducer,
+
+	categoryList: categoryListReducer,
+	cart: cartReducer,
+
+	notification: notificationReducer,
 
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
-	relatedProduct: relatedProductReducer,
 
+	relatedProduct: relatedProductReducer,
 	reviewList: reviewListReducer,
 
-	categoryList: categoryListReducer,
+	user: userReducer,
 });
 
 export default rootReducer;

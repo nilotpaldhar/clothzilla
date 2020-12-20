@@ -5,6 +5,7 @@ import {
 	CREATE_REVIEW_SUCCESS,
 } from './review-list.types';
 import { productDetailsSuccess } from '../product-details/product-details.actions';
+import { createNotification } from '../notification/notification.actions';
 import reviewApi from '../../api/review/review.api';
 import parseErrorMsg from '../../utils/parseErrorMsg';
 
@@ -41,8 +42,10 @@ export const createReview = (productId, review) => (dispatch, getState) => {
 			);
 			dispatch({ type: CREATE_REVIEW_SUCCESS, payload: data.review });
 			dispatch(productDetailsSuccess(data.product));
+			dispatch(createNotification('Your review added', 'success'));
 			resolve(data);
 		} catch (error) {
+			dispatch(createNotification(parseErrorMsg(error), 'error'));
 			reject(parseErrorMsg(error));
 		}
 	});

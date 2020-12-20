@@ -6,7 +6,7 @@ const productApi = {
 
 	getProductById: (slug = '', id = '') => get(`/products/${slug}/${id}`),
 	getRelatedProduct: (slug = '', id = '') =>
-		get(`/products/${slug}/${id}/related`),
+		get(`/products/${slug}/${id}/related?limit=3`),
 };
 
 export default productApi;

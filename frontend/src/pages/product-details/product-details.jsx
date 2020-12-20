@@ -11,7 +11,6 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 import Layout from '../../components/layout/layout.component';
 import RelatedProducts from '../../components/related-products/related-products.component';
-import ProductQuantity from '../../components/product-quantity/product-quantity.component';
 import ReviewCollection from '../../components/review-collection/review-collection.component';
 import ReviewForm from '../../components/review-form/review-form.component';
 import Message from '../../components/message/message.component';
@@ -23,6 +22,9 @@ import {
 	selectError,
 	selectProduct,
 } from '../../redux/product-details/product-details.selectors';
+import { addItemToCart } from '../../redux/cart/cart.actions';
+import { seletctCartItems } from '../../redux/cart/cart.selectors';
+import { existingCartItem } from '../../redux/cart/cart.utils';
 
 import styles from './product-details.module.scss';
 
@@ -32,6 +34,8 @@ const ProductDetails = ({
 	loading,
 	error,
 	product,
+	cartItems,
+	addItemToCart,
 }) => {
 	const { slug, id } = match.params;
 
@@ -85,11 +89,19 @@ const ProductDetails = ({
 								{product.description}
 							</ShowMoreText>
 							<div className={styles.actions}>
-								<ProductQuantity />
-								<Link to='/cart' className='btn btn-primary'>
-									<FontAwesomeIcon icon={faShoppingCart} />
-									<span className='ml-2'>Go to Cart</span>
-								</Link>
+								{existingCartItem(cartItems, { product: product._id }) ? (
+									<Link to='/cart' className='btn btn-primary'>
+										<FontAwesomeIcon icon={faShoppingCart} />
+										<span className='ml-2'>Go to Cart</span>
+									</Link>
+								) : (
+									<button
+										className='btn btn-primary'
+										onClick={() => addItemToCart(product)}>
+										<FontAwesomeIcon icon={faShoppingCart} />
+										<span className='ml-2'>Add to Cart</span>
+									</button>
+								)}
 							</div>
 						</Col>
 					</Row>
@@ -114,10 +126,12 @@ const mapStateToProps = createStructuredSelector({
 	loading: selectLoading,
 	error: selectError,
 	product: selectProduct,
+	cartItems: seletctCartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchProductDetails: (slug, id) => dispatch(fetchProductDetails(slug, id)),
+	addItemToCart: (product) => dispatch(addItemToCart(product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetails);

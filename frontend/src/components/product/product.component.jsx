@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,15 +8,26 @@ import StarRatingComponent from 'react-star-rating-component';
 
 import styles from './product.module.scss';
 
-const Product = ({ product }) => {
+import { addItemToCart } from '../../redux/cart/cart.actions';
+import { seletctCartItems } from '../../redux/cart/cart.selectors';
+import { existingCartItem } from '../../redux/cart/cart.utils';
+
+const Product = ({ product, addItemToCart, cartItems }) => {
 	return (
 		<div className={styles.productConatiner}>
 			<div className={styles.header}>
 				<img src={product.image} alt={product.name} />
-				<button className={styles.btn}>
-					<FontAwesomeIcon icon={faCartPlus} />
-					<span>Add To Cart</span>
-				</button>
+				{existingCartItem(cartItems, { product: product._id }) ? (
+					<Link to='/cart' className={styles.btn}>
+						<FontAwesomeIcon icon={faCartPlus} />
+						<span>Go To Cart</span>
+					</Link>
+				) : (
+					<button className={styles.btn} onClick={() => addItemToCart(product)}>
+						<FontAwesomeIcon icon={faCartPlus} />
+						<span>Add To Cart</span>
+					</button>
+				)}
 			</div>
 
 			<div className={styles.body}>
@@ -44,4 +57,12 @@ const Product = ({ product }) => {
 	);
 };
 
-export default Product;
+const mapStateToProps = createStructuredSelector({
+	cartItems: seletctCartItems,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	addItemToCart: (product) => dispatch(addItemToCart(product)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

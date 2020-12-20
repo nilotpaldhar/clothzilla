@@ -4,24 +4,29 @@ import { createStructuredSelector } from 'reselect';
 import { Formik, Form } from 'formik';
 import { Row, Col, Button } from 'react-bootstrap';
 import StarRatingComponent from 'react-star-rating-component';
-import { toast } from 'react-toastify';
 
 import FormikInput from '../formik-input/formik-input.component';
 
 import { selectIsAuthenticated } from '../../redux/user/user.selectors';
 import { selectProduct } from '../../redux/product-details/product-details.selectors';
 import { createReview } from '../../redux/review-list/review-list.actions';
+import { createNotification } from '../../redux/notification/notification.actions';
 
 import schema from './review-form-validation-schema';
 
 import styles from './review-form.module.scss';
 
-const ReviewForm = ({ isAuthenticated, product, createReview }) => {
+const ReviewForm = ({
+	isAuthenticated,
+	product,
+	createReview,
+	createNotification,
+}) => {
 	const [rating, setRating] = useState(0);
 
 	const handleSubmit = (values, { setSubmitting, resetForm }) => {
 		if (rating === 0) {
-			toast.error('Please enter your rating');
+			createNotification('Please enter your rating', 'error');
 			setSubmitting(false);
 		} else {
 			createReview(product._id, { ...values, rating })
@@ -29,13 +34,11 @@ const ReviewForm = ({ isAuthenticated, product, createReview }) => {
 					setSubmitting(false);
 					resetForm();
 					setRating(0);
-					toast.success('Review added successfully');
 				})
-				.catch((error) => {
+				.catch(() => {
 					setSubmitting(false);
 					resetForm();
 					setRating(0);
-					toast.error(error);
 				});
 		}
 	};
@@ -111,6 +114,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch) => ({
 	createReview: (productId, review) =>
 		dispatch(createReview(productId, review)),
+	createNotification: (message, variant) =>
+		dispatch(createNotification(message, variant)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

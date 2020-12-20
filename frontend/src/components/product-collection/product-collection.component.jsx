@@ -33,7 +33,7 @@ const ProductCollection = ({
 			) : (
 				<>
 					{products.map((product) => (
-						<Col key={product._id} xs={12} md={6} lg={3}>
+						<Col key={product._id} xs={12} md={6} lg={4}>
 							<Product product={product} />
 						</Col>
 					))}
