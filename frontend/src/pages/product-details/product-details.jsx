@@ -52,10 +52,10 @@ const ProductDetails = ({
 			) : (
 				<>
 					<Row>
-						<Col xs={12} lg={4} className='mb-5 mb-lg-0'>
+						<Col xs={12} lg={5} className='mb-5 mb-lg-0'>
 							<Image src={product.image} alt={product.name} fluid />
 						</Col>
-						<Col xs={12} lg={8}>
+						<Col xs={12} lg={7}>
 							<h1 className={styles.name}>{product.name}</h1>
 							<div className={styles.details}>
 								<div

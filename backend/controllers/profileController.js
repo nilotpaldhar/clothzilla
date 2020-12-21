@@ -15,11 +15,20 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access PRIVATE
 const updateUserProfile = asyncHandler(async (req, res) => {
 	const { name, email } = req.body;
+	const duplicateUser = await User.findOne({
+		email,
+		_id: { $ne: req.user._id },
+	});
 	const user = await User.findById(req.user._id);
 
 	if (!user) {
 		res.status(404);
 		throw new Error('User not found');
+	}
+
+	if (duplicateUser) {
+		res.status(400);
+		throw new Error('This email address already exists');
 	}
 
 	user.name = name || user.name;

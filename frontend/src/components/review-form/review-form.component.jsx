@@ -85,6 +85,8 @@ const ReviewForm = ({
 											label='Comment:'
 											type='text'
 											name='comment'
+											as='textarea'
+											rows='4'
 										/>
 
 										<Button

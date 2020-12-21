@@ -9,14 +9,12 @@ import UserAddress from '../../components/user-address/user-address.component';
 import UserSecurity from '../../components/user-security/user-security.component';
 import UserOrders from '../../components/user-orders/user-orders.component';
 
-import navLinks from './dashboard.links';
-
 const Dashboard = ({ match }) => {
 	return (
 		<Layout>
 			<Row>
 				<Col xs={12} lg={4} className='mb-4 mb-lg-0'>
-					<Sidebar navLinks={navLinks} isUser />
+					<Sidebar />
 				</Col>
 				<Col xs={12} lg={8}>
 					<Switch>

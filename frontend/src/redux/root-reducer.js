@@ -3,6 +3,9 @@ import { combineReducers } from 'redux';
 // Reducers related to authentication and user
 import authReducer from './auth/auth.reducer';
 import userReducer from './user/user.reducer';
+import userProfileReducer from './user-profile/user-profile.reducer';
+import userAddressReducer from './user-address/user-address.reducer';
+import userAvatarReducer from './user-avatar/user-avatar.reducer';
 
 // Reducers related to product
 import productListReducer from './product-list/product-list.reducer';
@@ -36,6 +39,9 @@ const rootReducer = combineReducers({
 	reviewList: reviewListReducer,
 
 	user: userReducer,
+	userAddress: userAddressReducer,
+	userAvatar: userAvatarReducer,
+	userProfile: userProfileReducer,
 });
 
 export default rootReducer;

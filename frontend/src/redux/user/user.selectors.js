@@ -5,7 +5,7 @@ const selectUser = (state) => state.user;
 // Select user loading state
 export const selectLoading = createSelector(
 	[selectUser],
-	(auth) => auth.loading
+	(selectUser) => selectUser.loading
 );
 
 // Select if user is authenicated or not
