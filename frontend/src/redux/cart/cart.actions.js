@@ -2,7 +2,7 @@ import {
 	ADD_ITEM_TO_CART,
 	REMOVE_ITEM_FROM_CART,
 	CLEAR_ITEM_FROM_CART,
-	CLEAR_CART,
+	RESET_CART,
 	SAVE_SHIPPING_ADDRESS,
 	SAVE_PAYMENT_METHOD,
 } from './cart.types';
@@ -39,8 +39,8 @@ export const clearItemFromCart = (product) => (dispatch) => {
 	);
 };
 
-// Clear cart
-export const clearCart = () => ({ type: CLEAR_CART });
+// Reset cart
+export const resetCart = () => ({ type: RESET_CART });
 
 // Save shipping address
 export const saveShippingAddress = (address) => ({

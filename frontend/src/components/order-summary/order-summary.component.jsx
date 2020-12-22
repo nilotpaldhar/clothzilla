@@ -12,6 +12,9 @@ const OrderSummary = ({
 	items = [],
 	shippingAddress = {},
 	paymentMethod,
+	paymentDetails,
+	deliveryDetails,
+	status,
 }) => {
 	const paymentIcon =
 		paymentMethod && paymentMethod.toLowerCase() === 'stripe'
@@ -44,7 +47,13 @@ const OrderSummary = ({
 				<ListGroupItem>
 					<h2>Delivery Status:</h2>
 					<div className={styles.details}>
-						<Chip variant='warning'>Processing</Chip>
+						{deliveryDetails.isDelivered ? (
+							<Chip variant='success'>
+								Delivered on {deliveryDetails.deliveredAt}
+							</Chip>
+						) : (
+							<Chip variant='danger'>Not delivered yet</Chip>
+						)}
 					</div>
 				</ListGroupItem>
 			)}
@@ -62,7 +71,11 @@ const OrderSummary = ({
 				<ListGroupItem>
 					<h2>Payment Status:</h2>
 					<div className={styles.details}>
-						<Chip variant='success'>Paid on Tuesday, 8 December 2020</Chip>
+						{paymentDetails.isPaid ? (
+							<Chip variant='success'>Paid on {paymentDetails.paidAt}</Chip>
+						) : (
+							<Chip variant='danger'>Not Paid</Chip>
+						)}
 					</div>
 				</ListGroupItem>
 			)}

@@ -2,7 +2,7 @@ import {
 	ADD_ITEM_TO_CART,
 	REMOVE_ITEM_FROM_CART,
 	CLEAR_ITEM_FROM_CART,
-	CLEAR_CART,
+	RESET_CART,
 	SAVE_SHIPPING_ADDRESS,
 	SAVE_PAYMENT_METHOD,
 } from './cart.types';
@@ -25,14 +25,14 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 		case CLEAR_ITEM_FROM_CART:
 			return { ...state, items: clearItem(state.items, action.payload) };
 
-		case CLEAR_CART:
-			return { ...state, items: [] };
-
 		case SAVE_SHIPPING_ADDRESS:
 			return { ...state, shippingAddress: action.payload };
 
 		case SAVE_PAYMENT_METHOD:
 			return { ...state, paymentMethod: action.payload };
+
+		case RESET_CART:
+			return { ...state, items: [], shippingAddress: {}, paymentMethod: '' };
 
 		default:
 			return state;

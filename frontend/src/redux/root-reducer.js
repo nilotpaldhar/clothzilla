@@ -25,6 +25,8 @@ import cartReducer from './cart/cart.reducer';
 
 // Reducer related to orders
 import orderListReducer from './order-list/order-list.reducer';
+import orderCreateReducer from './order-create/order-create.reducer';
+import orderDetailsReducer from './order-details/order-details.reducer';
 
 // Reducer related to notification
 import notificationReducer from './notification/notification.reducer';
@@ -44,6 +46,8 @@ const rootReducer = combineReducers({
 
 	notification: notificationReducer,
 	orderList: orderListReducer,
+	orderCreate: orderCreateReducer,
+	orderDetails: orderDetailsReducer,
 
 	productList: productListReducer,
 	productDetails: productDetailsReducer,

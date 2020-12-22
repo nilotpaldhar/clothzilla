@@ -19,9 +19,17 @@ import {
 	selectShippingPrice,
 	selectTotalPrice,
 } from '../../redux/cart/cart.selectors';
+import { createOrder } from '../../redux/order-create/order-create.actions';
+import {
+	selectOrderCreateLoading,
+	selectOrderCreateError,
+	selectOrderCreateSuccess,
+	selectOrder,
+} from '../../redux/order-create/order-create.selectors';
 
 const PlaceOrder = ({
 	history,
+	createOrder,
 	finishedAllSteps,
 	cartItems,
 	shippingAddress,
@@ -30,25 +38,35 @@ const PlaceOrder = ({
 	totalTax,
 	shippingPrice,
 	totalPrice,
+	loading,
+	orderError,
+	orderSuccess,
+	newOrder,
 }) => {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
 		if (!finishedAllSteps) {
 			setError('Please complete all the steps before placing an order');
+			return;
 		}
-	}, [finishedAllSteps]);
+
+		if (orderSuccess) {
+			history.push(`/order/${newOrder._id}`);
+		}
+	}, [finishedAllSteps, orderSuccess, newOrder, history]);
 
 	const handlePlaceOrder = () => {
 		const newOrder = {
 			orderItems: cartItems,
+			itemsPrice: cartTotal,
 			shippingAddress,
 			paymentMethod,
 			shippingPrice,
 			totalPrice,
 			taxPrice: totalTax,
 		};
-		console.log(newOrder);
+		createOrder(newOrder);
 	};
 
 	return (
@@ -58,6 +76,7 @@ const PlaceOrder = ({
 					<CheckoutSteps step1 step2 step3 step4 />
 				</Card.Header>
 				<Card.Body>
+					{orderError && <Message variant='danger'>{orderError}</Message>}
 					{error ? (
 						<Message variant='danger'>{error}</Message>
 					) : (
@@ -81,8 +100,9 @@ const PlaceOrder = ({
 									type='submit'
 									variant='primary'
 									className='mt-2 btn-block btn-lg rounded'
-									onClick={handlePlaceOrder}>
-									Place Order
+									onClick={handlePlaceOrder}
+									disabled={loading}>
+									{loading ? 'Placing Order...' : 'Place Order'}
 								</Button>
 							</Col>
 						</Row>
@@ -102,6 +122,14 @@ const mapStateToProps = createStructuredSelector({
 	totalTax: selectTotalTax,
 	shippingPrice: selectShippingPrice,
 	totalPrice: selectTotalPrice,
+	loading: selectOrderCreateLoading,
+	orderError: selectOrderCreateError,
+	orderSuccess: selectOrderCreateSuccess,
+	newOrder: selectOrder,
 });
 
-export default connect(mapStateToProps)(PlaceOrder);
+const mapDispatchToProps = (dispatch) => ({
+	createOrder: (order) => dispatch(createOrder(order)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaceOrder);

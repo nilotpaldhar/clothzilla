@@ -14,6 +14,7 @@ const orderSchema = mongoose.Schema(
 				image: { type: String, required: true },
 				price: { type: Number, required: true },
 				tax: { type: Number, required: true },
+				total: { type: Number, required: true },
 				product: {
 					type: mongoose.Schema.Types.ObjectId,
 					required: true,
@@ -40,15 +41,19 @@ const orderSchema = mongoose.Schema(
 			email_address: { type: String },
 		},
 		taxPrice: {
-			type: String,
+			type: Number,
 			required: true,
 		},
 		shippingPrice: {
-			type: String,
+			type: Number,
+			required: true,
+		},
+		itemsPrice: {
+			type: Number,
 			required: true,
 		},
 		totalPrice: {
-			type: String,
+			type: Number,
 			required: true,
 		},
 		isPaid: {
