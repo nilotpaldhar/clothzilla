@@ -18,7 +18,7 @@ import {
 	selectIsAdmin,
 	selectUserDetails,
 } from '../../redux/user/user.selectors';
-import { seletctCartItemsCount } from '../../redux/cart/cart.selectors';
+import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
 
 const Navigation = ({
 	sticky,
@@ -135,7 +135,7 @@ const mapStateToProps = createStructuredSelector({
 	isAuthenticated: selectIsAuthenticated,
 	isAdmin: selectIsAdmin,
 	user: selectUserDetails,
-	cartItemsCount: seletctCartItemsCount,
+	cartItemsCount: selectCartItemsCount,
 });
 
 export default connect(mapStateToProps)(Navigation);

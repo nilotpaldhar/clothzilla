@@ -9,7 +9,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import styles from './product.module.scss';
 
 import { addItemToCart } from '../../redux/cart/cart.actions';
-import { seletctCartItems } from '../../redux/cart/cart.selectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { existingCartItem } from '../../redux/cart/cart.utils';
 
 const Product = ({ product, addItemToCart, cartItems }) => {
@@ -58,7 +58,7 @@ const Product = ({ product, addItemToCart, cartItems }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-	cartItems: seletctCartItems,
+	cartItems: selectCartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({

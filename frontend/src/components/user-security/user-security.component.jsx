@@ -1,17 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { Card, Button } from 'react-bootstrap';
 
 import FormikInput from '../formik-input/formik-input.component';
 import schema from './user-security-validation-schema';
 
-const UserSecurity = () => {
+import { updatePasswordAsync } from '../../redux/auth/auth.actions';
+
+const UserSecurity = ({ updatePassword }) => {
 	const handleSubmit = (values, { setSubmitting, resetForm }) => {
-		console.log(values);
-		setTimeout(() => {
-			setSubmitting(false);
-			resetForm();
-		}, 3000);
+		updatePassword(values)
+			.then(() => {
+				setSubmitting(false);
+				resetForm();
+			})
+			.catch(() => {
+				setSubmitting(false);
+				resetForm();
+			});
 	};
 
 	return (
@@ -64,4 +71,8 @@ const UserSecurity = () => {
 	);
 };
 
-export default UserSecurity;
+const mapDispatchToProps = (dispatch) => ({
+	updatePassword: (passwords) => dispatch(updatePasswordAsync(passwords)),
+});
+
+export default connect(null, mapDispatchToProps)(UserSecurity);

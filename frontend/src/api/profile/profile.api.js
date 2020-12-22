@@ -1,4 +1,4 @@
-import { get, post, put } from '../config.api';
+import { get, put } from '../config.api';
 import configHeader from '../utils/configHeader';
 
 const profileApi = {

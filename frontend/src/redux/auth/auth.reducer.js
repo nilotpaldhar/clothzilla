@@ -9,6 +9,9 @@ import {
 	LOGOUT_REQUEST,
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
+	UPDATE_PASSWORD_REQUEST,
+	UPDATE_PASSWORD_SUCCESS,
+	UPDATE_PASSWORD_FAIL,
 } from './auth.types';
 
 const INITIAL_STATE = {
@@ -17,6 +20,8 @@ const INITIAL_STATE = {
 	loginError: null,
 	registerError: null,
 	logoutError: null,
+	updatingPassword: false,
+	passwordError: null,
 };
 
 const authReducer = (state = INITIAL_STATE, action) => {
@@ -25,6 +30,9 @@ const authReducer = (state = INITIAL_STATE, action) => {
 		case REGISTER_REQUEST:
 		case LOGOUT_REQUEST:
 			return { ...state, loading: true };
+
+		case UPDATE_PASSWORD_REQUEST:
+			return { ...state, updatingPassword: true };
 
 		case LOGIN_SUCCESS:
 		case REGISTER_SUCCESS:
@@ -37,6 +45,9 @@ const authReducer = (state = INITIAL_STATE, action) => {
 				loginError: null,
 				registerError: null,
 			};
+
+		case UPDATE_PASSWORD_SUCCESS:
+			return { ...state, updatingPassword: false };
 
 		case LOGOUT_SUCCESS:
 			Cookies.remove('token');
@@ -51,6 +62,13 @@ const authReducer = (state = INITIAL_STATE, action) => {
 		case LOGOUT_FAIL:
 			Cookies.remove('token');
 			return { ...state, loading: false, logoutError: action.payload };
+
+		case UPDATE_PASSWORD_FAIL:
+			return {
+				...state,
+				updatingPassword: false,
+				passwordError: action.payload,
+			};
 
 		default:
 			return state;

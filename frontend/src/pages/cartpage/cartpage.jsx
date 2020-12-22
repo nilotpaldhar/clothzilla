@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Link } from 'react-router-dom';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Button } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
 import CartItem from '../../components/cart-item/cart-item.component';
@@ -10,11 +9,17 @@ import CartItem from '../../components/cart-item/cart-item.component';
 import styles from './cartpage.module.scss';
 
 import {
-	seletctCartItems,
-	seletctCartTotal,
+	selectCartItems,
+	selectCartTotal,
 } from '../../redux/cart/cart.selectors';
+import { selectIsAuthenticated } from '../../redux/user/user.selectors';
 
-const Cartpage = ({ cartItems, cartTotal }) => {
+const Cartpage = ({ history, cartItems, cartTotal, isAuthenticated }) => {
+	const handleCheckout = () => {
+		const redirect = isAuthenticated ? '/shipping' : '/login?redirect=shipping';
+		history.push(redirect);
+	};
+
 	return (
 		<Layout>
 			<div className={styles.container}>
@@ -40,9 +45,12 @@ const Cartpage = ({ cartItems, cartTotal }) => {
 					<div className={styles.footer}>
 						<Row className='align-items-center'>
 							<Col sm={7} md={8} lg={9}>
-								<Link to='/shipping' className='btn btn-primary px-4 py-2'>
+								<Button
+									variant='primary'
+									className='px-4 py-2'
+									onClick={handleCheckout}>
 									Go to Checkout
-								</Link>
+								</Button>
 							</Col>
 							<Col sm={5} md={4} lg={3}>
 								<span>Total ${cartTotal}</span>
@@ -56,8 +64,9 @@ const Cartpage = ({ cartItems, cartTotal }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-	cartItems: seletctCartItems,
-	cartTotal: seletctCartTotal,
+	cartItems: selectCartItems,
+	cartTotal: selectCartTotal,
+	isAuthenticated: selectIsAuthenticated,
 });
 
 export default connect(mapStateToProps)(Cartpage);

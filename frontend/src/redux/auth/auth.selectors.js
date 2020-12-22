@@ -19,3 +19,15 @@ export const selectRegisterError = createSelector(
 	[selectAuth],
 	(auth) => auth.registerError
 );
+
+// Select password updating state
+export const selectUpdatingPassword = createSelector(
+	[selectAuth],
+	(auth) => auth.updatingPassword
+);
+
+// Select update password error
+export const selectPasswordError = createSelector(
+	[selectAuth],
+	(auth) => auth.passwordError
+);

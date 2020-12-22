@@ -8,10 +8,14 @@ import {
 	LOGOUT_REQUEST,
 	LOGOUT_SUCCESS,
 	LOGOUT_FAIL,
+	UPDATE_PASSWORD_REQUEST,
+	UPDATE_PASSWORD_SUCCESS,
+	UPDATE_PASSWORD_FAIL,
 } from './auth.types';
 import authApi from '../../api/auth/auth.api';
 import parseErrorMsg from '../../utils/parseErrorMsg';
 import { loadUserSuccess, loadUserReset } from '../user/user.actions';
+import { createNotification } from '../notification/notification.actions';
 
 // User login actions
 export const loginRequest = () => ({ type: LOGIN_REQUEST });
@@ -81,6 +85,33 @@ export const logoutAsync = () => (dispatch, getState) => {
 		} catch (error) {
 			const errorMsg = parseErrorMsg(error);
 			dispatch(logoutFail());
+			reject(errorMsg);
+		}
+	});
+};
+
+// User password update actions
+export const updatePasswordRequest = () => ({ type: UPDATE_PASSWORD_REQUEST });
+export const updatePasswordSuccess = () => ({ type: UPDATE_PASSWORD_SUCCESS });
+export const updatePasswordFail = (error) => ({
+	type: UPDATE_PASSWORD_FAIL,
+	payload: error,
+});
+
+export const updatePasswordAsync = (passwords) => (dispatch, getState) => {
+	dispatch(updatePasswordRequest());
+
+	return new Promise(async (resolve, reject) => {
+		try {
+			const { auth } = getState();
+			await authApi.security(auth.token, passwords);
+			dispatch(updatePasswordSuccess());
+			dispatch(createNotification('Password updated successfully', 'success'));
+			resolve();
+		} catch (error) {
+			const errorMsg = parseErrorMsg(error);
+			dispatch(updatePasswordFail(errorMsg));
+			dispatch(createNotification(errorMsg, 'error'));
 			reject(errorMsg);
 		}
 	});

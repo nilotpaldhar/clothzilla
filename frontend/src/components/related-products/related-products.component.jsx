@@ -28,6 +28,11 @@ const RelatedProducts = ({
 			fetchRelatedProduct(productSlug, productId);
 		}
 	}, [fetchRelatedProduct, productSlug, productId]);
+
+	if (relatedProducts && relatedProducts.length === 0) {
+		return null;
+	}
+
 	return (
 		<div>
 			<div className={styles.related}>

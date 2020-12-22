@@ -23,7 +23,7 @@ import {
 	selectProduct,
 } from '../../redux/product-details/product-details.selectors';
 import { addItemToCart } from '../../redux/cart/cart.actions';
-import { seletctCartItems } from '../../redux/cart/cart.selectors';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { existingCartItem } from '../../redux/cart/cart.utils';
 
 import styles from './product-details.module.scss';
@@ -126,7 +126,7 @@ const mapStateToProps = createStructuredSelector({
 	loading: selectLoading,
 	error: selectError,
 	product: selectProduct,
-	cartItems: seletctCartItems,
+	cartItems: selectCartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({

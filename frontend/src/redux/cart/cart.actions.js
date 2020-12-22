@@ -3,6 +3,8 @@ import {
 	REMOVE_ITEM_FROM_CART,
 	CLEAR_ITEM_FROM_CART,
 	CLEAR_CART,
+	SAVE_SHIPPING_ADDRESS,
+	SAVE_PAYMENT_METHOD,
 } from './cart.types';
 import { createNotification } from '../notification/notification.actions';
 
@@ -39,3 +41,15 @@ export const clearItemFromCart = (product) => (dispatch) => {
 
 // Clear cart
 export const clearCart = () => ({ type: CLEAR_CART });
+
+// Save shipping address
+export const saveShippingAddress = (address) => ({
+	type: SAVE_SHIPPING_ADDRESS,
+	payload: address,
+});
+
+// Save payment method
+export const savePaymentMethod = (method) => ({
+	type: SAVE_PAYMENT_METHOD,
+	payload: method,
+});

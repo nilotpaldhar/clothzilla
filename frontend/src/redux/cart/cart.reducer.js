@@ -3,11 +3,15 @@ import {
 	REMOVE_ITEM_FROM_CART,
 	CLEAR_ITEM_FROM_CART,
 	CLEAR_CART,
+	SAVE_SHIPPING_ADDRESS,
+	SAVE_PAYMENT_METHOD,
 } from './cart.types';
 import { addItem, removeItem, clearItem } from './cart.utils';
 
 const INITIAL_STATE = {
 	items: [],
+	shippingAddress: {},
+	paymentMethod: '',
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -23,6 +27,12 @@ const cartReducer = (state = INITIAL_STATE, action) => {
 
 		case CLEAR_CART:
 			return { ...state, items: [] };
+
+		case SAVE_SHIPPING_ADDRESS:
+			return { ...state, shippingAddress: action.payload };
+
+		case SAVE_PAYMENT_METHOD:
+			return { ...state, paymentMethod: action.payload };
 
 		default:
 			return state;

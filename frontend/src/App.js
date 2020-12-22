@@ -9,7 +9,7 @@ import Notification from './components/notification/notification.component';
 
 import { loadUserAsync } from './redux/user/user.actions';
 
-function App({ loadUser }) {
+const App = ({ loadUser }) => {
 	const [renderApp, setRenderApp] = useState(false);
 
 	// Checking if user is authenticated or not before app render
@@ -36,7 +36,7 @@ function App({ loadUser }) {
 			<Notification />
 		</ScrollToTop>
 	);
-}
+};
 
 const mapDispatchToProps = (dispatch) => ({
 	loadUser: () => dispatch(loadUserAsync()),

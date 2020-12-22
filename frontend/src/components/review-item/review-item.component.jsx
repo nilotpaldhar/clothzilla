@@ -1,7 +1,7 @@
 import React from 'react';
 import StarRatingComponent from 'react-star-rating-component';
 import ShowMoreText from 'react-show-more-text';
-import TimeAgo from 'timeago-react';
+import { format } from 'date-fns';
 
 import styles from './review-item.module.scss';
 
@@ -18,10 +18,11 @@ const ReviewItem = ({ review }) => {
 			</div>
 			<h3>{review.title}</h3>
 			<div className={styles.details}>
-				<strong>{review.user.name} </strong>
-				{review.createdAt && (
-					<TimeAgo datetime={review.createdAt} live={false} />
-				)}
+				<span>{review.user.name} on </span>
+				<span>
+					{review.createdAt &&
+						format(new Date(review.createdAt), 'MMM dd, yyyy')}
+				</span>
 			</div>
 			<ShowMoreText
 				lines={2}

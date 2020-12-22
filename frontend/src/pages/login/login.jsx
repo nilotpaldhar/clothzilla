@@ -14,10 +14,12 @@ import schema from './login-validation-schema';
 import { loginAsync } from '../../redux/auth/auth.actions';
 import { selectLoginError } from '../../redux/auth/auth.selectors';
 
-const Login = ({ history, login, error }) => {
+const Login = ({ history, location, login, error }) => {
 	const handleSubmit = (values, { setSubmitting }) => {
+		const redirect = location.search ? location.search.split('=')[1] : '/';
+
 		login(values)
-			.then(() => history.push('/'))
+			.then(() => history.push(redirect))
 			.catch(() => setSubmitting(false));
 	};
 

@@ -36,6 +36,7 @@ const createOrder = asyncHandler(async (req, res) => {
 		orderItems,
 		shippingAddress,
 		paymentMethod,
+		shippingPrice,
 		totalPrice,
 		taxPrice,
 	} = req.body;
@@ -51,7 +52,7 @@ const createOrder = asyncHandler(async (req, res) => {
 		shippingAddress,
 		paymentMethod,
 		orderItems,
-		shippingPrice: totalPrice > 100 ? 0 : 100,
+		shippingPrice,
 		taxPrice,
 		totalPrice,
 	});

@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 
 // Reducers related to authentication and user
 import authReducer from './auth/auth.reducer';
@@ -21,8 +23,18 @@ import categoryListReducer from './category-list/category-list.reducer';
 // Reducer related to cart
 import cartReducer from './cart/cart.reducer';
 
+// Reducer related to orders
+import orderListReducer from './order-list/order-list.reducer';
+
 // Reducer related to notification
 import notificationReducer from './notification/notification.reducer';
+
+// Configure redux persist for cart
+const persistConfig = {
+	key: 'root',
+	storage,
+	whitelist: ['cart'],
+};
 
 const rootReducer = combineReducers({
 	auth: authReducer,
@@ -31,6 +43,7 @@ const rootReducer = combineReducers({
 	cart: cartReducer,
 
 	notification: notificationReducer,
+	orderList: orderListReducer,
 
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
@@ -44,4 +57,4 @@ const rootReducer = combineReducers({
 	userProfile: userProfileReducer,
 });
 
-export default rootReducer;
+export default persistReducer(persistConfig, rootReducer);

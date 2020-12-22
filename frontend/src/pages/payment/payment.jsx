@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { Card, Form, Button, Col } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
 import CheckoutSteps from '../../components/checkout-steps/checkout-steps.component';
 
-const Payment = () => {
+import { savePaymentMethod } from '../../redux/cart/cart.actions';
+import { createNotification } from '../../redux/notification/notification.actions';
+
+const Payment = ({ savePaymentMethod, createNotification }) => {
 	const history = useHistory();
+	const [paymentMethod, setPaymentMethod] = useState('');
 
 	const handleSubmit = (_evt) => {
 		_evt.preventDefault();
+		if (!paymentMethod) {
+			createNotification('Please choose your payment method', 'error');
+			return;
+		}
+		savePaymentMethod(paymentMethod);
 		history.push('/placeorder');
 	};
 
@@ -32,7 +42,8 @@ const Payment = () => {
 									label='PayPal or Credit Card'
 									id='paypal'
 									name='paymentMethod'
-									value='PayPal'
+									value='paypal'
+									onChange={(e) => setPaymentMethod(e.target.value)}
 								/>
 							</Col>
 							<Col>
@@ -43,6 +54,7 @@ const Payment = () => {
 									id='stripe'
 									name='paymentMethod'
 									value='stripe'
+									onChange={(e) => setPaymentMethod(e.target.value)}
 								/>
 							</Col>
 						</Form.Group>
@@ -56,4 +68,10 @@ const Payment = () => {
 	);
 };
 
-export default Payment;
+const mapDispatchToProps = (dispatch) => ({
+	savePaymentMethod: (method) => dispatch(savePaymentMethod(method)),
+	createNotification: (message, variant) =>
+		dispatch(createNotification(message, variant)),
+});
+
+export default connect(null, mapDispatchToProps)(Payment);

@@ -147,7 +147,7 @@ productSchema.pre('save', async function (next) {
 	);
 	const taxPrice = calculateTaxPrice(discountedPrice, this.tax);
 
-	this.salePrice = calculateSalesPrice(discountedPrice, taxPrice);
+	this.salePrice = discountedPrice;
 	this.taxPrice = taxPrice;
 });
 

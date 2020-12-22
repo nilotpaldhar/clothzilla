@@ -10,7 +10,7 @@ export const addItem = (cartItems, itemToAdd) => {
 		slug: itemToAdd.slug,
 		image: itemToAdd.image,
 		stock: itemToAdd.stock,
-		price: itemToAdd.listPrice || itemToAdd.price,
+		price: itemToAdd.salePrice || itemToAdd.price,
 		tax: itemToAdd.taxPrice,
 		product: itemToAdd._id || itemToAdd.product,
 	};
