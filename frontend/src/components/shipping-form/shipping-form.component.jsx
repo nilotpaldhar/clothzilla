@@ -6,6 +6,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 
 import FormikInput from '../formik-input/formik-input.component';
+import FormikSelectInput from '../formik-select-input/formik-select-input.component';
 import Spinner from '../spinner/spinner.component';
 import Message from '../message/message.component';
 import schema from './shipping-form-validation-schema';
@@ -20,13 +21,18 @@ import {
 	selectAddress,
 } from '../../redux/user-address/user-address.selectors';
 
+import { fetchCountries } from '../../redux/country-list/country-list.actions';
+import { selectCountries } from '../../redux/country-list/country-list.selectors';
+
 const ShippingForm = ({
 	fetchAddress,
+	fetchCountries,
 	saveShippingAddress,
 	loading,
 	error,
 	userAddress,
 	userDetails,
+	countries,
 }) => {
 	const history = useHistory();
 
@@ -37,7 +43,8 @@ const ShippingForm = ({
 
 	useEffect(() => {
 		fetchAddress();
-	}, [fetchAddress]);
+		fetchCountries();
+	}, [fetchAddress, fetchCountries]);
 
 	return (
 		<>
@@ -101,12 +108,19 @@ const ShippingForm = ({
 									/>
 								</Col>
 							</Row>
-							<FormikInput
+							<FormikSelectInput
 								id='country'
 								label='Country:'
 								type='text'
 								name='country'
-							/>
+								optionName='Select your contry'>
+								{countries &&
+									countries.map((country) => (
+										<option key={country.alpha2Code} value={country.alpha2Code}>
+											{country.name}
+										</option>
+									))}
+							</FormikSelectInput>
 							<Button type='submit' variant='primary' className='px-4 py-2'>
 								Next
 							</Button>
@@ -123,11 +137,13 @@ const mapStateToProps = createStructuredSelector({
 	error: selectAddressError,
 	userAddress: selectAddress,
 	userDetails: selectUserDetails,
+	countries: selectCountries,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAddress: () => dispatch(fetchUserAddress()),
 	saveShippingAddress: (address) => dispatch(saveShippingAddress(address)),
+	fetchCountries: () => dispatch(fetchCountries()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShippingForm);

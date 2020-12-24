@@ -1,15 +1,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
 import OrderSummary from '../../components/order-summary/order-summary.component';
 import OrderPriceSummary from '../../components/order-price-summary/order-price-summary.component';
 import Spinner from '../../components/spinner/spinner.component';
 import Message from '../../components/message/message.component';
-import PaypalButton from '../../components/paypal-button/paypal-button.component';
-import StripeButton from '../../components/stripe-button/stripe-button.component';
+import PaymentHandler from '../../components/payment-handler/payment-handler.component';
 
 import { fetchOrderDetails } from '../../redux/order-details/order-details.actions';
 import {
@@ -62,14 +61,11 @@ const OrderDetails = ({ match, fetchOrderDetails, loading, error, order }) => {
 									totalPrice={order.totalPrice}
 								/>
 								{!order.isPaid && (
-									<>
-										{order.paymentMethod &&
-										order.paymentMethod.toLowerCase() === 'paypal' ? (
-											<PaypalButton />
-										) : (
-											<StripeButton />
-										)}
-									</>
+									<PaymentHandler
+										method={order.paymentMethod}
+										amount={order.totalPrice}
+										orderId={order._id}
+									/>
 								)}
 							</Col>
 						</Row>

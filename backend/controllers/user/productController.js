@@ -39,6 +39,13 @@ const getAllActiveProducts = asyncHandler(async (req, res) => {
 // @access PUBLIC
 const getActiveProductById = asyncHandler(async (req, res) => {
 	const { id, slug } = req.params;
+
+	// Checking if valid id
+	if (!mongoose.Types.ObjectId.isValid(id)) {
+		res.status(400);
+		throw new Error('Please check product ID');
+	}
+
 	const product = await Product.findOne({
 		_id: id,
 		slug,

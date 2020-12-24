@@ -2,6 +2,7 @@ import {
 	ORDER_CREATE_REQUEST,
 	ORDER_CREATE_SUCCESS,
 	ORDER_CREATE_FAIL,
+	ORDER_CREATE_RESET,
 } from './order-create.types';
 import orderApi from '../../api/order/order.api';
 import parseErrorMsg from '../../utils/parseErrorMsg';
@@ -33,3 +34,6 @@ export const createOrder = (order) => async (dispatch, getState) => {
 		dispatch(createNotification(errorMsg, 'error'));
 	}
 };
+
+// Reset create order state
+export const resetCreateOrder = () => ({ type: ORDER_CREATE_RESET });

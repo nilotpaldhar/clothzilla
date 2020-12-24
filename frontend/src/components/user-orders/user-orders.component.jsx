@@ -55,7 +55,9 @@ const UserOrders = ({ fetchOrders, loading, error, orders }) => {
 									<td>${order.totalPrice}</td>
 									<td className='text-center'>
 										{order.isPaid ? (
-											<Chip variant='success'>Paid at {order.paidAt}</Chip>
+											<Chip variant='success'>
+												On {format(new Date(order.paidAt), 'MMM dd, yyyy')}
+											</Chip>
 										) : (
 											<Chip variant='danger'>Not Paid</Chip>
 										)}

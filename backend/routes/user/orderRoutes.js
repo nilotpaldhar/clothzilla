@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.route('/').get(auth, getAllOrders).post(auth, createOrder);
 router.get('/:id', auth, getOrderById);
-router.put('/:id/pay', auth, payOrder);
-router.put('/:id/cancel', auth, cancelOrder);
+router.post('/:id/pay', auth, payOrder);
+router.post('/:id/cancel', auth, cancelOrder);
 
 export default router;

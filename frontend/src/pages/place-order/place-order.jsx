@@ -19,7 +19,10 @@ import {
 	selectShippingPrice,
 	selectTotalPrice,
 } from '../../redux/cart/cart.selectors';
-import { createOrder } from '../../redux/order-create/order-create.actions';
+import {
+	createOrder,
+	resetCreateOrder,
+} from '../../redux/order-create/order-create.actions';
 import {
 	selectOrderCreateLoading,
 	selectOrderCreateError,
@@ -30,6 +33,7 @@ import {
 const PlaceOrder = ({
 	history,
 	createOrder,
+	resetCreateOrder,
 	finishedAllSteps,
 	cartItems,
 	shippingAddress,
@@ -50,11 +54,14 @@ const PlaceOrder = ({
 			setError('Please complete all the steps before placing an order');
 			return;
 		}
-
 		if (orderSuccess) {
 			history.push(`/order/${newOrder._id}`);
 		}
-	}, [finishedAllSteps, orderSuccess, newOrder, history]);
+
+		return () => {
+			resetCreateOrder();
+		};
+	}, [finishedAllSteps, orderSuccess, resetCreateOrder, newOrder, history]);
 
 	const handlePlaceOrder = () => {
 		const newOrder = {
@@ -130,6 +137,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	createOrder: (order) => dispatch(createOrder(order)),
+	resetCreateOrder: () => dispatch(resetCreateOrder()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaceOrder);

@@ -31,6 +31,12 @@ import orderDetailsReducer from './order-details/order-details.reducer';
 // Reducer related to notification
 import notificationReducer from './notification/notification.reducer';
 
+// Reducer related to payment
+import paymentReducer from './payment/payment.reducer';
+
+// Reducer related to country
+import countryListReducer from './country-list/country-list.reducer';
+
 // Configure redux persist for cart
 const persistConfig = {
 	key: 'root',
@@ -43,6 +49,7 @@ const rootReducer = combineReducers({
 
 	categoryList: categoryListReducer,
 	cart: cartReducer,
+	countryList: countryListReducer,
 
 	notification: notificationReducer,
 	orderList: orderListReducer,
@@ -51,6 +58,7 @@ const rootReducer = combineReducers({
 
 	productList: productListReducer,
 	productDetails: productDetailsReducer,
+	payment: paymentReducer,
 
 	relatedProduct: relatedProductReducer,
 	reviewList: reviewListReducer,

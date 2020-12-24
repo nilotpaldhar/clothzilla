@@ -7,6 +7,8 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 import FormikInput from '../formik-input/formik-input.component';
 import Message from '../message/message.component';
 import Spinner from '../spinner/spinner.component';
+import FormikSelectInput from '../formik-select-input/formik-select-input.component';
+
 import schema from './user-address-validation-schema';
 
 import {
@@ -18,13 +20,17 @@ import {
 	selectAddressError,
 	selectAddress,
 } from '../../redux/user-address/user-address.selectors';
+import { fetchCountries } from '../../redux/country-list/country-list.actions';
+import { selectCountries } from '../../redux/country-list/country-list.selectors';
 
 const UserAddress = ({
 	fetchAddress,
+	fetchCountries,
 	updateAddress,
 	loading,
 	error,
 	shippingAddress,
+	countries,
 }) => {
 	const handleSubmit = (values, { setSubmitting, resetForm }) => {
 		updateAddress(values)
@@ -40,7 +46,8 @@ const UserAddress = ({
 
 	useEffect(() => {
 		fetchAddress();
-	}, [fetchAddress]);
+		fetchCountries();
+	}, [fetchAddress, fetchCountries]);
 
 	return (
 		<Card>
@@ -87,12 +94,21 @@ const UserAddress = ({
 											/>
 										</Col>
 									</Row>
-									<FormikInput
+									<FormikSelectInput
 										id='country'
 										label='Country:'
 										type='text'
 										name='country'
-									/>
+										optionName='Select your country'>
+										{countries &&
+											countries.map((country) => (
+												<option
+													key={country.alpha2Code}
+													value={country.alpha2Code}>
+													{country.name}
+												</option>
+											))}
+									</FormikSelectInput>
 									<Button
 										type='submit'
 										variant='primary'
@@ -114,11 +130,13 @@ const mapStateToProps = createStructuredSelector({
 	loading: selectAddressLoading,
 	error: selectAddressError,
 	shippingAddress: selectAddress,
+	countries: selectCountries,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAddress: () => dispatch(fetchUserAddress()),
 	updateAddress: (address) => dispatch(updateUserAddress(address)),
+	fetchCountries: () => dispatch(fetchCountries()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAddress);

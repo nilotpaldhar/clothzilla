@@ -6,6 +6,12 @@ const orderApi = {
 	getOrderById: (token, id = '') => get(`/myorders/${id}`, configHeader(token)),
 	createOrder: (token, order = {}) =>
 		post('/myorders', order, configHeader(token)),
+	pay: (token, method, id = '', paymentDetails) =>
+		post(
+			`/myorders/${id}/pay?method=${method}`,
+			paymentDetails,
+			configHeader(token)
+		),
 };
 
 export default orderApi;

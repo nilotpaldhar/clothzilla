@@ -2,6 +2,7 @@ import React from 'react';
 import { ListGroup, ListGroupItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaypal, faStripe } from '@fortawesome/free-brands-svg-icons';
+import { format } from 'date-fns';
 
 import Chip from '../chip/chip.component';
 
@@ -49,10 +50,26 @@ const OrderSummary = ({
 					<div className={styles.details}>
 						{deliveryDetails.isDelivered ? (
 							<Chip variant='success'>
-								Delivered on {deliveryDetails.deliveredAt}
+								<>Delivered on </>
+								{format(new Date(deliveryDetails.deliveredAt), 'MMM dd, yyyy')}
 							</Chip>
 						) : (
-							<Chip variant='danger'>Not delivered yet</Chip>
+							<>
+								{!status ? (
+									'---'
+								) : (
+									<Chip
+										variant={
+											status === 'processing'
+												? 'warning'
+												: status === 'cancelled'
+												? 'danger'
+												: 'success'
+										}>
+										{status}
+									</Chip>
+								)}
+							</>
 						)}
 					</div>
 				</ListGroupItem>
@@ -72,7 +89,10 @@ const OrderSummary = ({
 					<h2>Payment Status:</h2>
 					<div className={styles.details}>
 						{paymentDetails.isPaid ? (
-							<Chip variant='success'>Paid on {paymentDetails.paidAt}</Chip>
+							<Chip variant='success'>
+								<>Paid On </>
+								{format(new Date(paymentDetails.paidAt), 'MMM dd, yyyy')}
+							</Chip>
 						) : (
 							<Chip variant='danger'>Not Paid</Chip>
 						)}

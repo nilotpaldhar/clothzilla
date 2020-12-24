@@ -50,7 +50,6 @@ const importProductData = async (
 			...product,
 			user: createdUser[0],
 			category: createdCategories[rand],
-			buyerList: [...createdUser],
 		};
 	});
 	const createdProducts = await Product.create(modifiedProducts);
