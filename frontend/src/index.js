@@ -10,14 +10,12 @@ import App from './App';
 import './sass/index.scss';
 
 ReactDOM.render(
-	<React.StrictMode>
-		<Provider store={store}>
-			<Router>
-				<PersistGate persistor={persistor}>
-					<App />
-				</PersistGate>
-			</Router>
-		</Provider>
-	</React.StrictMode>,
+	<Provider store={store}>
+		<Router>
+			<PersistGate persistor={persistor}>
+				<App />
+			</PersistGate>
+		</Router>
+	</Provider>,
 	document.getElementById('root')
 );

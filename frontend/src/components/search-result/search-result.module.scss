@@ -1,0 +1,33 @@
+@import '../../sass/variables';
+
+.searchResult {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: $off-white-3;
+
+    img {
+        width: 3.75rem;
+        display: block;
+        border-radius: 2px;
+        margin-right: 1rem;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+        font-weight: 300;
+        margin-bottom: 10px;
+    }
+
+    .meta {
+        font-size: 0.9rem;
+
+        span {
+            &:not(:last-child) {
+                margin-right: 1rem;
+                border-right: 1px solid rgba($white, 0.4);
+                padding-right: 1rem;
+            }
+        }
+    }
+}

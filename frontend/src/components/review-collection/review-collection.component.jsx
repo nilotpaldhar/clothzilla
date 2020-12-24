@@ -52,7 +52,7 @@ const ReviewCollection = ({
 									{reviews
 										.filter((review, idx) => idx < reviewLimit)
 										.map((review) => (
-											<ReviewItem key={review.id} review={review} />
+											<ReviewItem key={review._id} review={review} />
 										))}
 									{reviews.length > reviewLimit && (
 										<button onClick={() => setReviewLimit(reviewLimit + limit)}>

@@ -19,6 +19,8 @@ import {
 	selectUserDetails,
 } from '../../redux/user/user.selectors';
 import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
+import { selectSearchbarHidden } from '../../redux/search/search.selectors';
+import { showSearchbar } from '../../redux/search/search.actions';
 
 const Navigation = ({
 	sticky,
@@ -26,9 +28,10 @@ const Navigation = ({
 	isAdmin,
 	user,
 	cartItemsCount,
+	searchHidden,
+	showSearchbar,
 }) => {
 	const [scrolled, setScrolled] = useState(false);
-	const [showSeach, setSearch] = useState(false);
 
 	const handleScroll = () => {
 		const offset = window.scrollY;
@@ -52,9 +55,7 @@ const Navigation = ({
 			fixed='top'
 			expand='lg'>
 			<Container>
-				{showSeach ? (
-					<Searchbar handleClose={() => setSearch(false)} />
-				) : (
+				{searchHidden ? (
 					<>
 						<Navbar.Toggle aria-controls='navbar-nav' />
 						<LinkContainer to='/'>
@@ -66,7 +67,7 @@ const Navigation = ({
 							<Nav.Link
 								href='#'
 								className={styles.navLink}
-								onClick={() => setSearch(true)}>
+								onClick={showSearchbar}>
 								<FontAwesomeIcon icon={faSearch} />
 							</Nav.Link>
 						</Nav>
@@ -76,7 +77,7 @@ const Navigation = ({
 								<Nav.Link
 									href='#'
 									className={`d-none d-lg-block ${styles.navLink}`}
-									onClick={() => setSearch(true)}>
+									onClick={showSearchbar}>
 									<FontAwesomeIcon icon={faSearch} />
 								</Nav.Link>
 								<LinkContainer to='/cart'>
@@ -125,6 +126,8 @@ const Navigation = ({
 							</Nav>
 						</Navbar.Collapse>
 					</>
+				) : (
+					<Searchbar />
 				)}
 			</Container>
 		</Navbar>
@@ -136,6 +139,11 @@ const mapStateToProps = createStructuredSelector({
 	isAdmin: selectIsAdmin,
 	user: selectUserDetails,
 	cartItemsCount: selectCartItemsCount,
+	searchHidden: selectSearchbarHidden,
 });
 
-export default connect(mapStateToProps)(Navigation);
+const mapDispatchToProps = (dispatch) => ({
+	showSearchbar: () => dispatch(showSearchbar()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

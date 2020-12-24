@@ -37,6 +37,9 @@ import paymentReducer from './payment/payment.reducer';
 // Reducer related to country
 import countryListReducer from './country-list/country-list.reducer';
 
+// Reducer related to search
+import searchReducer from './search/search.reducer';
+
 // Configure redux persist for cart
 const persistConfig = {
 	key: 'root',
@@ -62,6 +65,8 @@ const rootReducer = combineReducers({
 
 	relatedProduct: relatedProductReducer,
 	reviewList: reviewListReducer,
+
+	search: searchReducer,
 
 	user: userReducer,
 	userAddress: userAddressReducer,
