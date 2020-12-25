@@ -54,7 +54,8 @@ const createProduct = asyncHandler(async (req, res) => {
 // @access PRIVATE/ADMIN
 const getProductById = asyncHandler(async (req, res) => {
 	const { id } = req.params;
-	const product = await Product.findById(id).populate('category', 'name');
+	const product = await Product.findById(id);
+	// const product = await Product.findById(id).populate('category', 'name');
 
 	if (!product) {
 		res.status(404);
