@@ -20,6 +20,7 @@ import AdminProducts from '../pages/admin-products/admin-products';
 import AdminProductsEdit from '../pages/admin-products-edit/admin-products-edit.component';
 import AdminOrders from '../pages/admin-orders/admin-orders';
 import AdminUsers from '../pages/admin-users/admin-users';
+import AdminCategories from '../pages/admin-categories/admin-categories';
 
 import Homepage from '../pages/homepage/homepage';
 
@@ -43,6 +44,7 @@ const Routes = () => {
 			<AdminRoute path='/admin/products' component={AdminProducts} exact />
 			<AdminRoute path='/admin/orders' component={AdminOrders} />
 			<AdminRoute path='/admin/users' component={AdminUsers} />
+			<AdminRoute path='/admin/categories' component={AdminCategories} />
 			<AdminRoute
 				path='/admin/products/:id/edit'
 				component={AdminProductsEdit}

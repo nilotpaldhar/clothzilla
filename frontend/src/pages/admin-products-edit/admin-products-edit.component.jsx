@@ -4,7 +4,6 @@ import { createStructuredSelector } from 'reselect';
 import { Row, Col, Card } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
-import CategoryCollection from '../../components/category-collection/category-collection.component';
 import ProductImage from '../../components/product-image/product-image.component';
 import ProductEditForm from '../../components/product-edit-form/product-edit-form.component';
 import Message from '../../components/message/message.component';
@@ -42,9 +41,6 @@ const AdminProductsEdit = ({
 						<Row>
 							<Col lg={12} className='mb-4'>
 								<ProductImage src={productDetails.image} />
-							</Col>
-							<Col lg={12}>
-								<CategoryCollection />
 							</Col>
 						</Row>
 					</Col>

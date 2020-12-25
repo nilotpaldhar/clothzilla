@@ -31,3 +31,15 @@ export const selectError = createSelector(
 	[selectCategoryList],
 	(categoryList) => categoryList.error
 );
+
+// Select editing
+export const selectEditing = createSelector(
+	[selectCategoryList],
+	(categoryList) => categoryList.editing
+);
+
+// Select edit category
+export const selectEditCategory = createSelector(
+	[selectCategoryList],
+	(categoryList) => categoryList.editCategory
+);
