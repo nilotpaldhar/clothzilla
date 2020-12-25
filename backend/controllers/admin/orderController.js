@@ -9,7 +9,9 @@ const getAllOrders = asyncHandler(async (req, res) => {
 		.select('-shippingAddress -orderItems')
 		.sort({
 			createdAt: -1,
-		});
+		})
+		.populate('user', 'name');
+
 	res.json(orders);
 });
 

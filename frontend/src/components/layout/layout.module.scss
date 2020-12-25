@@ -15,10 +15,6 @@
     }
 
     .xtraPadding {
-        padding-top: 10.25rem !important;
-
-        @include respond(lg) {
-            padding-top: 12.25rem !important;
-        }
+        padding-top: 9.25rem !important;
     }
 }

@@ -7,7 +7,9 @@ import imageUploader from '../../utils/imageUploader.js';
 // @route GET /api/admin/products
 // @access PRIVATE/ADMIN
 const getAllProducts = asyncHandler(async (req, res) => {
-	const products = await Product.find({}).select('-description -reviews');
+	const products = await Product.find({})
+		.select('-description -reviews')
+		.populate('category', 'name');
 
 	res.json(products);
 });

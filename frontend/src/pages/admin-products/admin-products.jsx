@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import { Card, Table, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,11 +9,18 @@ import { Reoverlay } from 'reoverlay';
 
 import Layout from '../../components/layout/layout.component';
 import Chip from '../../components/chip/chip.component';
+import Spinner from '../../components/spinner/spinner.component';
+import Message from '../../components/message/message.component';
 import ConfirmModal from '../../components/confirm-modal/confirm-modal.component';
 
-import products from '../../sample-data/products';
+import { fetchAdminProducts } from '../../redux/admin-product-list/admin-product-list.actions';
+import {
+	selectAdminProductsLoading,
+	selectAdminProductsError,
+	selectAdminProducts,
+} from '../../redux/admin-product-list/admin-product-list.selectors';
 
-const AdminProducts = () => {
+const AdminProducts = ({ fetchAdminProducts, loading, error, products }) => {
 	const handleDelete = (id) => {
 		Reoverlay.showModal(ConfirmModal, {
 			text: 'Are you sure you want to delete this product?',
@@ -21,6 +30,10 @@ const AdminProducts = () => {
 			},
 		});
 	};
+
+	useEffect(() => {
+		fetchAdminProducts();
+	}, [fetchAdminProducts]);
 
 	return (
 		<Layout>
@@ -33,31 +46,28 @@ const AdminProducts = () => {
 					</Button>
 				</Card.Header>
 				<Card.Body>
-					<Table responsive hover>
-						<thead>
-							<tr>
-								<th>NAME</th>
-								<th className='text-center'>PRICE</th>
-								<th className='text-center'>DISCOUNT</th>
-								<th className='text-center'>RATING</th>
-								<th>CATEGORY</th>
-								<th className='text-center'>STATUS</th>
-								<th className='text-center'>EDIT</th>
-								<th className='text-center'>DELETE</th>
-							</tr>
-						</thead>
-						<tbody>
-							{products
-								.filter((products, idx) => idx > 6)
-								.map((product, idx) => (
-									<tr key={product.id}>
-										<td>
-											<Link
-												to={`/product/${product.id}`}
-												className='text-capitalize'>
-												{product.name}
-											</Link>
-										</td>
+					{loading ? (
+						<Spinner />
+					) : error ? (
+						<Message variant='danger'>{error}</Message>
+					) : (
+						<Table responsive hover>
+							<thead>
+								<tr>
+									<th>NAME</th>
+									<th className='text-center'>PRICE</th>
+									<th className='text-center'>DISCOUNT</th>
+									<th className='text-center'>RATING</th>
+									<th className='text-center'>CATEGORY</th>
+									<th className='text-center'>STATUS</th>
+									<th className='text-center'>EDIT</th>
+									<th className='text-center'>DELETE</th>
+								</tr>
+							</thead>
+							<tbody>
+								{products.map((product) => (
+									<tr key={product._id}>
+										<td className='text-capitalize'>{product.name}</td>
 										<td className='text-center'>${product.salePrice}</td>
 										<td className='text-center'>
 											<Chip variant='info'>{product.discount}%</Chip>
@@ -65,17 +75,19 @@ const AdminProducts = () => {
 										<td className='text-center'>
 											<Chip variant='warning'>{product.rating}</Chip>
 										</td>
-										<td>Men & Women</td>
+										<td className='text-uppercase text-center'>
+											{product.category.name}
+										</td>
 										<td className='text-center'>
-											{(idx + 1) % 3 === 0 ? (
-												<Chip variant='dark'>Inactive</Chip>
+											{product.isPublished ? (
+												<Chip variant='success'>Published</Chip>
 											) : (
-												<Chip variant='success'>Active</Chip>
+												<Chip variant='dark'>Not Published</Chip>
 											)}
 										</td>
 										<td className='text-center'>
 											<Link
-												to={`/admin/products/${product.id}/edit`}
+												to={`/admin/products/${product._id}/edit`}
 												className='btn btn-light btn-sm'>
 												<FontAwesomeIcon icon={faPen} />
 											</Link>
@@ -84,18 +96,29 @@ const AdminProducts = () => {
 											<button
 												type='button'
 												className='btn btn-danger btn-sm'
-												onClick={() => handleDelete(product.id)}>
+												onClick={() => handleDelete(product._id)}>
 												<FontAwesomeIcon icon={faTrash} />
 											</button>
 										</td>
 									</tr>
 								))}
-						</tbody>
-					</Table>
+							</tbody>
+						</Table>
+					)}
 				</Card.Body>
 			</Card>
 		</Layout>
 	);
 };
 
-export default AdminProducts;
+const mapStateToProps = createStructuredSelector({
+	loading: selectAdminProductsLoading,
+	error: selectAdminProductsError,
+	products: selectAdminProducts,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+	fetchAdminProducts: () => dispatch(fetchAdminProducts()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminProducts);

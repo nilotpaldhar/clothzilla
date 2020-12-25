@@ -9,6 +9,11 @@ import userProfileReducer from './user-profile/user-profile.reducer';
 import userAddressReducer from './user-address/user-address.reducer';
 import userAvatarReducer from './user-avatar/user-avatar.reducer';
 
+// Reducers related to admin
+import adminUserListReducer from './admin-user-list/admin-user-list.reducer';
+import adminProductListReducer from './admin-product-list/admin-product-list.reducer';
+import adminOrderListReducer from './admin-order-list/admin-order-list.reducer';
+
 // Reducers related to product
 import productListReducer from './product-list/product-list.reducer';
 import productDetailsReducer from './product-details/product-details.reducer';
@@ -48,6 +53,10 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+	adminUserList: adminUserListReducer,
+	adminProductList: adminProductListReducer,
+	adminOrderList: adminOrderListReducer,
+
 	auth: authReducer,
 
 	categoryList: categoryListReducer,
