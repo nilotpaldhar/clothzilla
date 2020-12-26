@@ -2,6 +2,10 @@ import {
 	ADMIN_USER_LIST_REQUEST,
 	ADMIN_USER_LIST_SUCCESS,
 	ADMIN_USER_LIST_FAIL,
+	ADMIN_USER_ACTIVATE,
+	ADMIN_USER_DEACTIVATE,
+	ADMIN_USER_MAKE_ADMIN,
+	ADMIN_USER_MAKE_SUBSCRIBER,
 } from './admin-user-list.types';
 
 const INITIAL_STATE = {
@@ -20,6 +24,17 @@ const adminUserListReducer = (state = INITIAL_STATE, action) => {
 
 		case ADMIN_USER_LIST_FAIL:
 			return { ...state, loading: false, error: action.payload };
+
+		case ADMIN_USER_ACTIVATE:
+		case ADMIN_USER_DEACTIVATE:
+		case ADMIN_USER_MAKE_ADMIN:
+		case ADMIN_USER_MAKE_SUBSCRIBER:
+			return {
+				...state,
+				users: state.users.map((user) =>
+					user._id === action.payload._id ? action.payload : user
+				),
+			};
 
 		default:
 			return state;

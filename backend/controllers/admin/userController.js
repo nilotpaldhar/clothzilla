@@ -12,7 +12,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 // @desc Set user as admin
-// @route PUT /api/admin/user/:id/setadmin
+// @route POST /api/admin/user/:id/admin
 // @access PRIVATE/ADMIN
 const setUserAsAdmin = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.params.id);
@@ -21,12 +21,12 @@ const setUserAsAdmin = asyncHandler(async (req, res) => {
 		throw new Error('User not found');
 	}
 	user.isAdmin = true;
-	await user.save();
-	res.json({ message: 'Succesfully set user as admin' });
+	const updatedUser = await user.save();
+	res.json(updatedUser);
 });
 
 // @desc Unset user as admin
-// @route PUT /api/admin/user/:id/deactivate
+// @route POST /api/admin/user/:id/subscriber
 // @access PRIVATE/ADMIN
 const unsetUserAsAdmin = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.params.id);
@@ -35,12 +35,12 @@ const unsetUserAsAdmin = asyncHandler(async (req, res) => {
 		throw new Error('User not found');
 	}
 	user.isAdmin = false;
-	await user.save();
-	res.json({ message: 'Succesfully unset user as admin' });
+	const updatedUser = await user.save();
+	res.json(updatedUser);
 });
 
 // @desc Activate user account
-// @route PUT /api/admin/user/:id/activate
+// @route POST /api/admin/user/:id/activate
 // @access PRIVATE/ADMIN
 const activateUser = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.params.id);
@@ -49,12 +49,12 @@ const activateUser = asyncHandler(async (req, res) => {
 		throw new Error('User not found');
 	}
 	user.isActive = true;
-	await user.save();
-	res.json({ message: 'User account activated successfully' });
+	const updatedUser = await user.save();
+	res.json(updatedUser);
 });
 
 // @desc Deactivate user account
-// @route PUT /api/admin/user/:id/deactivate
+// @route POST /api/admin/user/:id/deactivate
 // @access PRIVATE/ADMIN
 const deactivateUser = asyncHandler(async (req, res) => {
 	const user = await User.findById(req.params.id);
@@ -63,8 +63,8 @@ const deactivateUser = asyncHandler(async (req, res) => {
 		throw new Error('User not found');
 	}
 	user.isActive = false;
-	await user.save();
-	res.json({ message: 'User acount deactivated successfully' });
+	const updatedUser = await user.save();
+	res.json(updatedUser);
 });
 
 export {

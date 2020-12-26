@@ -58,9 +58,9 @@ const deliverOrder = asyncHandler(async (req, res) => {
 	order.isDelivered = true;
 	order.status = 'delivered';
 	order.deliveredAt = Date.now();
-	await order.save();
+	const updatedOrder = await order.save();
 
-	res.json({ message: 'Order delivered successfully' });
+	res.json(updatedOrder);
 });
 
 // @desc Delete order by ID

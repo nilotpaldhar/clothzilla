@@ -4,22 +4,43 @@ import { createStructuredSelector } from 'reselect';
 import { Card, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faInfo, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faInfo, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { Reoverlay } from 'reoverlay';
 
 import Layout from '../../components/layout/layout.component';
 import Chip from '../../components/chip/chip.component';
 import Spinner from '../../components/spinner/spinner.component';
 import Message from '../../components/message/message.component';
+import ConfirmModal from '../../components/confirm-modal/confirm-modal.component';
 
-import { fetchAdminOrders } from '../../redux/admin-order-list/admin-order-list.actions';
+import {
+	fetchAdminOrders,
+	deleteOrder,
+} from '../../redux/admin-order-list/admin-order-list.actions';
 import {
 	selectAdminOrdersLoading,
 	selectAdminOrdersError,
 	selectAdminOrders,
 } from '../../redux/admin-order-list/admin-order-list.selectors';
 
-const AdminOrders = ({ fetchAdminOrders, loading, error, orders }) => {
+const AdminOrders = ({
+	fetchAdminOrders,
+	deleteOrder,
+	loading,
+	error,
+	orders,
+}) => {
+	const handleDelete = (id) => {
+		Reoverlay.showModal(ConfirmModal, {
+			text: 'Are you sure you want to delete this order?',
+			onConfirm: async () => {
+				await deleteOrder(id);
+				Reoverlay.hideModal();
+			},
+		});
+	};
+
 	useEffect(() => {
 		fetchAdminOrders();
 	}, [fetchAdminOrders]);
@@ -43,7 +64,6 @@ const AdminOrders = ({ fetchAdminOrders, loading, error, orders }) => {
 									<th className='text-center'>PAYMENT</th>
 									<th className='text-center'>STATUS</th>
 									<th className='text-center'>DETAILS</th>
-									<th className='text-center'>CANCEL</th>
 									<th className='text-center'>DELETE</th>
 								</tr>
 							</thead>
@@ -90,12 +110,10 @@ const AdminOrders = ({ fetchAdminOrders, loading, error, orders }) => {
 											</Link>
 										</td>
 										<td className='text-center'>
-											<button type='button' className='close-btn'>
-												<FontAwesomeIcon icon={faTimes} />
-											</button>
-										</td>
-										<td className='text-center'>
-											<button type='button' className='btn btn-danger btn-sm'>
+											<button
+												type='button'
+												className='btn btn-danger btn-sm'
+												onClick={() => handleDelete(order._id)}>
 												<FontAwesomeIcon icon={faTrash} />
 											</button>
 										</td>
@@ -118,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAdminOrders: () => dispatch(fetchAdminOrders()),
+	deleteOrder: (id) => dispatch(deleteOrder(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminOrders);

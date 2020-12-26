@@ -2,26 +2,79 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Card, Table } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { Reoverlay } from 'reoverlay';
 
 import Layout from '../../components/layout/layout.component';
 import Chip from '../../components/chip/chip.component';
 import Spinner from '../../components/spinner/spinner.component';
 import Message from '../../components/message/message.component';
+import ConfirmModal from '../../components/confirm-modal/confirm-modal.component';
 
-import { fetchAdminUsers } from '../../redux/admin-user-list/admin-user-list.actions';
+import {
+	fetchAdminUsers,
+	activateUserAccount,
+	deactivateUserAccount,
+	makeUserAdmin,
+	makeUserSubscriber,
+} from '../../redux/admin-user-list/admin-user-list.actions';
 import {
 	selectAdminUsersLoading,
 	selectAdminUsersError,
 	selectAdminUsers,
 } from '../../redux/admin-user-list/admin-user-list.selectors';
 
-const AdminUsers = ({ fetchAdminUsers, loading, error, users }) => {
+const AdminUsers = ({
+	fetchAdminUsers,
+	activateUser,
+	deactivateUser,
+	makeAdmin,
+	makeSubscriber,
+	loading,
+	error,
+	users,
+}) => {
 	useEffect(() => {
 		fetchAdminUsers();
 	}, [fetchAdminUsers]);
+
+	// Change user role
+	const changeUserRole = (user) => {
+		const text = `Are you sure you want to make him ${
+			user.isAdmin ? 'SUBSCRIBER' : 'ADMIN'
+		}`;
+
+		Reoverlay.showModal(ConfirmModal, {
+			text,
+			onConfirm: async () => {
+				if (user.isAdmin) {
+					await makeSubscriber(user._id);
+				} else {
+					await makeAdmin(user._id);
+				}
+				Reoverlay.hideModal();
+			},
+		});
+	};
+
+	// Change user status
+	const changeUserStatus = (user) => {
+		const text = `Are you sure you want to ${
+			user.isActive ? 'deactivate' : 'activate'
+		} this user`;
+
+		Reoverlay.showModal(ConfirmModal, {
+			text,
+			onConfirm: async () => {
+				if (user.isActive) {
+					await deactivateUser(user._id);
+				} else {
+					await activateUser(user._id);
+				}
+				Reoverlay.hideModal();
+			},
+		});
+	};
 
 	return (
 		<Layout>
@@ -40,7 +93,9 @@ const AdminUsers = ({ fetchAdminUsers, loading, error, users }) => {
 									<th>NAME</th>
 									<th>EMAIL</th>
 									<th className='text-center'>ROLE</th>
-									<th className='text-center'>DELETE</th>
+									<th className='text-center'>ADMIN</th>
+									<th className='text-center'>STATUS</th>
+									<th className='text-center'>ACTIVE</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -56,12 +111,32 @@ const AdminUsers = ({ fetchAdminUsers, loading, error, users }) => {
 											{user.isAdmin ? (
 												<Chip variant='info'>Admin</Chip>
 											) : (
-												<Chip variant='success'>Subscriber</Chip>
+												<Chip variant='warning'>Subscriber</Chip>
 											)}
 										</td>
 										<td className='text-center'>
-											<button type='button' className='btn btn-danger btn-sm'>
-												<FontAwesomeIcon icon={faTrash} />
+											<button
+												type='button'
+												className='btn btn-light btn-sm'
+												onClick={() => changeUserRole(user)}>
+												{user.isAdmin
+													? 'Switch to Subscriber'
+													: 'Switch to Admin'}
+											</button>
+										</td>
+										<td className='text-center'>
+											{user.isActive ? (
+												<Chip variant='dark'>Active</Chip>
+											) : (
+												<Chip variant='secondary'>Inactive</Chip>
+											)}
+										</td>
+										<td className='text-center'>
+											<button
+												type='button'
+												className='btn btn-secondary btn-sm'
+												onClick={() => changeUserStatus(user)}>
+												{user.isActive ? 'Deactivate' : 'Activate'}
 											</button>
 										</td>
 									</tr>
@@ -83,6 +158,10 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAdminUsers: () => dispatch(fetchAdminUsers()),
+	activateUser: (id) => dispatch(activateUserAccount(id)),
+	deactivateUser: (id) => dispatch(deactivateUserAccount(id)),
+	makeAdmin: (id) => dispatch(makeUserAdmin(id)),
+	makeSubscriber: (id) => dispatch(makeUserSubscriber(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminUsers);

@@ -19,6 +19,7 @@ import OrderDetails from '../pages/order-details/order-details.component';
 import AdminProducts from '../pages/admin-products/admin-products';
 import AdminProductsEdit from '../pages/admin-products-edit/admin-products-edit.component';
 import AdminOrders from '../pages/admin-orders/admin-orders';
+import AdminOrderDetails from '../pages/admin-order-details/admin-order-details';
 import AdminUsers from '../pages/admin-users/admin-users';
 import AdminCategories from '../pages/admin-categories/admin-categories';
 
@@ -41,14 +42,16 @@ const Routes = () => {
 			<PrivateRoute path='/order/:id' component={OrderDetails} />
 
 			{/* ADMIN PAGES */}
-			<AdminRoute path='/admin/products' component={AdminProducts} exact />
-			<AdminRoute path='/admin/orders' component={AdminOrders} />
 			<AdminRoute path='/admin/users' component={AdminUsers} />
 			<AdminRoute path='/admin/categories' component={AdminCategories} />
 			<AdminRoute
 				path='/admin/products/:id/edit'
 				component={AdminProductsEdit}
 			/>
+			<AdminRoute path='/admin/products' component={AdminProducts} exact />
+
+			<AdminRoute path='/admin/orders/:id' component={AdminOrderDetails} />
+			<AdminRoute path='/admin/orders' component={AdminOrders} />
 
 			{/* ROOT */}
 			<Route path='/' component={Homepage} exact />

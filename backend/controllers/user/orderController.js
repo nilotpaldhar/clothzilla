@@ -89,9 +89,9 @@ const cancelOrder = asyncHandler(async (req, res) => {
 
 	order.isCanceled = true;
 	order.status = 'canceled';
-	await order.save();
+	const canceledOrder = await order.save();
 
-	res.json({ message: 'Order canceled successfully' });
+	res.json(canceledOrder);
 });
 
 // @desc Mark order as paid

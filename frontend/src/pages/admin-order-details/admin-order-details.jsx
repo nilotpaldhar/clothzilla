@@ -1,23 +1,32 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
 import OrderSummary from '../../components/order-summary/order-summary.component';
 import OrderPriceSummary from '../../components/order-price-summary/order-price-summary.component';
 import Spinner from '../../components/spinner/spinner.component';
 import Message from '../../components/message/message.component';
-import PaymentHandler from '../../components/payment-handler/payment-handler.component';
 
-import { fetchOrderDetails } from '../../redux/order-details/order-details.actions';
 import {
-	selectOrderLoading,
-	selectOrderError,
-	selectOrder,
-} from '../../redux/order-details/order-details.selectors';
+	fetchAdminOrderDetails,
+	deliverOrder,
+} from '../../redux/admin-order-details/admin-order-details.actions';
+import {
+	selectOrderDetailsLoading,
+	selectOrderDetailsError,
+	selectOrderDetails,
+} from '../../redux/admin-order-details/admin-order-details.selectors';
 
-const OrderDetails = ({ match, fetchOrderDetails, loading, error, order }) => {
+const AdminOrderDetails = ({
+	match,
+	fetchOrderDetails,
+	deliverOrder,
+	loading,
+	error,
+	order,
+}) => {
 	const orderId = match.params.id;
 
 	useEffect(() => {
@@ -60,12 +69,13 @@ const OrderDetails = ({ match, fetchOrderDetails, loading, error, order }) => {
 									taxPrice={order.taxPrice}
 									totalPrice={order.totalPrice}
 								/>
-								{!order.isPaid && !order.isCanceled && (
-									<PaymentHandler
-										method={order.paymentMethod}
-										amount={order.totalPrice}
-										orderId={order._id}
-									/>
+								{order.isPaid && !order.isDelivered && (
+									<Button
+										size='lg'
+										className='rounded btn-block mt-2'
+										onClick={() => deliverOrder(order._id)}>
+										Mark as Delivered
+									</Button>
 								)}
 							</Col>
 						</Row>
@@ -77,13 +87,14 @@ const OrderDetails = ({ match, fetchOrderDetails, loading, error, order }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-	loading: selectOrderLoading,
-	error: selectOrderError,
-	order: selectOrder,
+	loading: selectOrderDetailsLoading,
+	error: selectOrderDetailsError,
+	order: selectOrderDetails,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-	fetchOrderDetails: (id) => dispatch(fetchOrderDetails(id)),
+	fetchOrderDetails: (id) => dispatch(fetchAdminOrderDetails(id)),
+	deliverOrder: (id) => dispatch(deliverOrder(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminOrderDetails);

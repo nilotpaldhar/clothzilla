@@ -11,9 +11,9 @@ import { auth, admin } from '../../middleware/authMiddleware.js';
 const router = express.Router();
 
 router.get('/', auth, admin, getAllUsers);
-router.put('/:id/setadmin', auth, admin, setUserAsAdmin);
-router.put('/:id/unsetadmin', auth, admin, unsetUserAsAdmin);
-router.put('/:id/activate', auth, admin, activateUser);
-router.put('/:id/deactivate', auth, admin, deactivateUser);
+router.post('/:id/admin', auth, admin, setUserAsAdmin);
+router.post('/:id/subscriber', auth, admin, unsetUserAsAdmin);
+router.post('/:id/activate', auth, admin, activateUser);
+router.post('/:id/deactivate', auth, admin, deactivateUser);
 
 export default router;

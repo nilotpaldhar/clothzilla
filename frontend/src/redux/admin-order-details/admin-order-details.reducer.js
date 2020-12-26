@@ -2,6 +2,9 @@ import {
 	ADMIN_ORDER_DETAILS_REQUEST,
 	ADMIN_ORDER_DETAILS_SUCCESS,
 	ADMIN_ORDER_DETAILS_FAIL,
+	ADMIN_ORDER_DELIVER_REQUEST,
+	ADMIN_ORDER_DELIVER_SUCCESS,
+	ADMIN_ORDER_DELIVER_FAIL,
 } from './admin-order-details.types';
 
 const INITIAL_STATE = {
@@ -13,12 +16,15 @@ const INITIAL_STATE = {
 const adminOrderDetailsReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {
 		case ADMIN_ORDER_DETAILS_REQUEST:
+		case ADMIN_ORDER_DELIVER_REQUEST:
 			return { ...state, loading: true };
 
 		case ADMIN_ORDER_DETAILS_SUCCESS:
+		case ADMIN_ORDER_DELIVER_SUCCESS:
 			return { ...state, loading: false, error: null, order: action.payload };
 
 		case ADMIN_ORDER_DETAILS_FAIL:
+		case ADMIN_ORDER_DELIVER_FAIL:
 			return { ...state, loading: false, error: action.payload };
 
 		default:

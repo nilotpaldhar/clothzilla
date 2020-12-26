@@ -62,7 +62,7 @@ const OrderSummary = ({
 										variant={
 											status === 'processing'
 												? 'warning'
-												: status === 'cancelled'
+												: status === 'canceled'
 												? 'danger'
 												: 'success'
 										}>

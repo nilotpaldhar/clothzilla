@@ -1,4 +1,4 @@
-import { get, put } from '../config.api';
+import { get, put, destroy } from '../config.api';
 import configHeader from '../utils/configHeader';
 
 const adminProductApi = {
@@ -7,6 +7,8 @@ const adminProductApi = {
 		get(`/admin/products/${id}`, configHeader(token)),
 	updateProduct: (token, id, product = {}) =>
 		put(`/admin/products/${id}`, product, configHeader(token)),
+	deleteProduct: (token, id) =>
+		destroy(`/admin/products/${id}`, configHeader(token)),
 };
 
 export default adminProductApi;

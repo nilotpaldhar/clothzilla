@@ -13,19 +13,28 @@ import Spinner from '../../components/spinner/spinner.component';
 import Message from '../../components/message/message.component';
 import ConfirmModal from '../../components/confirm-modal/confirm-modal.component';
 
-import { fetchAdminProducts } from '../../redux/admin-product-list/admin-product-list.actions';
+import {
+	fetchAdminProducts,
+	deleteProduct,
+} from '../../redux/admin-product-list/admin-product-list.actions';
 import {
 	selectAdminProductsLoading,
 	selectAdminProductsError,
 	selectAdminProducts,
 } from '../../redux/admin-product-list/admin-product-list.selectors';
 
-const AdminProducts = ({ fetchAdminProducts, loading, error, products }) => {
+const AdminProducts = ({
+	fetchAdminProducts,
+	deleteProduct,
+	loading,
+	error,
+	products,
+}) => {
 	const handleDelete = (id) => {
 		Reoverlay.showModal(ConfirmModal, {
 			text: 'Are you sure you want to delete this product?',
-			onConfirm: () => {
-				console.log(`Deleted ${id} `);
+			onConfirm: async () => {
+				await deleteProduct(id);
 				Reoverlay.hideModal();
 			},
 		});
@@ -119,6 +128,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAdminProducts: () => dispatch(fetchAdminProducts()),
+	deleteProduct: (id) => dispatch(deleteProduct(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProducts);

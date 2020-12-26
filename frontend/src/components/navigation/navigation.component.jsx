@@ -118,7 +118,7 @@ const Navigation = ({
 											<NavDropdown.Item>Categories</NavDropdown.Item>
 										</LinkContainer>
 										<NavDropdown.Divider />
-										<LinkContainer to='/admin/orders'>
+										<LinkContainer exact to='/admin/orders'>
 											<NavDropdown.Item>Orders</NavDropdown.Item>
 										</LinkContainer>
 										<NavDropdown.Divider />

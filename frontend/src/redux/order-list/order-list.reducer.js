@@ -2,6 +2,7 @@ import {
 	GET_ORDER_LIST_REQUEST,
 	GET_ORDER_LIST_SUCCESS,
 	GET_ORDER_LIST_FAIL,
+	CANCEL_ORDER,
 } from './order-list.types';
 
 const INITIAL_STATE = {
@@ -25,6 +26,14 @@ const orderListReducer = (state = INITIAL_STATE, action) => {
 
 		case GET_ORDER_LIST_FAIL:
 			return { ...state, loadingOrders: false, ordersError: action.payload };
+
+		case CANCEL_ORDER:
+			return {
+				...state,
+				orders: state.orders.map((order) =>
+					order._id === action.payload._id ? action.payload : order
+				),
+			};
 
 		default:
 			return state;

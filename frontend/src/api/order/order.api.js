@@ -12,6 +12,8 @@ const orderApi = {
 			paymentDetails,
 			configHeader(token)
 		),
+	cancel: (token, id) =>
+		post(`/myorders/${id}/cancel`, {}, configHeader(token)),
 };
 
 export default orderApi;

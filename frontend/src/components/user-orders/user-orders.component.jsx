@@ -6,22 +6,38 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faInfo } from '@fortawesome/free-solid-svg-icons';
 import { format } from 'date-fns';
+import { Reoverlay } from 'reoverlay';
 
 import Chip from '../chip/chip.component';
 import Message from '../message/message.component';
 import Spinner from '../spinner/spinner.component';
+import ConfirmModal from '../confirm-modal/confirm-modal.component';
 
-import { fetchOrders } from '../../redux/order-list/order-list.actions';
+import {
+	fetchOrders,
+	cancelOrder,
+} from '../../redux/order-list/order-list.actions';
 import {
 	selectOrdersLoading,
 	selectOrderError,
 	selectOrders,
 } from '../../redux/order-list/order-list.selectors';
 
-const UserOrders = ({ fetchOrders, loading, error, orders }) => {
+const UserOrders = ({ fetchOrders, cancelOrder, loading, error, orders }) => {
 	useEffect(() => {
 		fetchOrders();
 	}, [fetchOrders]);
+
+	// Cancel order
+	const handleCancel = (id) => {
+		Reoverlay.showModal(ConfirmModal, {
+			text: 'Are you sure you want to cancel this order?',
+			onConfirm: async () => {
+				await cancelOrder(id);
+				Reoverlay.hideModal();
+			},
+		});
+	};
 
 	return (
 		<Card>
@@ -89,7 +105,8 @@ const UserOrders = ({ fetchOrders, loading, error, orders }) => {
 										<button
 											type='button'
 											className='close-btn'
-											disabled={order.isCanceled}>
+											disabled={order.isCanceled}
+											onClick={() => handleCancel(order._id)}>
 											<FontAwesomeIcon icon={faTimes} />
 										</button>
 									</td>
@@ -111,6 +128,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchOrders: () => dispatch(fetchOrders()),
+	cancelOrder: (id) => dispatch(cancelOrder(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserOrders);
