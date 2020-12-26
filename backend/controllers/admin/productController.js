@@ -19,7 +19,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
 // @access PRIVATE/ADMIN
 const createProduct = asyncHandler(async (req, res) => {
 	const categories = await Category.find({});
-	const user = req.user;
+	const user = req.user._id;
 
 	if (!categories || categories.length === 0) {
 		res.status(400);
@@ -39,14 +39,7 @@ const createProduct = asyncHandler(async (req, res) => {
 	});
 
 	const createdProduct = await product.save();
-
-	// Hide user credentials and tokens
-	const createdProductObj = createdProduct.toObject();
-	delete createdProductObj.user.password;
-	delete createdProductObj.user.tokens;
-	delete createdProductObj.user.shippingAddress;
-
-	res.status(201).json(createdProductObj);
+	res.status(201).json(createdProduct);
 });
 
 // @desc Get a single product by ID

@@ -12,6 +12,7 @@ import userAvatarReducer from './user-avatar/user-avatar.reducer';
 // Reducers related to admin
 import adminUserListReducer from './admin-user-list/admin-user-list.reducer';
 
+import adminProductReducer from './admin-product/admin-product.reducer';
 import adminProductListReducer from './admin-product-list/admin-product-list.reducer';
 import adminProductDetailsReducer from './admin-product-details/admin-product-details.reducer';
 import adminProductUpdateReducer from './admin-product-update/admin-product-update.reducer';
@@ -60,6 +61,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
 	adminUserList: adminUserListReducer,
 
+	adminProduct: adminProductReducer,
 	adminProductList: adminProductListReducer,
 	adminProductDetails: adminProductDetailsReducer,
 	adminProductUpdate: adminProductUpdateReducer,

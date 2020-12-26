@@ -22,13 +22,28 @@ import {
 	selectAdminProductsError,
 	selectAdminProducts,
 } from '../../redux/admin-product-list/admin-product-list.selectors';
+import {
+	createProduct,
+	resetAdminProduct,
+} from '../../redux/admin-product/admin-product.actions';
+import {
+	selectProductCreating,
+	selectCreatedProductSuccess,
+	selectCreatedProduct,
+} from '../../redux/admin-product/admin-product.selectors';
 
 const AdminProducts = ({
+	history,
 	fetchAdminProducts,
+	createProduct,
 	deleteProduct,
+	resetProduct,
 	loading,
 	error,
 	products,
+	creating,
+	success,
+	createdProduct,
 }) => {
 	const handleDelete = (id) => {
 		Reoverlay.showModal(ConfirmModal, {
@@ -42,16 +57,32 @@ const AdminProducts = ({
 
 	useEffect(() => {
 		fetchAdminProducts();
-	}, [fetchAdminProducts]);
+
+		// Redirect user after creating product
+		if (success) {
+			history.push(`/admin/products/${createdProduct._id}/edit`);
+		}
+
+		// Reseting admin product before unmounting
+		return () => {
+			resetProduct();
+		};
+	}, [fetchAdminProducts, resetProduct, createdProduct, success, history]);
 
 	return (
 		<Layout>
 			<Card>
 				<Card.Header as='h1' className='d-flex justify-content-between'>
 					<span>List of Products</span>
-					<Button variant='dark' className='rounded'>
+					<Button
+						variant='dark'
+						className='rounded'
+						onClick={createProduct}
+						disabled={creating}>
 						<FontAwesomeIcon icon={faPlus} />
-						<span className='ml-2'>New Product</span>
+						<span className='ml-2'>
+							{creating ? 'Creating Product' : 'New Product'}
+						</span>
 					</Button>
 				</Card.Header>
 				<Card.Body>
@@ -124,11 +155,16 @@ const mapStateToProps = createStructuredSelector({
 	loading: selectAdminProductsLoading,
 	error: selectAdminProductsError,
 	products: selectAdminProducts,
+	creating: selectProductCreating,
+	success: selectCreatedProductSuccess,
+	createdProduct: selectCreatedProduct,
 });
 
 const mapDispatchToProps = (dispatch) => ({
 	fetchAdminProducts: () => dispatch(fetchAdminProducts()),
 	deleteProduct: (id) => dispatch(deleteProduct(id)),
+	createProduct: () => dispatch(createProduct()),
+	resetProduct: () => dispatch(resetAdminProduct()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AdminProducts);

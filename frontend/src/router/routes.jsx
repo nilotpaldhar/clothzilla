@@ -25,6 +25,8 @@ import AdminCategories from '../pages/admin-categories/admin-categories';
 
 import Homepage from '../pages/homepage/homepage';
 
+import NotFound from '../pages/not-found/not-found';
+
 const Routes = () => {
 	return (
 		<Switch>
@@ -55,6 +57,9 @@ const Routes = () => {
 
 			{/* ROOT */}
 			<Route path='/' component={Homepage} exact />
+
+			{/* 404 Page */}
+			<Route exact path='*' component={NotFound} />
 		</Switch>
 	);
 };
