@@ -94,7 +94,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 // @desc Upload a product image
-// @route PUT /api/admin/products/:id/image
+// @route POST /api/admin/products/:id/image
 // @access PRIVATE/ADMIN
 const uploadProductImage = asyncHandler(async (req, res) => {
 	const file = req.body.image;

@@ -8,6 +8,10 @@ const adminProductApi = {
 	createProduct: (token) => post(`/admin/products`, {}, configHeader(token)),
 	updateProduct: (token, id, product = {}) =>
 		put(`/admin/products/${id}`, product, configHeader(token)),
+
+	uploadImage: (token, id, image) =>
+		post(`/admin/products/${id}/image`, image, configHeader(token)),
+
 	deleteProduct: (token, id) =>
 		destroy(`/admin/products/${id}`, configHeader(token)),
 };

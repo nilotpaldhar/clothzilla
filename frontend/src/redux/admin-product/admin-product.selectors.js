@@ -25,3 +25,9 @@ export const selectCreatedProductError = createSelector(
 	[selectAdminProduct],
 	(adminProduct) => adminProduct.createError
 );
+
+// Select admin product uploading
+export const selectProductImageUploading = createSelector(
+	[selectAdminProduct],
+	(adminProduct) => adminProduct.uploading
+);

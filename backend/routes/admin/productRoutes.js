@@ -19,6 +19,6 @@ router
 	.get(auth, admin, getProductById)
 	.put(auth, admin, updateProduct)
 	.delete(auth, admin, deleteProduct);
-router.put('/:id/image', auth, admin, uploadProductImage);
+router.post('/:id/image', auth, admin, uploadProductImage);
 
 export default router;
