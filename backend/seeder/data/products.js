@@ -8,6 +8,7 @@ const products = [
 		stock: 130,
 		tax: 8,
 		image: '/images/product-1.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'White Shirt For Women',
@@ -17,6 +18,7 @@ const products = [
 		discount: 50,
 		tax: 8,
 		image: '/images/product-2.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Blue shirt for men',
@@ -38,6 +40,7 @@ const products = [
 		stock: 98,
 		tax: 8,
 		image: '/images/product-4.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Black skirt for woment',
@@ -49,6 +52,7 @@ const products = [
 		stock: 12,
 		image: '/images/product-5.jpg',
 		isPublished: true,
+		isPublished: true,
 	},
 	{
 		name: 'Black analog watch',
@@ -59,6 +63,7 @@ const products = [
 		tax: 8,
 		stock: 9,
 		image: '/images/product-6.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Black jacket for women',
@@ -91,6 +96,7 @@ const products = [
 		tax: 8,
 		stock: 0,
 		image: '/images/product-9.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Black top for women',
@@ -112,6 +118,7 @@ const products = [
 		tax: 8,
 		stock: 191,
 		image: '/images/product-11.jpg',
+		isPublished: true,
 	},
 	{
 		name: 'Leather belt',
@@ -122,6 +129,7 @@ const products = [
 		tax: 8,
 		stock: 98,
 		image: '/images/product-12.jpg',
+		isPublished: true,
 	},
 ];
 

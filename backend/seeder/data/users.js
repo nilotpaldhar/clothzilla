@@ -4,7 +4,7 @@ const generatePassword = async (password) => {
 	return await bcrypt.hash(password, salt);
 };
 
-const password = await generatePassword('123456');
+const password = await generatePassword('red1234');
 
 const users = [
 	{
@@ -27,7 +27,6 @@ const users = [
 		name: 'Steave Smith',
 		email: 'steve@example.com',
 		password,
-		isActive: false,
 	},
 	{
 		name: 'Jeff',
