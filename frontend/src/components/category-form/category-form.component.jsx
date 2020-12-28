@@ -48,7 +48,7 @@ const CategoryForm = ({
 			{({ isSubmitting }) => (
 				<Form>
 					<Row className='justify-content-end mb-2'>
-						<Col className='d-flex justify-content-end align-items-baseline'>
+						<Col className='d-flex justify-content-end align-items-start'>
 							<FormikInput
 								type='text'
 								id='name'
