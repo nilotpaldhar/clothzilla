@@ -2,21 +2,29 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Link } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
 import StarRatingComponent from 'react-star-rating-component';
 
 import styles from './product.module.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { addItemToCart } from '../../redux/cart/cart.actions';
 import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { existingCartItem } from '../../redux/cart/cart.utils';
 
-const Product = ({ product, addItemToCart, cartItems }) => {
+const Product = ({ product, addItemToCart, cartItems, scrollPosition }) => {
 	return (
 		<div className={styles.productConatiner}>
 			<div className={styles.header}>
-				<img src={product.image} alt={product.name} />
+				<LazyLoadImage
+					src={product.image}
+					alt={product.name}
+					height={430}
+					effect='blur'
+					scrollPosition={scrollPosition}
+				/>
 				{existingCartItem(cartItems, { product: product._id }) ? (
 					<Link to='/cart' className={styles.btn}>
 						<FontAwesomeIcon icon={faCartPlus} />

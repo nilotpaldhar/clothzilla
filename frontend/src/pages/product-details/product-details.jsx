@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Row, Col, Image, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col, Tabs, Tab } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { Link } from 'react-router-dom';
 import StarRatingComponent from 'react-star-rating-component';
 import ShowMoreText from 'react-show-more-text';
@@ -15,6 +16,7 @@ import ReviewCollection from '../../components/review-collection/review-collecti
 import ReviewForm from '../../components/review-form/review-form.component';
 import Message from '../../components/message/message.component';
 import Spinner from '../../components/spinner/spinner.component';
+import Meta from '../../components/meta/meta.component';
 
 import { fetchProductDetails } from '../../redux/product-details/product-details.actions';
 import {
@@ -27,6 +29,7 @@ import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { existingCartItem } from '../../redux/cart/cart.utils';
 
 import styles from './product-details.module.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const ProductDetails = ({
 	match,
@@ -51,9 +54,15 @@ const ProductDetails = ({
 				<Message variant='danger'>{error}</Message>
 			) : (
 				<>
+					<Meta title={`${product.name} | ClothZilla`} />
 					<Row>
 						<Col xs={12} lg={5} className='mb-5 mb-lg-0'>
-							<Image src={product.image} alt={product.name} fluid />
+							<LazyLoadImage
+								className='img-fluid'
+								src={product.image}
+								alt={product.name}
+								effect='blur'
+							/>
 						</Col>
 						<Col xs={12} lg={7}>
 							<h1 className={styles.name}>{product.name}</h1>

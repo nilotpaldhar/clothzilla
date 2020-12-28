@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import Loader from '../components/loader/loader.component';
+import Meta from '../components/meta/meta.component';
 import { selectIsAdmin, selectLoading } from '../redux/user/user.selectors';
 
 const AdminRoute = ({
@@ -18,7 +19,14 @@ const AdminRoute = ({
 			if (loading) {
 				return <Loader />;
 			} else {
-				return isAdmin ? <Component {...props} /> : <Redirect to='/' />;
+				return isAdmin ? (
+					<>
+						<Meta title='ClothZilla | Admin Dashboard ' />
+						<Component {...props} />
+					</>
+				) : (
+					<Redirect to='/' />
+				);
 			}
 		}}
 	/>

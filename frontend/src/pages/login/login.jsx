@@ -9,6 +9,7 @@ import Spinner from 'react-spinkit';
 import FormContainer from '../../components/form-container/form-container.component';
 import FormikInput from '../../components/formik-input/formik-input.component';
 import Message from '../../components/message/message.component';
+import Meta from '../../components/meta/meta.component';
 
 import schema from './login-validation-schema';
 import { loginAsync } from '../../redux/auth/auth.actions';
@@ -25,6 +26,7 @@ const Login = ({ history, location, login, error }) => {
 
 	return (
 		<FormContainer title='Sign In with your email and password'>
+			<Meta title='ClothZilla | Login' />
 			{error && <Message variant='danger'>{error}</Message>}
 			<Formik
 				initialValues={{

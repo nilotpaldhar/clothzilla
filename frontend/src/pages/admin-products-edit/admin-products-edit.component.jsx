@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { Row, Col, Card, Image } from 'react-bootstrap';
+import { Row, Col, Card } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Layout from '../../components/layout/layout.component';
 import ProductEditForm from '../../components/product-edit-form/product-edit-form.component';
@@ -15,6 +16,8 @@ import {
 	selectProductDetailsError,
 	selectProductDetails,
 } from '../../redux/admin-product-details/admin-product-details.selectors';
+
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const AdminProductsEdit = ({
 	match,
@@ -48,10 +51,12 @@ const AdminProductsEdit = ({
 					<Col xs={12} lg={4}>
 						<Row>
 							<Col lg={12} className='mb-4'>
-								<Image
+								<LazyLoadImage
+									className='rounded w-100'
 									src={productDetails.image}
 									alt={productDetails.name}
-									className='mb-4 rounded w-100'
+									height={430}
+									effect='blur'
 								/>
 								<ProductImageUpload id={productDetails._id} />
 							</Col>

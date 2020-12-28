@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Row, Col, Button } from 'react-bootstrap';
+import { trackWindowScroll } from 'react-lazy-load-image-component';
 
 import Layout from '../../components/layout/layout.component';
 import CartItem from '../../components/cart-item/cart-item.component';
@@ -14,7 +15,13 @@ import {
 } from '../../redux/cart/cart.selectors';
 import { selectIsAuthenticated } from '../../redux/user/user.selectors';
 
-const Cartpage = ({ history, cartItems, cartTotal, isAuthenticated }) => {
+const Cartpage = ({
+	history,
+	cartItems,
+	cartTotal,
+	isAuthenticated,
+	scrollPosition,
+}) => {
 	const handleCheckout = () => {
 		const redirect = isAuthenticated ? '/shipping' : '/login?redirect=shipping';
 		history.push(redirect);
@@ -38,7 +45,13 @@ const Cartpage = ({ history, cartItems, cartTotal, isAuthenticated }) => {
 					{cartItems.length === 0 ? (
 						<h1 className='text-center py-5 h3'>Your cart is empty</h1>
 					) : (
-						cartItems.map((item) => <CartItem key={item.product} item={item} />)
+						cartItems.map((item) => (
+							<CartItem
+								key={item.product}
+								item={item}
+								scrollPosition={scrollPosition}
+							/>
+						))
 					)}
 				</div>
 				{cartItems.length > 0 && (
@@ -69,4 +82,4 @@ const mapStateToProps = createStructuredSelector({
 	isAuthenticated: selectIsAuthenticated,
 });
 
-export default connect(mapStateToProps)(Cartpage);
+export default connect(mapStateToProps)(trackWindowScroll(Cartpage));

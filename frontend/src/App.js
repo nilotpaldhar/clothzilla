@@ -5,6 +5,8 @@ import { ModalContainer } from 'reoverlay';
 import ScrollToTop from './components/scroll-to-top/scroll-to-top.component';
 import Routes from './router/routes';
 import Loader from './components/loader/loader.component';
+import Meta from './components/meta/meta.component';
+import ErrorBoundary from './components/error-boundary/error-boundary.component';
 import Notification from './components/notification/notification.component';
 
 import { loadUserAsync } from './redux/user/user.actions';
@@ -30,11 +32,14 @@ const App = ({ loadUser }) => {
 	}
 
 	return (
-		<ScrollToTop>
-			<Routes />
-			<ModalContainer />
-			<Notification />
-		</ScrollToTop>
+		<ErrorBoundary>
+			<ScrollToTop>
+				<Meta />
+				<Routes />
+				<ModalContainer />
+				<Notification />
+			</ScrollToTop>
+		</ErrorBoundary>
 	);
 };
 

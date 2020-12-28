@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
 
 import Layout from '../../components/layout/layout.component';
+import Meta from '../../components/meta/meta.component';
 import Sidebar from '../../components/sidebar/sidebar.component';
 import UserProfile from '../../components/user-profile/user-profile.component';
 import UserAddress from '../../components/user-address/user-address.component';
@@ -12,6 +13,7 @@ import UserOrders from '../../components/user-orders/user-orders.component';
 const Dashboard = ({ match }) => {
 	return (
 		<Layout>
+			<Meta title='ClothZilla | User Dashboard ' />
 			<Row>
 				<Col xs={12} lg={4} className='mb-4 mb-lg-0'>
 					<Sidebar />

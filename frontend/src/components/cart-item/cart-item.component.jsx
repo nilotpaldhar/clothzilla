@@ -1,23 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Row, Col, Image } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 import ProductQuantity from '../product-quantity/product-quantity.component';
 import styles from './cart-item.module.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { clearItemFromCart } from '../../redux/cart/cart.actions';
 
-const CartItem = ({ item, clearItem }) => {
+const CartItem = ({ item, clearItem, scrollPosition }) => {
 	return (
 		<div className={styles.item}>
 			<Row className='align-items-center'>
 				<Col xs={12} md={4}>
 					<Row className='align-items-center'>
 						<Col xs={12} md={4} className='mb-4 mb-md-0'>
-							<Image src={item.image} alt={item.name} fluid />
+							<LazyLoadImage
+								className='img-fluid'
+								src={item.image}
+								alt={item.name}
+								height={110}
+								effect='blur'
+								scrollPosition={scrollPosition}
+							/>
 						</Col>
 						<Col xs={12} md={8}>
 							<Link to={`/product/${item.slug}/${item.product}`}>

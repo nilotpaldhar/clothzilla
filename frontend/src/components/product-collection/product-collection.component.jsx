@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Row, Col, Button } from 'react-bootstrap';
+import { trackWindowScroll } from 'react-lazy-load-image-component';
 
 import Product from '../product/product.component';
 
@@ -23,6 +24,7 @@ const ProductCollection = ({
 	totalPages,
 	currentPage,
 	activeCategory,
+	scrollPosition,
 }) => {
 	return (
 		<Row>
@@ -34,7 +36,7 @@ const ProductCollection = ({
 				<>
 					{products.map((product) => (
 						<Col key={product._id} xs={12} md={6} lg={4}>
-							<Product product={product} />
+							<Product product={product} scrollPosition={scrollPosition} />
 						</Col>
 					))}
 
@@ -69,4 +71,7 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(loadMoreProducts(page, category)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCollection);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(trackWindowScroll(ProductCollection));

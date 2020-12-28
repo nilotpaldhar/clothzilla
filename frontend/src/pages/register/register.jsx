@@ -9,6 +9,7 @@ import Spinner from 'react-spinkit';
 import FormContainer from '../../components/form-container/form-container.component';
 import FormikInput from '../../components/formik-input/formik-input.component';
 import Message from '../../components/message/message.component';
+import Meta from '../../components/meta/meta.component';
 
 import schema from './register-validation.schema';
 import { registerAsync } from '../../redux/auth/auth.actions';
@@ -23,6 +24,7 @@ const Register = ({ history, register, error }) => {
 
 	return (
 		<FormContainer title='Please fill in this form to register with us'>
+			<Meta title='ClothZilla | Register' />
 			{error && <Message variant='danger'>{error}</Message>}
 			<Formik
 				initialValues={{

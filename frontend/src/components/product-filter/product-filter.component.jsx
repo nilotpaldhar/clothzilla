@@ -59,15 +59,16 @@ const ProductFilter = ({
 							isActive={activeCategory === '*'}
 							handleClick={toggleCategory}
 						/>
-						{categories.map((category) => (
-							<ProductFilterItem
-								key={category._id}
-								id={category._id}
-								name={category.name}
-								isActive={activeCategory === category._id}
-								handleClick={toggleCategory}
-							/>
-						))}
+						{categories &&
+							categories.map((category) => (
+								<ProductFilterItem
+									key={category._id}
+									id={category._id}
+									name={category.name}
+									isActive={activeCategory === category._id}
+									handleClick={toggleCategory}
+								/>
+							))}
 					</ul>
 				</Col>
 			</Row>

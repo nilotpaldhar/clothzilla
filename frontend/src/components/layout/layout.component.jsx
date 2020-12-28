@@ -14,6 +14,7 @@ const Layout = ({ children, stickyNav, withBanner }) => {
 		<div className={styles.layout}>
 			<Navigation sticky={stickyNav && withBanner} />
 			{withBanner && <Banner />}
+
 			<main
 				className={cx(styles.content, {
 					[styles.xtraPadding]: !withBanner,
