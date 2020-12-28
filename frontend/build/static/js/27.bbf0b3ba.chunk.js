@@ -1,0 +1,2 @@
+(this.webpackJsonpfrontend=this.webpackJsonpfrontend||[]).push([[27],{445:function(n,t,o){n.exports={notFound:"not-found_notFound__GnyYB"}},452:function(n,t,o){"use strict";o.r(t);var e=o(2),s=(o(1),o(140)),r=o(445),c=o.n(r);t.default=function(){return Object(e.jsx)(s.a,{children:Object(e.jsxs)("div",{className:c.a.notFound,children:[Object(e.jsx)("h1",{children:"Oops! 404 Error"}),Object(e.jsx)("p",{children:"Sorry, this page is not available"})]})})}}}]);
+//# sourceMappingURL=27.bbf0b3ba.chunk.js.map
