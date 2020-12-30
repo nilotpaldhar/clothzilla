@@ -9,7 +9,7 @@
 
 > An e-commerce web application build with the MERN stack
 
-![Project Image](https://res.cloudinary.com/nilotpaldhar/image/upload/v1609348545/project-mockups/clothzilla-demo_cdqszw.png)
+![Project Image](https://res.cloudinary.com/nilotpaldhar/image/upload/v1609352228/project-mockups/clothzilla-image_rdiqjv.png)
 
 ### ✨ [Demo](http://clothzilla.herokuapp.com/)
 
